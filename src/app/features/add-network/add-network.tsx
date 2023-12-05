@@ -12,17 +12,15 @@ import { BitcoinNetworkModes, DefaultNetworkConfigurations } from '@shared/const
 import { RouteUrls } from '@shared/route-urls';
 import { isValidUrl } from '@shared/utils/validate-url';
 
-import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { removeTrailingSlash } from '@app/common/url-join';
-import { CenteredPageContainer } from '@app/components/centered-page-container';
 import { ErrorLabel } from '@app/components/error-label';
-import { Header } from '@app/components/header';
 import {
   useCurrentStacksNetworkState,
   useNetworksActions,
 } from '@app/store/networks/networks.hooks';
 import { Button } from '@app/ui/components/button/button';
 import { Input } from '@app/ui/components/input/input';
+import { Page } from '@app/ui/components/layout/page/page.layout';
 import { Title } from '@app/ui/components/typography/title';
 
 /**
@@ -47,6 +45,7 @@ const addNetworkFormValues: AddNetworkFormValues = {
   bitcoinUrl: '',
 };
 
+// FIXME 4370 task #11 make this look better
 export function AddNetwork() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -61,8 +60,6 @@ export function AddNetwork() {
   });
 
   const { setFieldValue } = formikProps;
-
-  useRouteHeader(<Header title="Add a network" onClose={() => navigate(RouteUrls.Home)} />);
 
   const handleApiChange = (newValue: BitcoinNetworkModes) => {
     setBitcoinApi(newValue);
@@ -104,7 +101,7 @@ export function AddNetwork() {
   }, [bitcoinApi, setStacksUrl, setBitcoinUrl]);
 
   return (
-    <CenteredPageContainer>
+    <Page>
       <Formik
         initialValues={addNetworkFormValues}
         onSubmit={async () => {
@@ -205,9 +202,10 @@ export function AddNetwork() {
           <form onSubmit={handleSubmit}>
             <Stack
               gap="space.05"
-              maxWidth="centeredPageFullWidth"
+              maxWidth="pageWidth"
               px={['space.05', 'space.04']}
               textAlign={['left', 'center']}
+              marginBottom="space.05"
             >
               <styled.span textStyle="body.02">
                 Use this form to add a new instance of the{' '}
@@ -316,6 +314,6 @@ export function AddNetwork() {
           </form>
         )}
       </Formik>
-    </CenteredPageContainer>
+    </Page>
   );
 }

@@ -11,7 +11,7 @@ import { Tabs } from '@app/ui/components/tabs/tabs';
 interface HomeTabsProps {
   children: React.ReactNode;
 }
-// TODO #4013: Abstract this to generic RouteTab once choose-fee-tab updated
+
 export function HomeTabs({ children }: HomeTabsProps) {
   const navigate = useNavigate();
   const location = useLocation();

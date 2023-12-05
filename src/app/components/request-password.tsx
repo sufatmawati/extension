@@ -1,16 +1,18 @@
-import { FormEvent, ReactNode, useCallback, useState } from 'react';
+import { FormEvent, useCallback, useState } from 'react';
 
 import { SettingsSelectors } from '@tests/selectors/settings.selectors';
-import { Stack, styled } from 'leather-styles/jsx';
+import { styled } from 'leather-styles/jsx';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useKeyActions } from '@app/common/hooks/use-key-actions';
 import { buildEnterKeyEvent } from '@app/common/hooks/use-modifier-key';
 import { WaitingMessages, useWaitingMessage } from '@app/common/utils/use-waiting-message';
 import { Button } from '@app/ui/components/button/button';
+import { Footer } from '@app/ui/components/containers/footers/footer';
+import { Card } from '@app/ui/components/layout/card/card';
+import { Page } from '@app/ui/components/layout/page/page.layout';
 
 import { ErrorLabel } from './error-label';
-import { TwoColumnLayout } from './secret-key/two-column.layout';
 
 const waitingMessages: WaitingMessages = {
   '2': 'Verifying password…',
@@ -20,10 +22,8 @@ const waitingMessages: WaitingMessages = {
 
 interface RequestPasswordProps {
   onSuccess(): void;
-  title?: ReactNode;
-  caption?: string;
 }
-export function RequestPassword({ title, caption, onSuccess }: RequestPasswordProps) {
+export function RequestPassword({ onSuccess }: RequestPasswordProps) {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const { unlockWallet } = useKeyActions();
@@ -50,72 +50,61 @@ export function RequestPassword({ title, caption, onSuccess }: RequestPasswordPr
   }, [analytics, startWaitingMessage, stopWaitingMessage, unlockWallet, password, onSuccess]);
 
   return (
-    <>
-      <TwoColumnLayout
-        leftColumn={
-          <>
-            <styled.h1
-              textStyle={['heading.03', 'heading.03', 'heading.03', 'display.02']}
-              textAlign="left"
-              mt="space.00"
-              mb="space.06"
-            >
-              {title}
-            </styled.h1>
-            <styled.p textStyle={['label.01', 'heading.05']} mb="space.06" textAlign="left">
-              {(isRunning && waitingMessage) || caption}
-            </styled.p>
-          </>
-        }
-        rightColumn={
-          <>
-            <styled.h2
-              textStyle="heading.03"
-              mt="space.02"
-              mb="space.04"
-              hideBelow="sm"
-              textAlign="center"
-            >
-              Your password
-            </styled.h2>
-            <Stack gap="space.04" alignItems="center" minHeight="100px">
-              <styled.input
-                _focus={{ border: 'focus' }}
-                autoCapitalize="off"
-                autoComplete="off"
-                autoFocus
-                border="active"
-                borderRadius="sm"
-                data-testid={SettingsSelectors.EnterPasswordInput}
-                disabled={isRunning}
-                height="64px"
-                onChange={(e: FormEvent<HTMLInputElement>) => {
-                  setError('');
-                  setPassword(e.currentTarget.value);
-                }}
-                onKeyUp={buildEnterKeyEvent(submit)}
-                p="space.04"
-                placeholder="Enter your password"
-                ring="none"
-                type="password"
-                textStyle="body.02"
-                value={password}
-                width="100%"
-              />
-              {error && <ErrorLabel width="100%">{error}</ErrorLabel>}
-            </Stack>
+    <Page>
+      <Card
+        title="Enter your password"
+        text="Your password is used to secure your Secret Key and is only used locally on your device."
+        action={
+          <Footer variant="card">
             <Button
               data-testid={SettingsSelectors.UnlockWalletBtn}
               disabled={isRunning || !!error}
               aria-busy={isRunning}
               onClick={submit}
-              mt={['space.11', 'space.05']}
             >
               Continue
             </Button>
-          </>
+          </Footer>
         }
-      />
-    </>
+      >
+        <styled.input
+          _focus={{ border: 'focus' }}
+          autoCapitalize="off"
+          autoComplete="off"
+          autoFocus
+          border="active"
+          borderRadius="sm"
+          data-testid={SettingsSelectors.EnterPasswordInput}
+          disabled={isRunning}
+          height="64px"
+          onChange={(e: FormEvent<HTMLInputElement>) => {
+            setError('');
+            setPassword(e.currentTarget.value);
+          }}
+          onKeyUp={buildEnterKeyEvent(submit)}
+          p="space.04"
+          placeholder="Enter your password"
+          ring="none"
+          type="password"
+          textStyle="body.02"
+          value={password}
+          width="100%"
+        />
+        {error && <ErrorLabel width="100%">{error}</ErrorLabel>}
+        {isRunning && waitingMessage && (
+          <styled.p
+            textStyle={{ base: 'label.01', md: 'heading.05' }}
+            mb="space.06"
+            textAlign="left"
+          >
+            {waitingMessage}
+          </styled.p>
+        )}
+        {/*  TODO: #4735 implement forgot password flow */}
+        {/* <Link>
+          Forgot password?
+        </Link> */}
+      </Card>
+    </Page>
   );
 }

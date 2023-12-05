@@ -3,23 +3,12 @@ import { useAtom } from 'jotai';
 import {
   errorStackTraceState,
   loadingState,
-  routeHeaderState,
   showHighFeeConfirmationState,
-  showSettingsStore,
-  showSwitchAccountsState,
   showTxSettingsCallback,
 } from './ui';
 
 export function useShowHighFeeConfirmationState() {
   return useAtom(showHighFeeConfirmationState);
-}
-
-export function useShowSwitchAccountsState() {
-  return useAtom(showSwitchAccountsState);
-}
-
-export function useShowSettingsStore() {
-  return useAtom(showSettingsStore);
 }
 
 export function useShowTxSettingsCallback() {
@@ -32,8 +21,4 @@ export function useLoadingState(key: string) {
 
 export function useErrorStackTraceState() {
   return useAtom(errorStackTraceState);
-}
-
-export function useRouteHeaderState() {
-  return useAtom(routeHeaderState);
 }

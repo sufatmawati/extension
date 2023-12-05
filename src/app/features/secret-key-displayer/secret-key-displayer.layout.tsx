@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import { OnboardingSelectors } from '@tests/selectors/onboarding.selectors';
 import { SettingsSelectors } from '@tests/selectors/settings.selectors';
-import { Flex, styled } from 'leather-styles/jsx';
+import { Flex, HStack, Stack, styled } from 'leather-styles/jsx';
 
 import { Button } from '@app/ui/components/button/button';
 import { CopyIcon } from '@app/ui/components/icons/copy-icon';
@@ -24,7 +24,7 @@ export function SecretKeyDisplayerLayout(props: SecretKeyDisplayerLayoutProps) {
   const [showSecretKey, setShowSecretKey] = useState(false);
 
   return (
-    <>
+    <Stack gap="space.05">
       <SecretKeyGrid>
         {secretKeyWords?.map((word, index) => (
           <SecretKeyWord
@@ -34,36 +34,40 @@ export function SecretKeyDisplayerLayout(props: SecretKeyDisplayerLayoutProps) {
           />
         ))}
       </SecretKeyGrid>
-      <Flex gap="space.02" alignItems="center" width="100%">
+      <Flex gap="space.02" direction={{ base: 'column', md: 'row' }}>
         <Button
+          fullWidth
           variant="outline"
           flex="1"
           display="flex"
-          px="space.04"
-          py="space.03"
+          p="space.03"
           justifyContent="center"
           alignItems="center"
-          gap="space.02"
           data-testid={SettingsSelectors.ShowSecretKeyBtn}
           onClick={() => setShowSecretKey(!showSecretKey)}
         >
-          {showSecretKey ? <EyeSlashIcon size="20px" /> : <EyeIcon size="20px" />}
-          <styled.p textStyle="body.02">{showSecretKey ? 'Hide key' : 'Show key'}</styled.p>
+          <HStack>
+            {showSecretKey ? <EyeSlashIcon size="20px" /> : <EyeIcon size="20px" />}
+            <styled.span textStyle="label.02">
+              {showSecretKey ? 'Hide key' : 'Show key'}
+            </styled.span>
+          </HStack>
         </Button>
         <Button
+          fullWidth
           variant="outline"
           flex="1"
           display="flex"
-          px="space.04"
-          py="space.03"
+          p="space.03"
           justifyContent="center"
           alignItems="center"
-          gap="space.02"
           data-testid={SettingsSelectors.CopyKeyToClipboardBtn}
           onClick={!hasCopied ? onCopyToClipboard : undefined}
         >
-          <CopyIcon />
-          <styled.p textStyle="body.02">{!hasCopied ? ' Copy' : 'Copied!'}</styled.p>
+          <HStack>
+            <CopyIcon />
+            <styled.p textStyle="body.02">{!hasCopied ? ' Copy' : 'Copied!'}</styled.p>
+          </HStack>
         </Button>
       </Flex>
       <Button
@@ -73,6 +77,6 @@ export function SecretKeyDisplayerLayout(props: SecretKeyDisplayerLayoutProps) {
       >
         I've backed it up
       </Button>
-    </>
+    </Stack>
   );
 }
