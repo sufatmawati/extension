@@ -1,8 +1,9 @@
 import { BitcoinContractRequestSelectors } from '@tests/selectors/bitcoin-contract-request.selectors';
-import { Box, HStack } from 'leather-styles/jsx';
+import { HStack } from 'leather-styles/jsx';
 
 import { useBtcAssetBalance } from '@app/common/hooks/balance/btc/use-btc-balance';
 import { Button } from '@app/ui/components/button/button';
+import { Footer } from '@app/ui/components/containers/footers/footer';
 
 interface BitcoinContractRequestActionsProps {
   isLoading: boolean;
@@ -22,17 +23,8 @@ export function BitcoinContractRequestActions({
   const canAccept = btcAvailableAssetBalance.balance.amount.isGreaterThan(requiredAmount);
 
   return (
-    <Box
-      bg="accent.background-primary"
-      borderTop="default"
-      bottom="0px"
-      height="96px"
-      position="fixed"
-      px="space.05"
-      width="100%"
-      zIndex={999}
-    >
-      <HStack mt="space.05" gap="space.04">
+    <Footer>
+      <HStack gap="space.04">
         <Button
           data-testid={BitcoinContractRequestSelectors.BitcoinContractRejectButton}
           flexGrow={1}
@@ -51,6 +43,6 @@ export function BitcoinContractRequestActions({
           Accept
         </Button>
       </HStack>
-    </Box>
+    </Footer>
   );
 }

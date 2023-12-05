@@ -1,10 +1,10 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { SwapSelectors } from '@tests/selectors/swap.selectors';
-import { Box, styled } from 'leather-styles/jsx';
+import { Box } from 'leather-styles/jsx';
 import get from 'lodash.get';
 
-import { BaseDrawer } from '@app/components/drawer/base-drawer';
+import { BigTitle, Dialog } from '@app/ui/components/containers/dialog/dialog';
 
 import { useSwapContext } from '../swap.context';
 import { SwapAssetList } from './components/swap-asset-list';
@@ -22,28 +22,12 @@ export function SwapChooseAsset() {
 
   const isFromList = swapListType === 'from';
 
-  const title = isFromList ? (
-    <>
-      Choose asset
-      <br />
-      to swap
-    </>
-  ) : (
-    <>
-      Choose asset
-      <br />
-      to receive
-    </>
-  );
-
+  const title = isFromList ? 'Choose asset to swap' : 'Choose asset to receive';
   return (
-    <BaseDrawer title="" isShowing onClose={() => navigate(-1)}>
+    <Dialog isShowing title={<BigTitle title={title} />} onClose={() => navigate(-1)}>
       <Box data-testid={SwapSelectors.ChooseAssetList} mx="space.06">
-        <styled.h1 mb="space.05" textStyle="heading.03">
-          {title}
-        </styled.h1>
         <SwapAssetList assets={isFromList ? swappableAssetsFrom : swappableAssetsTo} />
       </Box>
-    </BaseDrawer>
+    </Dialog>
   );
 }

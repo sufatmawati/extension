@@ -112,9 +112,6 @@ export const buttonRecipe = defineRecipe({
       },
     },
 
-    // TODO: Remove invert code
-    invert: { true: {} },
-
     fullWidth: { true: { width: '100%' } },
     trigger: { true: {} },
   },
@@ -124,7 +121,6 @@ export const buttonRecipe = defineRecipe({
     variant: 'solid',
   },
 
-  // TODO: Remove invert code
   compoundVariants: [
     {
       css: {
@@ -142,7 +138,6 @@ export const buttonRecipe = defineRecipe({
         bg: 'accent.background-secondary',
         color: 'accent.text-primary',
       },
-      invert: true,
       variant: 'solid',
     },
     {
@@ -164,7 +159,6 @@ export const buttonRecipe = defineRecipe({
         border: '1px solid {colors.accent.background-secondary}',
         color: 'accent.background-secondary',
       },
-      invert: true,
       variant: 'outline',
     },
     {

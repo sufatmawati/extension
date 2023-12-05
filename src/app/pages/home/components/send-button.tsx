@@ -34,10 +34,10 @@ function SendButtonSuspense() {
         whenWallet({
           ledger: () =>
             whenPageMode({
-              full: () => navigate(RouteUrls.SendCryptoAsset, { state: { hasHeaderTitle: true } }),
+              full: () => navigate(RouteUrls.SendCryptoAsset),
               popup: () => openIndexPageInNewTab(RouteUrls.SendCryptoAsset),
             })(),
-          software: () => navigate(RouteUrls.SendCryptoAsset, { state: { hasHeaderTitle: true } }),
+          software: () => navigate(RouteUrls.SendCryptoAsset),
         })()
       }
       disabled={isDisabled}

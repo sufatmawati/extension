@@ -5,14 +5,15 @@ import { HIGH_FEE_AMOUNT_STX } from '@shared/constants';
 import { StacksTransactionFormValues } from '@shared/models/form.model';
 import { isEmpty } from '@shared/utils';
 
-import { useDrawers } from '@app/common/hooks/use-drawers';
+import { useDialogs } from '@app/common/hooks/use-dialogs';
 import { useTransactionError } from '@app/features/stacks-transaction-request/hooks/use-transaction-error';
 import { Button } from '@app/ui/components/button/button';
 
 export function SubmitAction() {
   const { handleSubmit, values, validateForm, isSubmitting } =
     useFormikContext<StacksTransactionFormValues>();
-  const { isShowingHighFeeConfirmation, setIsShowingHighFeeConfirmation } = useDrawers();
+  const { isShowingHighFeeConfirmation, setIsShowingHighFeeConfirmation } = useDialogs();
+
   const error = useTransactionError();
 
   const isDisabled = !!error || Number(values.fee) < 0;

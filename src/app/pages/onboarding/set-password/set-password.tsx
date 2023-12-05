@@ -14,16 +14,14 @@ import { useFinishAuthRequest } from '@app/common/authentication/use-finish-auth
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useOnboardingState } from '@app/common/hooks/auth/use-onboarding-state';
 import { useKeyActions } from '@app/common/hooks/use-key-actions';
-import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import {
   blankPasswordValidation,
   validatePassword,
 } from '@app/common/validation/validate-password';
-import { Header } from '@app/components/header';
-import { TwoColumnLayout } from '@app/components/secret-key/two-column.layout';
 import { OnboardingGate } from '@app/routes/onboarding-gate';
 import { useStacksAccounts } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { Button } from '@app/ui/components/button/button';
+import { TwoColumnLayout } from '@app/ui/components/containers/two-column.layout';
 
 import { PasswordField } from './components/password-field';
 
@@ -52,8 +50,6 @@ function SetPasswordPage() {
   const navigate = useNavigate();
   const { decodedAuthRequest } = useOnboardingState();
   const analytics = useAnalytics();
-
-  useRouteHeader(<Header hideActions onClose={() => navigate(-1)} />);
 
   useEffect(() => {
     void analytics.page('view', '/set-password');
@@ -124,24 +120,19 @@ function SetPasswordPage() {
     >
       {({ dirty, isSubmitting, isValid }) => (
         <Form>
+          {/* FIXME 4370 task #3 revisit and test this screen with set-password */}
           <TwoColumnLayout
             leftColumn={
-              <>
-                <styled.h1
-                  textStyle={['heading.03', 'heading.03', 'heading.03', 'display.02']}
-                  mt="space.00"
-                  mb="space.06"
-                >
-                  Set a password
+              <styled.div width="350px">
+                <styled.h1 textStyle="heading.03" mt="space.00" mb="space.04">
+                  Set a <br />
+                  password
                 </styled.h1>
-                <styled.p textStyle={['label.01', 'heading.05']} mb="space.06">
-                  Your password protects your Secret Key on this device only.
+                <styled.p textStyle="label.02">
+                  Your password protects your Secret Key on this device only. To access your wallet
+                  on another device, you'll need just your Secret Key.
                 </styled.p>
-                <styled.p textStyle="body.02" color="ink.10">
-                  You'll need just your Secret Key to access your wallet on another device, or this
-                  one if you lose your password.
-                </styled.p>
-              </>
+              </styled.div>
             }
             rightColumn={
               <>

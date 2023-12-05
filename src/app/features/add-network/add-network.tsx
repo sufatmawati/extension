@@ -12,11 +12,9 @@ import { BitcoinNetworkModes, DefaultNetworkConfigurations } from '@shared/const
 import { RouteUrls } from '@shared/route-urls';
 import { isValidUrl } from '@shared/utils/validate-url';
 
-import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { removeTrailingSlash } from '@app/common/url-join';
 import { CenteredPageContainer } from '@app/components/centered-page-container';
 import { ErrorLabel } from '@app/components/error-label';
-import { Header } from '@app/components/header';
 import {
   useCurrentStacksNetworkState,
   useNetworksActions,
@@ -47,6 +45,7 @@ const addNetworkFormValues: AddNetworkFormValues = {
   bitcoinUrl: '',
 };
 
+// FIXME 4370 task #11 make this look better
 export function AddNetwork() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -61,8 +60,6 @@ export function AddNetwork() {
   });
 
   const { setFieldValue } = formikProps;
-
-  useRouteHeader(<Header title="Add a network" onClose={() => navigate(RouteUrls.Home)} />);
 
   const handleApiChange = (newValue: BitcoinNetworkModes) => {
     setBitcoinApi(newValue);

@@ -6,7 +6,6 @@ import { HStack, styled } from 'leather-styles/jsx';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useBitcoinExplorerLink } from '@app/common/hooks/use-bitcoin-explorer-link';
 import { useClipboard } from '@app/common/hooks/use-copy-to-clipboard';
-import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { satToBtc } from '@app/common/money/unit-conversion';
 import {
   InfoCard,
@@ -14,7 +13,6 @@ import {
   InfoCardBtn,
   InfoCardFooter,
 } from '@app/components/info-card/info-card';
-import { ModalHeader } from '@app/components/modal-header';
 import { CheckmarkIcon } from '@app/ui/components/icons/checkmark-icon';
 import { CopyIcon } from '@app/ui/components/icons/copy-icon';
 import { ExternalLinkIcon } from '@app/ui/components/icons/external-link-icon';
@@ -37,8 +35,6 @@ export function LockBitcoinSummary() {
     onCopy();
     toast.success('ID copied!');
   }
-
-  useRouteHeader(<ModalHeader hideActions defaultClose title="Locked Bitcoin" />);
 
   return (
     <InfoCard>

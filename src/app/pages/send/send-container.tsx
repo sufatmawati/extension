@@ -2,12 +2,10 @@ import { Outlet } from 'react-router-dom';
 
 import { Flex } from 'leather-styles/jsx';
 
-import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { whenPageMode } from '@app/common/utils';
-import { ModalHeader } from '@app/components/modal-header';
 
 export function SendContainer() {
-  useRouteHeader(<ModalHeader hideActions defaultGoBack title="Send" />, true);
+  // FIXME - 4370 implement this as per new design as it looks weird and we don't want whenPageMode anymore - its in a dialog now
 
   return whenPageMode({
     full: (

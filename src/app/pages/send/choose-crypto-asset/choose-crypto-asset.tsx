@@ -4,12 +4,10 @@ import { useNavigate } from 'react-router-dom';
 import { AllTransferableCryptoAssetBalances } from '@shared/models/crypto-asset-balance.model';
 import { RouteUrls } from '@shared/route-urls';
 
-import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { useAllTransferableCryptoAssetBalances } from '@app/common/hooks/use-transferable-asset-balances.hooks';
 import { useWalletType } from '@app/common/use-wallet-type';
 import { ChooseCryptoAssetLayout } from '@app/components/crypto-assets/choose-crypto-asset/choose-crypto-asset.layout';
 import { CryptoAssetList } from '@app/components/crypto-assets/choose-crypto-asset/crypto-asset-list';
-import { ModalHeader } from '@app/components/modal-header';
 import { useConfigBitcoinSendEnabled } from '@app/query/common/remote-config/remote-config.query';
 import { useCheckLedgerBlockchainAvailable } from '@app/store/accounts/blockchain/utils';
 
@@ -21,8 +19,6 @@ export function ChooseCryptoAsset() {
   const isBitcoinSendEnabled = useConfigBitcoinSendEnabled();
 
   const checkBlockchainAvailable = useCheckLedgerBlockchainAvailable();
-
-  useRouteHeader(<ModalHeader hideActions defaultGoBack title=" " />);
 
   function navigateToSendForm(cryptoAssetBalance: AllTransferableCryptoAssetBalances) {
     const { asset } = cryptoAssetBalance;
