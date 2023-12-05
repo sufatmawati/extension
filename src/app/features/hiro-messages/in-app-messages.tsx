@@ -7,6 +7,7 @@ import { useDismissedMessageIds } from '@app/store/settings/settings.selectors';
 
 import { HiroMessageItem } from './components/in-app-message-item';
 
+//  TODO test this as per PR instructions
 export function InAppMessages(props: FlexProps) {
   const messages = useRemoteLeatherMessages();
 

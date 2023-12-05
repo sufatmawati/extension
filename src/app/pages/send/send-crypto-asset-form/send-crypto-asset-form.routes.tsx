@@ -3,10 +3,10 @@ import { Route } from 'react-router-dom';
 
 import { RouteUrls } from '@shared/route-urls';
 
-import { BroadcastErrorDrawer } from '@app/components/broadcast-error-drawer/broadcast-error-drawer';
+import { BroadcastErrorDialog } from '@app/components/broadcast-error-dialog/broadcast-error-dialog';
 import { SendBtcDisabled } from '@app/components/crypto-assets/choose-crypto-asset/send-btc-disabled';
 import { FullPageWithHeaderLoadingSpinner } from '@app/components/loading-spinner';
-import { EditNonceDrawer } from '@app/features/edit-nonce-drawer/edit-nonce-drawer';
+import { EditNonceDialog } from '@app/features/dialogs/edit-nonce-dialog/edit-nonce-dialog';
 import { ledgerBitcoinTxSigningRoutes } from '@app/features/ledger/flows/bitcoin-tx-signing/ledger-bitcoin-sign-tx-container';
 import { ledgerStacksTxSigningRoutes } from '@app/features/ledger/flows/stacks-tx-signing/ledger-sign-stacks-tx-container';
 import { AccountGate } from '@app/routes/account-gate';
@@ -17,7 +17,7 @@ import { SendContainer } from '../send-container';
 import { Brc20SentSummary } from '../sent-summary/brc20-sent-summary';
 import { BtcSentSummary } from '../sent-summary/btc-sent-summary';
 import { StxSentSummary } from '../sent-summary/stx-sent-summary';
-import { RecipientAccountsDrawer } from './components/recipient-accounts-drawer/recipient-accounts-drawer';
+import { RecipientAccountsDialog } from './components/recipient-accounts-dialog/recipient-accounts-dialog';
 import { SendBitcoinAssetContainer } from './family/bitcoin/components/send-bitcoin-asset-container';
 import { Brc20SendForm } from './form/brc-20/brc20-send-form';
 import { Brc20SendFormConfirmation } from './form/brc-20/brc20-send-form-confirmation';
@@ -29,16 +29,16 @@ import { Sip10TokenSendForm } from './form/stacks-sip10/sip10-token-send-form';
 import { StacksSendFormConfirmation } from './form/stacks/stacks-send-form-confirmation';
 import { StxSendForm } from './form/stx/stx-send-form';
 
-const recipientAccountsDrawerRoute = (
+const recipientAccountsDialogRoute = (
   <Route
     path={RouteUrls.SendCryptoAssetFormRecipientAccounts}
-    element={<RecipientAccountsDrawer />}
+    element={<RecipientAccountsDialog />}
   />
 );
 
-const editNonceDrawerRoute = <Route path={RouteUrls.EditNonce} element={<EditNonceDrawer />} />;
-const broadcastErrorDrawerRoute = (
-  <Route path={'confirm/broadcast-error'} element={<BroadcastErrorDrawer />} />
+const editNonceDialogRoute = <Route path={RouteUrls.EditNonce} element={<EditNonceDialog />} />;
+const broadcastErrorDialogRoute = (
+  <Route path={'confirm/broadcast-error'} element={<BroadcastErrorDialog />} />
 );
 
 export const sendCryptoAssetFormRoutes = (
@@ -53,15 +53,15 @@ export const sendCryptoAssetFormRoutes = (
         </AccountGate>
       }
     />
-
     <Route element={<SendBitcoinAssetContainer />}>
       <Route
         path={RouteUrls.SendCryptoAssetForm.replace(':symbol', 'btc')}
         element={<BtcSendForm />}
       >
         {ledgerBitcoinTxSigningRoutes}
-        {recipientAccountsDrawerRoute}
+        {recipientAccountsDialogRoute}
       </Route>
+      {/* FIXME - these routes need to be in RouteUrls */}
       <Route path="/send/btc/disabled" element={<SendBtcDisabled />} />
       <Route path="/send/btc/error" element={<BroadcastError />} />
 
@@ -78,28 +78,27 @@ export const sendCryptoAssetFormRoutes = (
       <Route path={RouteUrls.SendBrc20Confirmation} element={<Brc20SendFormConfirmation />} />
       <Route path={RouteUrls.SentBrc20Summary} element={<Brc20SentSummary />} />
     </Route>
-
     <Route path={RouteUrls.SendCryptoAssetForm.replace(':symbol', 'stx')} element={<StxSendForm />}>
-      {broadcastErrorDrawerRoute}
-      {editNonceDrawerRoute}
-      {recipientAccountsDrawerRoute}
-    </Route>
+      {broadcastErrorDialogRoute}
+      {editNonceDialogRoute}
+      {recipientAccountsDialogRoute}
+    </Route>{' '}
+    {/* FIXME - check this */}
     <Route
       path={`${RouteUrls.SendCryptoAssetForm.replace(':symbol', 'stx')}/confirm`}
       element={<StacksSendFormConfirmation />}
     >
       {ledgerStacksTxSigningRoutes}
     </Route>
-
     <Route path={RouteUrls.SendSip10Form} element={<Sip10TokenSendForm />}>
-      {broadcastErrorDrawerRoute}
-      {editNonceDrawerRoute}
-      {recipientAccountsDrawerRoute}
+      {broadcastErrorDialogRoute}
+      {editNonceDialogRoute}
+      {recipientAccountsDialogRoute}
     </Route>
+    {/* FIXME - refactor this to use a proper route- is this even correct??? on send I hit sent/stx/0xa217094dca655f54385fd9cc57abb7429addf4ef5f2b84cf85a66d731d5b9cc2 */}
     <Route path="/send/:symbol/:contractId/confirm" element={<StacksSendFormConfirmation />}>
       {ledgerStacksTxSigningRoutes}
     </Route>
-
     <Route path={RouteUrls.SentStxTxSummary} element={<StxSentSummary />} />
   </Route>
 );

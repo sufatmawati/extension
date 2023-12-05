@@ -5,23 +5,13 @@ import { getPsbtTxInputs, getPsbtTxOutputs } from '@shared/crypto/bitcoin/bitcoi
 import { RouteUrls } from '@shared/route-urls';
 import { closeWindow, isError } from '@shared/utils';
 
-import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { SignPsbtArgs } from '@app/common/psbt/requests';
-import { PopupHeader } from '@app/features/current-account/popup-header';
 import { useOnOriginTabClose } from '@app/routes/hooks/use-on-tab-closed';
 import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentAccountTaprootIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
+import { PopupCard } from '@app/ui/components/containers/popup/popup-card';
 
-import { PsbtInputsAndOutputs } from './components/psbt-inputs-and-outputs/psbt-inputs-and-outputs';
-import { PsbtInputsOutputsTotals } from './components/psbt-inputs-outputs-totals/psbt-inputs-outputs-totals';
-import { PsbtRequestActions } from './components/psbt-request-actions';
-import { PsbtRequestDetailsHeader } from './components/psbt-request-details-header';
-import { PsbtRequestDetailsLayout } from './components/psbt-request-details.layout';
-import { PsbtRequestFee } from './components/psbt-request-fee';
-import { PsbtRequestHeader } from './components/psbt-request-header';
-import { PsbtRequestRaw } from './components/psbt-request-raw';
-import { PsbtRequestSighashWarningLabel } from './components/psbt-request-sighash-warning-label';
-import { PsbtSignerLayout } from './components/psbt-signer.layout';
+import * as PSBT from './components';
 import { useParsedPsbt } from './hooks/use-parsed-psbt';
 import { usePsbtSigner } from './hooks/use-psbt-signer';
 import { PsbtSignerContext, PsbtSignerProvider } from './psbt-signer.context';
@@ -41,8 +31,6 @@ export function PsbtSigner(props: PsbtSignerProps) {
   const { address: addressNativeSegwit } = useCurrentAccountNativeSegwitIndexZeroSigner();
   const { address: addressTaproot } = useCurrentAccountTaprootIndexZeroSigner();
   const { getRawPsbt, getPsbtAsTransaction } = usePsbtSigner();
-
-  useRouteHeader(<PopupHeader displayAddresssBalanceOf="all" />);
 
   useOnOriginTabClose(() => closeWindow());
 
@@ -91,22 +79,22 @@ export function PsbtSigner(props: PsbtSignerProps) {
     shouldDefaultToAdvancedView,
   };
 
-  if (shouldDefaultToAdvancedView && psbtRaw) return <PsbtRequestRaw psbt={psbtRaw} />;
+  if (shouldDefaultToAdvancedView && psbtRaw) return <PSBT.PsbtRequestRaw psbt={psbtRaw} />;
 
   return (
     <PsbtSignerProvider value={psbtSignerContext}>
-      <PsbtSignerLayout>
-        <PsbtRequestHeader name={name} origin={origin} />
-        <PsbtRequestDetailsLayout>
-          {isPsbtMutable ? <PsbtRequestSighashWarningLabel origin={origin} /> : null}
-          <PsbtRequestDetailsHeader />
-          <PsbtInputsOutputsTotals />
-          <PsbtInputsAndOutputs />
-          {psbtRaw ? <PsbtRequestRaw psbt={psbtRaw} /> : null}
-          <PsbtRequestFee fee={fee} />
-        </PsbtRequestDetailsLayout>
-      </PsbtSignerLayout>
-      <PsbtRequestActions
+      <PopupCard>
+        <PSBT.PsbtRequestHeader name={name} origin={origin} />
+        <PSBT.PsbtRequestDetailsLayout>
+          {isPsbtMutable ? <PSBT.PsbtRequestSighashWarningLabel origin={origin} /> : null}
+          <PSBT.PsbtRequestDetailsHeader />
+          <PSBT.PsbtInputsOutputsTotals />
+          <PSBT.PsbtInputsAndOutputs />
+          {psbtRaw ? <PSBT.PsbtRequestRaw psbt={psbtRaw} /> : null}
+          <PSBT.PsbtRequestFee fee={fee} />
+        </PSBT.PsbtRequestDetailsLayout>
+      </PopupCard>
+      <PSBT.PsbtRequestActions
         isLoading={isBroadcasting}
         onCancel={onCancel}
         onSignPsbt={() =>
