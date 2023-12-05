@@ -52,9 +52,7 @@ export enum RouteUrls {
   BitcoinContractList = '/bitcoin-contract-list',
 
   // Modal routes
-  ChangeTheme = 'change-theme',
   EditNonce = 'edit-nonce',
-  SelectNetwork = 'choose-network',
   SignOutConfirm = 'sign-out',
   RetrieveTaprootFunds = 'retrieve-taproot-funds',
 
@@ -65,6 +63,7 @@ export enum RouteUrls {
   SendCryptoAssetFormRecipientAccounts = 'recipient-accounts',
   SendCryptoAssetFormRecipientBns = 'recipient-bns',
   SendBtcChooseFee = '/send/btc/choose-fee',
+  SendBtcError = '/send/btc/error',
   SendBtcConfirmation = '/send/btc/confirm',
   SendBtcDisabled = '/send/btc/disabled',
   SendStxConfirmation = '/send/stx/confirm',
