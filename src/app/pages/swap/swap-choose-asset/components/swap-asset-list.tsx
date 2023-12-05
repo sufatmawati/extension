@@ -1,7 +1,9 @@
 import { useNavigate } from 'react-router-dom';
+import { Virtuoso } from 'react-virtuoso';
 
 import BigNumber from 'bignumber.js';
 import { useFormikContext } from 'formik';
+import { css } from 'leather-styles/css';
 
 import { createMoney } from '@shared/models/money.model';
 import { isUndefined } from '@shared/utils';
@@ -13,7 +15,6 @@ import { useSwapContext } from '@app/pages/swap/swap.context';
 import { SwapAsset, SwapFormValues } from '../../hooks/use-swap-form';
 import { useSwapChooseAssetState } from '../swap-choose-asset';
 import { SwapAssetItem } from './swap-asset-item';
-import { SwapAssetListLayout } from './swap-asset-list.layout';
 
 interface SwapAssetList {
   assets: SwapAsset[];
@@ -46,6 +47,7 @@ export function SwapAssetList({ assets }: SwapAssetList) {
       await setFieldValue('swapAssetTo', asset);
       setFieldError('swapAssetTo', undefined);
     }
+
     navigate(-1);
     if (from && to && values.swapAmountFrom) {
       const toAmount = await fetchToAmount(from, to, values.swapAmountFrom);
@@ -64,14 +66,21 @@ export function SwapAssetList({ assets }: SwapAssetList) {
   }
 
   return (
-    <SwapAssetListLayout>
-      {selectableAssets.map(asset => (
-        <SwapAssetItem
-          asset={asset}
-          key={asset.balance.symbol}
-          onClick={() => onChooseAsset(asset)}
-        />
-      ))}
-    </SwapAssetListLayout>
+    <Virtuoso
+      className={css({
+        marginX: 'space.01',
+      })}
+      useWindowScroll
+      totalCount={10}
+      itemContent={() =>
+        selectableAssets.map(asset => (
+          <SwapAssetItem
+            asset={asset}
+            key={asset.balance.symbol}
+            onClick={() => onChooseAsset(asset)}
+          />
+        ))
+      }
+    />
   );
 }

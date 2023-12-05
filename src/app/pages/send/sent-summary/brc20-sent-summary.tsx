@@ -5,7 +5,6 @@ import get from 'lodash.get';
 
 import { createMoney } from '@shared/models/money.model';
 
-import { useRouteHeader } from '@app/common/hooks/use-route-header';
 import { HandleOpenStacksTxLinkArgs } from '@app/common/hooks/use-stacks-explorer-link';
 import { formatMoney } from '@app/common/money/format-money';
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
@@ -18,7 +17,6 @@ import {
   InfoCardSeparator,
 } from '@app/components/info-card/info-card';
 import { InfoLabel } from '@app/components/info-label';
-import { ModalHeader } from '@app/components/modal-header';
 import { Link } from '@app/ui/components/link/link';
 import { ExternalLinkIcon } from '@app/ui/icons/external-link-icon';
 
@@ -46,8 +44,6 @@ export function Brc20SentSummary() {
   function onClickLink() {
     navigate('/');
   }
-
-  useRouteHeader(<ModalHeader hideActions defaultClose title="Creating transfer inscription" />);
 
   return (
     <InfoCard>

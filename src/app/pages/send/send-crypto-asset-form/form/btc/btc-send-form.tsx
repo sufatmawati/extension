@@ -7,14 +7,19 @@ import { Box } from 'leather-styles/jsx';
 import { HIGH_FEE_WARNING_LEARN_MORE_URL_BTC } from '@shared/constants';
 import { CryptoCurrencies } from '@shared/models/currencies.model';
 
-import { HighFeeDrawer } from '@app/features/high-fee-drawer/high-fee-drawer';
+import { formatMoney } from '@app/common/money/format-money';
+import { HighFeeDialog } from '@app/features/dialogs/high-fee-dialog/high-fee-dialog';
 import { useNativeSegwitBalance } from '@app/query/bitcoin/balance/btc-native-segwit-balance.hooks';
 import { useCryptoCurrencyMarketData } from '@app/query/common/market-data/market-data.hooks';
 import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { BtcIcon } from '@app/ui/components/avatar-icon/btc-icon';
+import { Button } from '@app/ui/components/button/button';
+import { AvailableBalance } from '@app/ui/components/containers/footers/available-balance';
+import { Footer } from '@app/ui/components/containers/footers/footer';
+import { Card } from '@app/ui/layout/card/card';
+import { Page } from '@app/ui/layout/page/page.layout';
 
 import { AmountField } from '../../components/amount-field';
-import { FormFooter } from '../../components/form-footer';
 import { SelectedAssetField } from '../../components/selected-asset-field';
 import { SendCryptoAssetFormLayout } from '../../components/send-crypto-asset-form.layout';
 import { SendFiatValue } from '../../components/send-fiat-value';
@@ -65,41 +70,55 @@ export function BtcSendForm() {
 
           return (
             <Form>
-              <SendCryptoAssetFormLayout>
-                <AmountField
-                  autoComplete="off"
-                  balance={btcBalance.balance}
-                  bottomInputOverlay={
-                    <BitcoinSendMaxButton
+              <Page>
+                <Card
+                  action={
+                    <Footer variant="card">
+                      <Button
+                        data-testid={SendCryptoAssetSelectors.PreviewSendTxBtn}
+                        onClick={() => props.handleSubmit()}
+                        type="submit"
+                      >
+                        Continue
+                      </Button>
+                      <AvailableBalance balance={formatMoney(btcBalance.balance)} />
+                    </Footer>
+                  }
+                >
+                  <SendCryptoAssetFormLayout>
+                    <AmountField
+                      autoComplete="off"
                       balance={btcBalance.balance}
-                      isSendingMax={isSendingMax}
+                      bottomInputOverlay={
+                        <BitcoinSendMaxButton
+                          balance={btcBalance.balance}
+                          isSendingMax={isSendingMax}
+                          onSetIsSendingMax={onSetIsSendingMax}
+                          sendMaxBalance={sendMaxCalculation.spendableBitcoin.toString()}
+                          sendMaxFee={sendMaxCalculation.spendAllFee.toString()}
+                        />
+                      }
                       onSetIsSendingMax={onSetIsSendingMax}
-                      sendMaxBalance={sendMaxCalculation.spendableBitcoin.toString()}
-                      sendMaxFee={sendMaxCalculation.spendAllFee.toString()}
+                      isSendingMax={isSendingMax}
+                      switchableAmount={
+                        <SendFiatValue marketData={btcMarketData} assetSymbol={symbol} />
+                      }
                     />
-                  }
-                  onSetIsSendingMax={onSetIsSendingMax}
-                  isSendingMax={isSendingMax}
-                  switchableAmount={
-                    <SendFiatValue marketData={btcMarketData} assetSymbol={symbol} />
-                  }
-                />
-                <SelectedAssetField
-                  icon={<BtcIcon />}
-                  name={btcBalance.asset.name}
-                  symbol={symbol}
-                />
-
-                <BitcoinRecipientField />
-
-                {currentNetwork.chain.bitcoin.bitcoinNetwork === 'testnet' && (
-                  <Box mt="space.04">
-                    <TestnetBtcMessage />
-                  </Box>
-                )}
-              </SendCryptoAssetFormLayout>
-              <FormFooter balance={btcBalance.balance} />
-              <HighFeeDrawer learnMoreUrl={HIGH_FEE_WARNING_LEARN_MORE_URL_BTC} />
+                    <SelectedAssetField
+                      icon={<BtcIcon />}
+                      name={btcBalance.asset.name}
+                      symbol={symbol}
+                    />
+                    <BitcoinRecipientField />
+                    {currentNetwork.chain.bitcoin.bitcoinNetwork === 'testnet' && (
+                      <Box mt="space.04">
+                        <TestnetBtcMessage />
+                      </Box>
+                    )}
+                  </SendCryptoAssetFormLayout>
+                </Card>
+              </Page>
+              <HighFeeDialog learnMoreUrl={HIGH_FEE_WARNING_LEARN_MORE_URL_BTC} />
               <Outlet />
 
               {/* This is for testing purposes only, to make sure the form is ready to be submitted. */}

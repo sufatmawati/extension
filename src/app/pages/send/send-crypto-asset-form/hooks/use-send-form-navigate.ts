@@ -13,7 +13,6 @@ interface ConfirmationRouteState {
   decimals?: number;
   token?: string;
   tx: string;
-  hasHeaderTitle?: boolean;
 }
 
 interface ConfirmationRouteStacksSip10Args {
@@ -48,7 +47,6 @@ export function useSendFormNavigate() {
             isSendingMax,
             utxos,
             values,
-            hasHeaderTitle: true,
           },
         });
       },
@@ -66,7 +64,6 @@ export function useSendFormNavigate() {
             fee,
             feeRowValue,
             time,
-            hasHeaderTitle: true,
           } as ConfirmationRouteState,
         });
       },
@@ -75,7 +72,6 @@ export function useSendFormNavigate() {
           replace: true,
           state: {
             tx: bytesToHex(tx.serialize()),
-            hasHeaderTitle: true,
             showFeeChangeWarning,
           } as ConfirmationRouteState,
         });
