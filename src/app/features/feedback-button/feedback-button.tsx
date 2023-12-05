@@ -4,6 +4,7 @@ import { Flex } from 'leather-styles/jsx';
 import { analytics } from '@shared/utils/analytics';
 
 import { useThemeSwitcher } from '@app/common/theme-provider';
+import { AppVersion } from '@app/components/app-version';
 import { Button } from '@app/ui/components/button/button';
 import { MegaphoneIcon } from '@app/ui/icons/megaphone-icon';
 
@@ -45,6 +46,7 @@ export function FeedbackButton() {
         <MegaphoneIcon mr="space.01" mt="2px" variant="small" />
         Give feedback
       </Flex>
+      <AppVersion />
     </Button>
   );
 }

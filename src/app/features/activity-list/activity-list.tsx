@@ -96,6 +96,7 @@ export function ActivityList() {
 
   const hasTxs = hasSubmittedTransactions || hasPendingTransactions || hasTransactions;
 
+  debugger;
   if (isInitialLoading)
     return (
       <ActivityListTabWrapper padContent>
@@ -111,6 +112,8 @@ export function ActivityList() {
         <Outlet />
       </ActivityListTabWrapper>
     );
+
+  // maybe some weird BG location redirect causings issue here?s
 
   return (
     <>

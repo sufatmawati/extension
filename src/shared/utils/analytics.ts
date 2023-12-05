@@ -90,10 +90,10 @@ export function initSentry() {
         successMessageText: 'Thanks for helping make Leather better',
         themeDark: {
           background: token('colors.accent.background-primary'),
-          inputOutlineFocus: token('colors.accent.border-hover'),
+          inputOutlineFocus: token('colors.accent.border-default'),
           submitBackground: token('colors.accent.component-background-default'),
           submitBackgroundHover: token('colors.accent.component-background-hover'),
-          submitOutlineFocus: token('colors.accent.border-hover'),
+          submitOutlineFocus: token('colors.accent.border-default'),
           submitBorder: token('colors.accent.component-background-default'),
           cancelBackground: token('colors.colorPalette.action-primary-default'),
           cancelBackgroundHover: token('colors.colorPalette.action-primary-hover'),

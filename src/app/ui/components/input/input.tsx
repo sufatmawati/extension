@@ -77,7 +77,7 @@ const input = sva({
       textStyle: 'body.01',
       color: 'accent.text-primary',
       border: '1px solid',
-      borderColor: 'accent.border-hover',
+      borderColor: 'accent.border-default',
       _disabled: {
         bg: 'accent.component-background-default',
         borderColor: 'accent.non-interactive',

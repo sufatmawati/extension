@@ -35,7 +35,7 @@ export function ConnectLedgerErrorLayout(props: ConnectLedgerErrorLayoutProps) {
   const { warningText, onTryAgain, appName } = props;
 
   return (
-    <LedgerWrapper px="space.07">
+    <LedgerWrapper>
       <Box mt="space.02">
         <ConnectLedgerErr />
       </Box>

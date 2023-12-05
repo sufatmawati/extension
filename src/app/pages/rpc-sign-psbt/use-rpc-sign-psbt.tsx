@@ -59,7 +59,6 @@ export function useRpcSignPsbt() {
 
         const psbtTxSummaryState = {
           fee: formatMoneyPadded(fee),
-          hasHeaderTitle: true,
           sendingValue: formatMoney(transferTotalAsMoney),
           totalSpend: formatMoney(sumMoney([transferTotalAsMoney, fee])),
           txFiatValue: i18nFormatCurrency(calculateBitcoinFiatValue(transferTotalAsMoney)),
