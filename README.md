@@ -64,19 +64,27 @@ yarn playwright install --with-deps
 
 Note that the installed browsers are tied to the version of Playwright being used, and it may be necessary to run the above command again in some situations, such as when upgrading Playwright or switching branches. [Read the documentation for more information](https://playwright.dev/docs/cli#install-system-dependencies).
 
+To run a suite of tests you can use:
+
+```bash
+yarn playwright test specs/TEST.spec.ts
+yarn playwright test tests/specs --shard=3/8
+```
+
+To get more information when running tests you can pass the `--debug` flag or the `--ui` flag to playwright.
+
+When running tests locally you must add the following to your `.env` file:
+
+```
+WALLET_ENVIRONMENT=testing
+```
+
 ### Integration tests
 
 All integration tests can be run using:
 
 ```bash
 yarn test:integration
-```
-
-To run a suite of tests you can use:
-
-```bash
-yarn playwright test specs/TEST.spec.ts
-yarn playwright test tests/specs --shard=3/8
 ```
 
 ### Unit tests
