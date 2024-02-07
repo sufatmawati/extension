@@ -11,7 +11,6 @@ import { Button } from '@app/ui/components/button/button';
 import { Footer } from '@app/ui/components/containers/footers/footer';
 import { Card } from '@app/ui/components/layout/card/card';
 import { Page } from '@app/ui/components/layout/page/page.layout';
-import { Link } from '@app/ui/components/link/link';
 
 import { ErrorLabel } from './error-label';
 
@@ -50,18 +49,9 @@ export function RequestPassword({ onSuccess }: RequestPasswordProps) {
     });
   }, [analytics, startWaitingMessage, stopWaitingMessage, unlockWallet, password, onSuccess]);
 
-  // if (sessionLocked) {
-  // TODO #4370 revisit and test this screen with set-password
-
-  // have to not show main header for this pagfe h
-
-  // PETE - extract this to a full card layout container
-
-  // Finish this soon
-  // - get spacing right
-  // implement 2 column + storybook s
-
   return (
+    // this page has no header so needs a top margin on md
+    // TODO make header height const
     <Page marginTop={{ base: '0', md: '80px' }}>
       <Card
         title="Enter your password"
@@ -112,8 +102,10 @@ export function RequestPassword({ onSuccess }: RequestPasswordProps) {
             {waitingMessage}
           </styled.p>
         )}
-        {/*  TODO add max width to <Link */}
-        <Link maxWidth="fit-content">Forgot password?</Link>
+        {/*  TODO: #4735 implement forgot password flow */}
+        {/* <Link>
+          Forgot password?
+        </Link> */}
       </Card>
     </Page>
   );

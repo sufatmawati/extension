@@ -22,12 +22,11 @@ interface CardProps {
 export function Card({ action, children, title, text }: CardProps) {
   return (
     <Flex direction="column">
-      <Stack px="space.05">
+      <Stack gap="space.05" px="space.05">
         <styled.h2 textStyle="heading.03">{title}</styled.h2>
         <styled.p textStyle="label.02">{text}</styled.p>
         {children}
       </Stack>
-
       {action}
     </Flex>
   );
