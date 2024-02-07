@@ -119,7 +119,6 @@ export const Dialog = memo(
                     onClose={onClose}
                     onGoBack={onGoBack}
                     title={typeof title === 'string' ? <Title title={title} /> : title} // title only used here and passed in by 15 of dialogs
-                    showLogo={false} // to check if this will work consistently
                     // waitingOnPerformedActionMessage={waitingOnPerformedActionMessage}
                   />
                 )}

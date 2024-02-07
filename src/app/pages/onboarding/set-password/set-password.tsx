@@ -21,7 +21,7 @@ import {
 import { OnboardingGate } from '@app/routes/onboarding-gate';
 import { useStacksAccounts } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { Button } from '@app/ui/components/button/button';
-import { TwoColumnLayout } from '@app/ui/components/containers/two-column.layout';
+import { TwoColumnLayout } from '@app/ui/components/layout/page/two-column.layout';
 
 import { PasswordField } from './components/password-field';
 

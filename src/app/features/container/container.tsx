@@ -3,6 +3,7 @@ import { Toaster } from 'react-hot-toast';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
 import { ChainID } from '@stacks/transactions';
+import { OnboardingSelectors } from '@tests/selectors/onboarding.selectors';
 import { token } from 'leather-styles/tokens';
 
 import { RouteUrls } from '@shared/route-urls';
@@ -20,6 +21,7 @@ import { NetworkModeBadge } from '@app/ui/components/containers/headers/componen
 import { Header } from '@app/ui/components/containers/headers/header';
 import { Flag } from '@app/ui/components/flag/flag';
 import { HamburgerIcon } from '@app/ui/components/icons/hamburger-icon';
+import { Logo } from '@app/ui/components/logo';
 
 import { ContainerLayout } from '../../ui/components/containers/container.layout';
 import { SwitchAccountDialog } from '../dialogs/switch-account-dialog/switch-account-dialog';
@@ -61,6 +63,10 @@ export function Container() {
     );
   };
 
+  const isPasswordPage = () => {
+    return pathname === RouteUrls.Unlock || pathname === RouteUrls.ViewSecretKey;
+  };
+
   // TODO 4370 test RouteUrls.Unlock as not sure what header there, page I guess
   const getVariant = () => {
     if (isHomePage()) return 'home';
@@ -82,7 +88,7 @@ export function Container() {
 
   const isGetAddressesPopup = pathname === RouteUrls.RpcGetAddresses;
 
-  const displayHeader = !isLandingPage() && !isGetAddressesPopup;
+  const displayHeader = !isLandingPage() && !isGetAddressesPopup && !isPasswordPage();
 
   // FIXME - this isn't working, only showing BACK!
   const pageOnClose = getOnClose(pathname as RouteUrls);
@@ -125,7 +131,14 @@ export function Container() {
               }
               title={getTitleFromUrl(pathname as RouteUrls)}
               // PETE - maybe pass logo here, or account or undefined?
-              showLogo={pathname === RouteUrls.RpcGetAddresses ? false : undefined}
+              logo={
+                pathname !== RouteUrls.RpcGetAddresses ? (
+                  <Logo
+                    data-testid={OnboardingSelectors.LogoRouteToHome}
+                    onClick={variant !== 'home' ? () => navigate(RouteUrls.Home) : undefined}
+                  />
+                ) : undefined
+              }
               account={
                 showAccountInfo(pathname as RouteUrls) && (
                   <Flag

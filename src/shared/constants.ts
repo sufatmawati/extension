@@ -7,7 +7,7 @@ export const gaiaUrl = 'https://hub.blockstack.org';
 // #4250 setting consistent dimensions of extension + popup to match mobile
 export const POPUP_WIDTH = 390;
 export const POPUP_HEIGHT = 756;
-export const FULLPAGE_MAX_WIDTH = '882px';
+export const FULLPAGE_MAX_WIDTH = 882;
 
 export const HIGH_FEE_AMOUNT_STX = 5;
 export const HIGH_FEE_WARNING_LEARN_MORE_URL_BTC = 'https://bitcoinfees.earn.com/';

@@ -37,12 +37,7 @@ export function Unlock() {
         <Box position="fixed" w="200px" h="60px" background="ink.2" top={0} left={0} />
       )}
 
-      <RequestPassword
-        sessionLocked
-        title={<>Your session is locked</>}
-        caption="Enter the password you set on this device"
-        onSuccess={handleSuccess}
-      />
+      <RequestPassword onSuccess={handleSuccess} />
       <Outlet />
     </>
   );

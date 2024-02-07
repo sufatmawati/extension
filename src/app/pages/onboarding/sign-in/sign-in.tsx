@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 
 import { createNullArrayOfLength } from '@app/common/utils';
 import { MnemonicForm } from '@app/pages/onboarding/sign-in/mnemonic-form';
-import { TwoColumnLayout } from '@app/ui/components/containers/two-column.layout';
+import { TwoColumnLayout } from '@app/ui/components/layout/page/two-column.layout';
 
 import { SignInContent } from './components/sign-in.content';
 

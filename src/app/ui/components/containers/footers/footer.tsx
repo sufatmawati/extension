@@ -1,10 +1,14 @@
+import type { ReactNode } from 'react';
+
 import { Flex } from 'leather-styles/jsx';
 
-import { HasChildren } from '@app/common/has-children';
-
+interface FooterProps {
+  children: ReactNode;
+  variant?: 'page' | 'card';
+}
 /** Footer is only used at smaller widths - in Dialog / Page card view / extension size */
 //  TODO design want to show a border above footer but only if content above is scrollable
-export function Footer({ children }: HasChildren) {
+export function Footer({ children, variant = 'page' }: FooterProps) {
   return (
     <Flex
       gap="space.05"
@@ -21,7 +25,7 @@ export function Footer({ children }: HasChildren) {
       minHeight="95px"
       // footer is always white
       backgroundColor="accent.background-primary"
-      borderTop="default"
+      borderTop={variant === 'page' ? ' default' : undefined}
       // == test this - max-width restricts us in Send flows for example .
       //
       // maxWidth={{ base: '100vw', md: '450px' }}
@@ -29,7 +33,8 @@ export function Footer({ children }: HasChildren) {
       // maxWidth={{ base: '100vw', md: '100vw' }}
       // borderRadius={[0, 0, 'lg']}
       // position={{ base: 'fixed', md: 'sticky' }}
-      position={{ base: 'fixed', md: 'fixed' }} // test this as on anlytics approval needed
+      // position={{ base: 'fixed', md: 'fixed' }} // test this as on anlytics approval needed
+      position={variant === 'page' ? ' fixed' : undefined}
     >
       {/* seem to need this always apart from password/ ReceiveTokensFooter / signout - probably good to always have it */}
       <Flex flexDirection="column" width="100%" gap="space.04">

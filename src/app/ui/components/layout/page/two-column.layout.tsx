@@ -1,6 +1,5 @@
-import { Flex, Stack, styled } from 'leather-styles/jsx';
+import { Flex, Stack } from 'leather-styles/jsx';
 
-// import { POPUP_WIDTH } from 'shared/constants';
 import { FULLPAGE_MAX_WIDTH } from '@shared/constants';
 
 interface TwoColumnLayoutProps {
@@ -15,35 +14,28 @@ export function TwoColumnLayout({
 }: TwoColumnLayoutProps): React.JSX.Element {
   return (
     <Flex
-      id="two-column"
-      maxWidth={FULLPAGE_MAX_WIDTH}
-      // flexDirection={['column', 'column', 'column', 'row']}
       flexDirection={{ base: 'column', md: 'row' }}
       paddingTop="space.06"
-      // px={['space.05', 'space.00']}
       px={{ base: 'space.05', md: 'space.00' }}
-      // mx={['auto', 'space.03', 'space.06']}
       mx={{ base: 'auto', md: 'space.03', lg: 'space.06' }}
       gap="space.05"
-      // width={['100%', 'unset']}
       width={{ base: '100vw', md: 'unset' }}
+      maxWidth={`${FULLPAGE_MAX_WIDTH}px`}
     >
       <Flex
         alignItems={['center', 'center', 'center', 'flex-start']}
         textAlign={['center', 'center', 'center', 'left']}
         flexDirection="column"
-        // padding="space.00"
-        // gap="space.07"
-        // mx={['auto', 'space.03', 'space.03', 'space.03']}
+        gap="space.04"
       >
         {/* check this 250 width. Box should be 250 but allow right padding if space 
         
           Maybe need to pass in this dimenstions with leftColumn?????
         */}
 
-        <styled.div minWidth="250px" textAlign="left">
-          {leftColumn}
-        </styled.div>
+        {/* <styled.div minWidth="250px" textAlign="left"> */}
+        {leftColumn}
+        {/* </styled.div> */}
       </Flex>
 
       <Flex

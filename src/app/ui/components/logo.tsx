@@ -2,10 +2,10 @@ import { styled } from 'leather-styles/jsx';
 
 import { LeatherIcon } from '@app/ui/components/icons/leather-icon';
 
-interface LeatherLogoProps {
+interface LogoProps {
   onClick?(): void;
 }
-export function LeatherLogo({ onClick, ...rest }: LeatherLogoProps) {
+export function Logo({ onClick }: LogoProps) {
   return (
     <styled.button
       _hover={onClick && { color: 'accent.action-primary-hover' }}
@@ -14,7 +14,7 @@ export function LeatherLogo({ onClick, ...rest }: LeatherLogoProps) {
       height="32px"
       onClick={onClick ? onClick : undefined}
       width="76px"
-      {...rest}
+      mx="space.02"
     >
       <LeatherIcon />
     </styled.button>

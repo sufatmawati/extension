@@ -5,7 +5,7 @@ import { Stack } from 'leather-styles/jsx';
 
 import { FULLPAGE_MAX_WIDTH } from '@shared/constants';
 
-import { AccountInfoCard } from '../../../pages/home/components/account-info-card';
+import { AccountInfoCard } from '@app/pages/home/components/account-info-card';
 
 type HomeLayoutProps = Record<'currentAccount' | 'children', React.ReactNode>;
 export function HomeLayout({ children }: HomeLayoutProps) {
@@ -13,7 +13,7 @@ export function HomeLayout({ children }: HomeLayoutProps) {
     <Stack alignItems="center" width="100%" mx={['', 'space.04']}>
       <Stack
         data-testid={HomePageSelectors.HomePageContainer}
-        maxWidth={['unset', 'unset', FULLPAGE_MAX_WIDTH]}
+        maxWidth={['unset', 'unset', `${FULLPAGE_MAX_WIDTH}px`]}
         px={['space.04', 'space.04', 'space.08']}
         width="100%"
         backgroundColor="ink.1"

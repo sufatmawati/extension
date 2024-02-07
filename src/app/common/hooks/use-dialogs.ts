@@ -4,7 +4,6 @@ import {
   useShowTxSettingsCallback,
 } from '@app/store/ui/ui.hooks';
 
-//  TODO move this to features/dialogs?
 export function useDialogs() {
   const [isShowingAccounts, setIsShowingSwitchAccountsState] = useShowSwitchAccountsState();
   const [isShowingHighFeeConfirmation, setIsShowingHighFeeConfirmation] =

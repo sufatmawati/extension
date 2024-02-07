@@ -50,6 +50,9 @@ export function SettingsDropdown({ triggerButton }: { triggerButton: React.React
   const linkRelativeType =
     location.pathname === `${RouteUrls.Home}${RouteUrls.Activity}` ? 'route' : 'path';
 
+  // FIXME #4370 task 1 - need to fix these button links and also lock / theme in extension mode as mentioned above
+  // just open dialogs with no routes
+
   return (
     <DropdownMenu.Root>
       <DropdownMenu.Trigger>{triggerButton}</DropdownMenu.Trigger>
