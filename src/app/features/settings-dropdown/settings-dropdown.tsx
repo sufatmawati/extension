@@ -2,11 +2,12 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { SettingsSelectors } from '@tests/selectors/settings.selectors';
-import { Box, Flex, HStack } from 'leather-styles/jsx';
+import { Box, Flex } from 'leather-styles/jsx';
 
 import { RouteUrls } from '@shared/route-urls';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
+import { useDialogs } from '@app/common/hooks/use-dialogs';
 // import { useDialogs } from '@app/common/hooks/use-dialogs';
 import { useKeyActions } from '@app/common/hooks/use-key-actions';
 // import { useModifierKey } from '@app/common/hooks/use-modifier-key';
@@ -14,24 +15,28 @@ import { useKeyActions } from '@app/common/hooks/use-key-actions';
 import { useWalletType } from '@app/common/use-wallet-type';
 // import { whenPageMode } from '@app/common/utils';
 import { openInNewTab, openIndexPageInNewTab } from '@app/common/utils/open-in-new-tab';
-import { Divider } from '@app/components/layout/divider';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useHasLedgerKeys, useLedgerDeviceTargetId } from '@app/store/ledger/ledger.selectors';
 import { useCurrentNetworkId } from '@app/store/networks/networks.selectors';
 import { DropdownMenu } from '@app/ui/components/dropdown-menu/dropdown-menu';
+// import { MenuWrapper } from './components/settings-menu-wrapper';
+import { Flag } from '@app/ui/components/flag/flag';
+import { ChevronsRightIcon } from '@app/ui/components/icons/chevrons-right-icon';
 import { ExternalLinkIcon } from '@app/ui/components/icons/external-link-icon';
+import { PlaceholderIcon } from '@app/ui/components/icons/placeholder-icon';
+import { SwapIcon } from '@app/ui/components/icons/swap-icon';
 import { Caption } from '@app/ui/components/typography/caption';
 
 import { openFeedbackDialog } from '../feedback-button/feedback-button';
 import { extractDeviceNameFromKnownTargetIds } from '../ledger/utils/generic-ledger-utils';
 // import { AdvancedMenuItems } from './components/advanced-menu-items';
 import { LedgerDeviceItemRow } from './components/ledger-item-row';
-import { SettingsMenuItem as MenuItem } from './components/settings-menu-item';
-
-// import { MenuWrapper } from './components/settings-menu-wrapper';
+import { NetworkList } from './network/network-list';
+import { ThemeList } from './theme/theme-list';
 
 export function SettingsDropdown({ triggerButton }: { triggerButton: React.ReactNode }) {
   // const ref = useRef<HTMLDivElement | null>(null);
+
   const hasGeneratedWallet = !!useCurrentStacksAccount();
   const { lockWallet } = useKeyActions();
 
@@ -50,8 +55,15 @@ export function SettingsDropdown({ triggerButton }: { triggerButton: React.React
   const linkRelativeType =
     location.pathname === `${RouteUrls.Home}${RouteUrls.Activity}` ? 'route' : 'path';
 
+  const { setIsShowingSwitchAccountsState } = useDialogs();
   // FIXME #4370 task 1 - need to fix these button links and also lock / theme in extension mode as mentioned above
   // just open dialogs with no routes
+
+  // > keep going here, good progress
+  // > get new icons added and possibly show in story book
+  // > get sub menu working for theme + network
+  // > investigate AdvancedMenuItems, even with hidden items
+  // > fix issue with sign out
 
   return (
     <DropdownMenu.Root>
@@ -64,96 +76,124 @@ export function SettingsDropdown({ triggerButton }: { triggerButton: React.React
                 <LedgerDeviceItemRow deviceType={extractDeviceNameFromKnownTargetIds(targetId)} />
               </DropdownMenu.Item>
             )}
-
-            {hasGeneratedWallet && walletType === 'software' && (
-              <DropdownMenu.Item>
-                <MenuItem
-                  data-testid={SettingsSelectors.ViewSecretKeyListItem}
-                  onClick={() => navigate(RouteUrls.ViewSecretKey)}
-                >
-                  {/* This link isn't working */}
-                  View Secret Key
-                </MenuItem>
+            {hasGeneratedWallet && (
+              <DropdownMenu.Item
+                data-testid={SettingsSelectors.SwitchAccountTrigger}
+                onClick={() => setIsShowingSwitchAccountsState(true)}
+              >
+                <Flag img={<SwapIcon />} textStyle="label.02">
+                  Switch account
+                </Flag>
               </DropdownMenu.Item>
             )}
-            <DropdownMenu.Item>
-              <MenuItem
+            {hasGeneratedWallet && walletType === 'software' && (
+              <DropdownMenu.Item
+                data-testid={SettingsSelectors.ViewSecretKeyListItem}
+                onClick={() => navigate(RouteUrls.ViewSecretKey)}
+              >
+                <Flag img={<PlaceholderIcon />} textStyle="label.02">
+                  View Secret Key
+                </Flag>
+              </DropdownMenu.Item>
+            )}
+
+            <DropdownMenu.Sub>
+              <DropdownMenu.SubTrigger
                 data-testid={SettingsSelectors.ToggleTheme}
-                onClick={() => {
-                  void analytics.track('click_change_theme_menu_item');
-                  navigate(RouteUrls.ChangeTheme, {
-                    relative: linkRelativeType,
-                    state: { backgroundLocation: location },
-                  });
-                }}
+                // onClick={() => {
+                //   void analytics.track('click_change_theme_menu_item');
+                // }}
               >
-                Change theme
-              </MenuItem>
-            </DropdownMenu.Item>
-
-            <DropdownMenu.Item>
-              <MenuItem
-                hideFrom="md" // FIXME - improve this to not load DropdownMenu.Item also
-                data-testid={SettingsSelectors.OpenWalletInNewTab}
-                onClick={() => {
-                  void analytics.track('click_open_in_new_tab_menu_item');
-                  openIndexPageInNewTab(location.pathname);
-                }}
-              >
-                <HStack>
-                  <Box>Open in new tab</Box>
+                <Flag img={<PlaceholderIcon />} textStyle="label.02">
+                  Change theme
+                </Flag>
+                <div className="RightSlot">
+                  <ChevronsRightIcon />
+                </div>
+              </DropdownMenu.SubTrigger>
+              <DropdownMenu.Portal>
+                <DropdownMenu.SubContent
+                  className="DropdownMenuSubContent"
+                  sideOffset={2}
+                  alignOffset={-5}
+                >
+                  <DropdownMenu.Label>Change theme</DropdownMenu.Label>
+                  <ThemeList />
+                </DropdownMenu.SubContent>
+              </DropdownMenu.Portal>
+            </DropdownMenu.Sub>
+            <DropdownMenu.Item
+              // hideFrom="md" // FIXME - improve this to not load DropdownMenu.Item also
+              data-testid={SettingsSelectors.OpenWalletInNewTab}
+              onClick={() => {
+                void analytics.track('click_open_in_new_tab_menu_item');
+                openIndexPageInNewTab(location.pathname);
+              }}
+            >
+              <Flag img={<PlaceholderIcon />} textStyle="label.02">
+                <Flex justifyContent="space-between">
+                  Open in new tab
                   <ExternalLinkIcon />
-                </HStack>
-              </MenuItem>
-            </DropdownMenu.Item>
-
-            <DropdownMenu.Item>
-              <MenuItem
-                data-testid={SettingsSelectors.GetSupportMenuItem}
-                onClick={() => {
-                  openInNewTab('https://leather.gitbook.io/guides/installing/contact-support');
-                }}
-              >
-                <HStack>
-                  <Box>Get support</Box>
-                  <ExternalLinkIcon />
-                </HStack>
-              </MenuItem>
-            </DropdownMenu.Item>
-            <DropdownMenu.Item>
-              {/* this isn't working */}
-              <MenuItem
-                onClick={() => {
-                  openFeedbackDialog();
-                }}
-              >
-                Give feedback
-              </MenuItem>
-            </DropdownMenu.Item>
-            {/*  check about this divider */}
-            {/* {hasGeneratedWallet ? <Divider /> : null} */}
-
-            <DropdownMenu.Item>
-              <MenuItem
-                data-testid={SettingsSelectors.ChangeNetworkAction}
-                onClick={() => {
-                  void analytics.track('click_change_network_menu_item');
-                  navigate(RouteUrls.SelectNetwork, {
-                    relative: linkRelativeType,
-                    state: { backgroundLocation: location },
-                  });
-                }}
-              >
-                <Flex width="100%" alignItems="center" justifyContent="space-between">
-                  <Box>Change network</Box>
-                  <Caption data-testid={SettingsSelectors.CurrentNetwork}>
-                    {currentNetworkId}
-                  </Caption>
                 </Flex>
-              </MenuItem>
+              </Flag>
             </DropdownMenu.Item>
-            {/* TODO - check if new menu has better provider */}
-            <Divider />
+
+            <DropdownMenu.Item
+              data-testid={SettingsSelectors.GetSupportMenuItem}
+              onClick={() => {
+                openInNewTab('https://leather.gitbook.io/guides/installing/contact-support');
+              }}
+            >
+              <Flag img={<PlaceholderIcon />} textStyle="label.02">
+                <Flex justifyContent="space-between">
+                  Get support
+                  <ExternalLinkIcon />
+                </Flex>
+              </Flag>
+            </DropdownMenu.Item>
+            <DropdownMenu.Item
+              onClick={() => {
+                openFeedbackDialog();
+              }}
+            >
+              <Flag img={<PlaceholderIcon />} textStyle="label.02">
+                Give feedback
+              </Flag>
+            </DropdownMenu.Item>
+            {hasGeneratedWallet ? <DropdownMenu.Separator /> : null}
+
+            <DropdownMenu.Sub>
+              <DropdownMenu.SubTrigger
+                data-testid={SettingsSelectors.ChangeNetworkAction}
+                // onClick={() => {
+                //   void analytics.track('click_change_network_menu_item');
+                // }}
+              >
+                {/* // use item instead of flag here */}
+                <Flag img={<PlaceholderIcon />} textStyle="label.02">
+                  <Flex width="100%" alignItems="center" justifyContent="space-between">
+                    <Box>Change network</Box>
+                    <Caption data-testid={SettingsSelectors.CurrentNetwork}>
+                      {currentNetworkId}
+                    </Caption>
+                  </Flex>
+                </Flag>
+                <div>
+                  <ChevronsRightIcon />
+                </div>
+              </DropdownMenu.SubTrigger>
+              <DropdownMenu.Portal>
+                <DropdownMenu.SubContent
+                  className="DropdownMenuSubContent"
+                  sideOffset={2}
+                  alignOffset={-5}
+                >
+                  <DropdownMenu.Label>Change network</DropdownMenu.Label>
+                  <NetworkList />
+                </DropdownMenu.SubContent>
+              </DropdownMenu.Portal>
+            </DropdownMenu.Sub>
+            <DropdownMenu.Separator />
 
             {/* TODO - refactor this section */}
             {/* {showAdvancedMenuOptions && (
@@ -163,144 +203,37 @@ export function SettingsDropdown({ triggerButton }: { triggerButton: React.React
               />
             )} */}
             {hasGeneratedWallet && walletType === 'software' && (
-              <DropdownMenu.Item>
-                <MenuItem
-                  onClick={() => {
-                    void analytics.track('lock_session');
-                    void lockWallet();
-                    navigate(RouteUrls.Unlock);
-                  }}
-                  data-testid="settings-lock"
-                >
+              <DropdownMenu.Item
+                onClick={() => {
+                  void analytics.track('lock_session');
+                  void lockWallet();
+                  navigate(RouteUrls.Unlock);
+                }}
+                data-testid={SettingsSelectors.LockListItem}
+              >
+                <Flag img={<PlaceholderIcon />} textStyle="label.02">
                   Lock
-                </MenuItem>
+                </Flag>
               </DropdownMenu.Item>
             )}
 
-            <DropdownMenu.Item>
-              <MenuItem
-                color="error.label"
-                onClick={() =>
-                  navigate(RouteUrls.SignOutConfirm, {
-                    relative: linkRelativeType,
-                    state: { backgroundLocation: location },
-                  })
-                }
-                data-testid={SettingsSelectors.SignOutListItem}
-              >
+            <DropdownMenu.Item
+              color="error.label"
+              onClick={() =>
+                navigate(RouteUrls.SignOutConfirm, {
+                  relative: linkRelativeType,
+                  state: { backgroundLocation: location },
+                })
+              }
+              data-testid={SettingsSelectors.SignOutListItem}
+            >
+              <Flag img={<PlaceholderIcon />} textStyle="label.02">
                 Sign out
-              </MenuItem>
+              </Flag>
             </DropdownMenu.Item>
           </DropdownMenu.Group>
         </DropdownMenu.Content>
       </DropdownMenu.Portal>
     </DropdownMenu.Root>
   );
-
-  // return (
-  //   <MenuWrapper isShowing={isShowingSettings} ref={ref}>
-  //     {/* {isLedger && targetId && (
-  //       <LedgerDeviceItemRow deviceType={extractDeviceNameFromKnownTargetIds(targetId)} />
-  //     )} */}
-  //     {hasGeneratedWallet && walletType === 'software' && (
-  //       <>
-  //         <MenuItem
-  //           data-testid={SettingsSelectors.ViewSecretKeyListItem}
-  //           onClick={wrappedCloseCallback(() => {
-  //             navigate(RouteUrls.ViewSecretKey);
-  //           })}
-  //         >
-  //           View Secret Key
-  //         </MenuItem>
-  //       </>
-  //     )}
-  //     <MenuItem
-  //       data-testid={SettingsSelectors.ToggleTheme}
-  //       onClick={wrappedCloseCallback(() => {
-  //         void analytics.track('click_change_theme_menu_item');
-  //         navigate(RouteUrls.ChangeTheme, {
-  //           relative: linkRelativeType,
-  //           state: { backgroundLocation: location },
-  //         });
-  //       })}
-  //     >
-  //       Change theme
-  //     </MenuItem>
-  //     {whenPageMode({
-  //       full: null,
-  //       popup: (
-  //         <MenuItem
-  //           data-testid={SettingsSelectors.OpenWalletInNewTab}
-  //           onClick={() => {
-  //             void analytics.track('click_open_in_new_tab_menu_item');
-  //             openIndexPageInNewTab(location.pathname);
-  //           }}
-  //         >
-  //           <HStack>
-  //             <Box>Open in new tab</Box>
-  //             <ExternalLinkIcon />
-  //           </HStack>
-  //         </MenuItem>
-  //       ),
-  //     })}
-  //     <MenuItem
-  //       data-testid={SettingsSelectors.GetSupportMenuItem}
-  //       onClick={wrappedCloseCallback(() => {
-  //         openInNewTab('https://leather.gitbook.io/guides/installing/contact-support');
-  //       })}
-  //     >
-  //       <HStack>
-  //         <Box>Get support</Box>
-  //         <ExternalLinkIcon />
-  //       </HStack>
-  //     </MenuItem>
-  //     <MenuItem onClick={wrappedCloseCallback(() => openFeedbackDialog())}>Give feedback</MenuItem>
-  //     {hasGeneratedWallet ? <Divider /> : null}
-  //     <MenuItem
-  //       data-testid={SettingsSelectors.ChangeNetworkAction}
-  //       onClick={wrappedCloseCallback(() => {
-  //         void analytics.track('click_change_network_menu_item');
-  //         navigate(RouteUrls.SelectNetwork, {
-  //           relative: linkRelativeType,
-  //           state: { backgroundLocation: location },
-  //         });
-  //       })}
-  //     >
-  //       <Flex width="100%" alignItems="center" justifyContent="space-between">
-  //         <Box>Change network</Box>
-  //         <Caption data-testid={SettingsSelectors.CurrentNetwork}>{currentNetworkId}</Caption>
-  //       </Flex>
-  //     </MenuItem>
-
-  //     <Divider />
-
-  //     {showAdvancedMenuOptions && (
-  //       <AdvancedMenuItems closeHandler={wrappedCloseCallback} settingsShown={isShowingSettings} />
-  //     )}
-  //     {hasGeneratedWallet && walletType === 'software' && (
-  //       <MenuItem
-  //         onClick={wrappedCloseCallback(() => {
-  //           void analytics.track('lock_session');
-  //           void lockWallet();
-  //           navigate(RouteUrls.Unlock);
-  //         })}
-  //         data-testid="settings-lock"
-  //       >
-  //         Lock
-  //       </MenuItem>
-  //     )}
-  //     <MenuItem
-  //       color="error.label"
-  //       onClick={wrappedCloseCallback(() =>
-  //         navigate(RouteUrls.SignOutConfirm, {
-  //           relative: linkRelativeType,
-  //           state: { backgroundLocation: location },
-  //         })
-  //       )}
-  //       data-testid={SettingsSelectors.SignOutListItem}
-  //     >
-  //       Sign out
-  //     </MenuItem>
-  //   </MenuWrapper>
-  // );
 }

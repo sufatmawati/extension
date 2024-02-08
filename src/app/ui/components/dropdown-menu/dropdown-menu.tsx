@@ -88,6 +88,16 @@ const Separator: typeof RadixDropdownMenu.Separator = forwardRef((props, ref) =>
   <RadixDropdownMenu.Separator className={dropdownMenuSeparatorStyles} ref={ref} {...props} />
 ));
 
+const Sub = RadixDropdownMenu.Sub;
+
+const SubTrigger: typeof RadixDropdownMenu.SubTrigger = forwardRef((props, ref) => (
+  <RadixDropdownMenu.SubTrigger className={dropdownTriggerStyles} ref={ref} {...props} />
+));
+
+const SubContent: typeof RadixDropdownMenu.SubContent = forwardRef((props, ref) => (
+  <RadixDropdownMenu.SubContent ref={ref} {...props} />
+));
+
 export const DropdownMenu = {
   Root,
   Trigger,
@@ -97,4 +107,7 @@ export const DropdownMenu = {
   Label,
   Item,
   Separator,
+  Sub,
+  SubTrigger,
+  SubContent,
 };

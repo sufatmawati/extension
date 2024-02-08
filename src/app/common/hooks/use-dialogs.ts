@@ -5,6 +5,7 @@ import {
 } from '@app/store/ui/ui.hooks';
 
 export function useDialogs() {
+  //  TODO try and refactor out this isShowingAccounts logic
   const [isShowingAccounts, setIsShowingSwitchAccountsState] = useShowSwitchAccountsState();
   const [isShowingHighFeeConfirmation, setIsShowingHighFeeConfirmation] =
     useShowHighFeeConfirmationState();

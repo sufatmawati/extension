@@ -59,15 +59,21 @@ export function Container() {
     return (
       pathname === RouteUrls.BackUpSecretKey ||
       pathname === RouteUrls.SetPassword ||
-      pathname === RouteUrls.SignIn
+      pathname === RouteUrls.SignIn ||
+      pathname === RouteUrls.ViewSecretKey
     );
   };
 
   const isPasswordPage = () => {
     return pathname === RouteUrls.Unlock || pathname === RouteUrls.ViewSecretKey;
+    // maybe add a <Header /> inside the two column routes?
+    // thats messeir. headers should be here
+    //ViewSecretKey is wrong but needs to be on another request password page
+    // view-secret-key page only shows header logo IF show password true, uses the same route :D
   };
 
   // TODO 4370 test RouteUrls.Unlock as not sure what header there, page I guess
+  // PETe - need to show Settings menu on unlock screen
   const getVariant = () => {
     if (isHomePage()) return 'home';
     if (isOnboardingPage()) return 'onboarding';
@@ -75,7 +81,8 @@ export function Container() {
   };
 
   const variant = getVariant();
-
+  // console.log('variant', variant);
+  // ? messing with headers for 2 columns. just sort the ui , headers later
   useEffect(() => {
     // set the whole body colour based on page variant so it can update dynamically
     if (variant === 'home') {
@@ -87,11 +94,20 @@ export function Container() {
   }, [variant]);
 
   const isGetAddressesPopup = pathname === RouteUrls.RpcGetAddresses;
+  const isSessionLocked = pathname === RouteUrls.Unlock;
 
-  const displayHeader = !isLandingPage() && !isGetAddressesPopup && !isPasswordPage();
+  const hideLogo = () => {
+    return pathname === RouteUrls.RpcGetAddresses || pathname === RouteUrls.Unlock;
+  };
+
+  const displayHeader = !isLandingPage() && !isGetAddressesPopup;
+  // Settings menu needs to show here if session locked
+  // just show the F-ing header here to keep it simple
+  //  && !isPasswordPage(); // && !isSessionLocked;
 
   // FIXME - this isn't working, only showing BACK!
   const pageOnClose = getOnClose(pathname as RouteUrls);
+
   // console.log('getOnClose', pageOnClose);
 
   if (!hasStateRehydrated) return <LoadingSpinner />;
@@ -105,16 +121,18 @@ export function Container() {
           displayHeader ? (
             <Header
               variant={variant}
+              // on /fund/:currency goBack doesn't make sense as it re-opens popup.
+              // Need to test everywhere and add custom logic
               onGoBack={
-                pageOnClose || isKnownPopup(pathname as RouteUrls) ? undefined : () => navigate(-1)
+                isSessionLocked || pageOnClose || isKnownPopup(pathname as RouteUrls)
+                  ? undefined
+                  : () => navigate(-1)
               }
               onClose={
                 pageOnClose
                   ? () => navigate(RouteUrls.Fund ? RouteUrls.FundChooseCurrency : RouteUrls.Home)
                   : undefined
               }
-              // PETE could this instead be a slot accepting menu or total balance?
-              // sue that to hide menu for some popups
               settingsMenu={
                 // disabling settings for all popups for now pending clarification
                 // variant !== 'popup' && <SettingsDropdown triggerButton={<HamburgerIcon />} />
@@ -130,14 +148,17 @@ export function Container() {
                 />
               }
               title={getTitleFromUrl(pathname as RouteUrls)}
-              // PETE - maybe pass logo here, or account or undefined?
               logo={
-                pathname !== RouteUrls.RpcGetAddresses ? (
+                !hideLogo() ? (
                   <Logo
                     data-testid={OnboardingSelectors.LogoRouteToHome}
                     onClick={variant !== 'home' ? () => navigate(RouteUrls.Home) : undefined}
                   />
-                ) : undefined
+                ) : (
+                  // <>Pete this hides the logo but moves the menu to the left! </>
+                  // fix this hack
+                  <div width="102px" height="32px"></div>
+                )
               }
               account={
                 showAccountInfo(pathname as RouteUrls) && (

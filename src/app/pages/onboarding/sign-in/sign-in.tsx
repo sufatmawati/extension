@@ -20,13 +20,13 @@ export function SignIn() {
   return (
     <>
       <TwoColumnLayout
-        leftColumn={
+        left={
           <SignInContent
             onClick={() => setTwentyFourWordMode(!twentyFourWordMode)}
             twentyFourWordMode={twentyFourWordMode}
           />
         }
-        rightColumn={
+        right={
           <MnemonicForm
             mnemonic={mnemonic}
             setMnemonic={setMnemonic}

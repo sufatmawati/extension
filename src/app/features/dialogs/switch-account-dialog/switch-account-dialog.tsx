@@ -40,6 +40,8 @@ export const SwitchAccountDialog = memo(() => {
   // FIXME - this shouldn't be rendered until necessary
   if (!isShowing) return null;
 
+  // FIXME #4370 this fucking thing keeps getting broken allthe time. fix the other issues then come back here
+
   return (
     <Dialog
       title="Select account"

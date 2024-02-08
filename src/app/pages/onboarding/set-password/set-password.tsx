@@ -122,8 +122,8 @@ function SetPasswordPage() {
         <Form>
           {/* FIXME 4370 task #3 revisit and test this screen with set-password */}
           <TwoColumnLayout
-            leftColumn={
-              <styled.div width="350px">
+            left={
+              <>
                 <styled.h1 textStyle="heading.03" mt="space.00" mb="space.04">
                   Set a <br />
                   password
@@ -132,9 +132,9 @@ function SetPasswordPage() {
                   Your password protects your Secret Key on this device only. To access your wallet
                   on another device, you'll need just your Secret Key.
                 </styled.p>
-              </styled.div>
+              </>
             }
-            rightColumn={
+            right={
               <>
                 <styled.h2
                   textStyle="heading.03"

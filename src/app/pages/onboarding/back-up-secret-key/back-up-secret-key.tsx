@@ -21,8 +21,8 @@ export const BackUpSecretKeyPage = memo(() => {
 
   return (
     <TwoColumnLayout
-      leftColumn={<BackUpSecretKeyContent />}
-      rightColumn={<SecretKeyDisplayer secretKey={secretKey} />}
+      left={<BackUpSecretKeyContent />}
+      right={<SecretKeyDisplayer secretKey={secretKey} />}
     />
   );
 });

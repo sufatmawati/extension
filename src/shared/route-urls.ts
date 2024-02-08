@@ -52,9 +52,9 @@ export enum RouteUrls {
   BitcoinContractList = '/bitcoin-contract-list',
 
   // Modal routes
-  ChangeTheme = 'change-theme',
+  // ChangeTheme = 'change-theme',
   EditNonce = 'edit-nonce',
-  SelectNetwork = 'choose-network',
+  // SelectNetwork = 'choose-network',
   SignOutConfirm = 'sign-out',
   RetrieveTaprootFunds = 'retrieve-taproot-funds',
 

@@ -32,6 +32,7 @@ export function AccountInfoCard() {
       <Link
         _before={{ bg: 'transparent' }}
         _hover={{ color: 'accent.action-primary-hover' }}
+        data-testid={SettingsSelectors.SwitchAccountTrigger}
         onClick={() => setIsShowingSwitchAccountsState(true)}
       >
         <Flex>

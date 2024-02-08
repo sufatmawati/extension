@@ -9,6 +9,7 @@ import { TwoColumnLayout } from '@app/ui/components/layout/page/two-column.layou
 
 import { ViewSecretKeyContent } from './components/view-secret-key.content';
 
+// PETe - probably better to refactor this to not mess up heacer?
 export function ViewSecretKey() {
   const analytics = useAnalytics();
   const defaultWalletSecretKey = useDefaultWalletSecretKey();
@@ -21,8 +22,8 @@ export function ViewSecretKey() {
   if (showSecretKey) {
     return (
       <TwoColumnLayout
-        leftColumn={<ViewSecretKeyContent />}
-        rightColumn={<SecretKeyDisplayer secretKey={defaultWalletSecretKey ?? ''} />}
+        left={<ViewSecretKeyContent />}
+        right={<SecretKeyDisplayer secretKey={defaultWalletSecretKey ?? ''} />}
       />
     );
   }

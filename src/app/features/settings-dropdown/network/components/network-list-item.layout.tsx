@@ -5,9 +5,9 @@ import { NetworkConfiguration } from '@shared/constants';
 
 import { getUrlHostname } from '@app/common/utils';
 import { Button } from '@app/ui/components/button/button';
+import { CheckmarkIcon } from '@app/ui/components/icons/checkmark-icon';
+import { CloudOffIcon } from '@app/ui/components/icons/cloud-off-icon';
 import { TrashIcon } from '@app/ui/components/icons/trash-icon';
-
-import { NetworkStatusIndicator } from './network-status-indicator';
 
 interface NetworkListItemLayoutProps {
   networkId: string;
@@ -56,7 +56,7 @@ export function NetworkListItemLayout({
               {getUrlHostname(network.chain.stacks.url)}
             </styled.span>
           </Stack>
-          <NetworkStatusIndicator isActive={isActive} isOnline={isOnline} />
+          {!isOnline ? <CloudOffIcon /> : isActive ? <CheckmarkIcon /> : null}
         </Flex>
         {isCustom && (
           <Button

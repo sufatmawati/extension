@@ -12,11 +12,12 @@ export function getOnClose(pathname: RouteUrls) {
     case RouteUrls.SentBrc20Summary:
     case RouteUrls.SendBrc20Confirmation:
     case '/send/btc/confirm':
-    case RouteUrls.ViewSecretKey:
     // return navigate(RouteUrls.Home);
     case RouteUrls.Fund:
       // return navigate(RouteUrls.FundChooseCurrency);
       return true;
+    case RouteUrls.Unlock:
+      return false;
     default:
       return undefined;
   }
