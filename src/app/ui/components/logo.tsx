@@ -11,12 +11,9 @@ export function Logo({ onClick }: LogoProps) {
       _hover={onClick && { color: 'accent.action-primary-hover' }}
       color="accent.text-primary"
       cursor={onClick ? 'pointer' : 'unset'}
-      height="32px"
       onClick={onClick ? onClick : undefined}
-      width="76px"
-      mx="space.02"
     >
-      <LeatherIcon />
+      <LeatherIcon width="102px" height="32px" />
     </styled.button>
   );
 }
