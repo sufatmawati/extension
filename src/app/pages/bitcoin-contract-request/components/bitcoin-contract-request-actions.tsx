@@ -23,26 +23,24 @@ export function BitcoinContractRequestActions({
   const canAccept = btcAvailableAssetBalance.balance.amount.isGreaterThan(requiredAmount);
 
   return (
-    <Footer>
-      <HStack gap="space.04">
-        <Button
-          data-testid={BitcoinContractRequestSelectors.BitcoinContractRejectButton}
-          flexGrow={1}
-          onClick={onRejectBitcoinContractOffer}
-          variant="outline"
-        >
-          Reject
-        </Button>
-        <Button
-          aria-busy={isLoading}
-          data-testid={BitcoinContractRequestSelectors.BitcoinContractAcceptButton}
-          flexGrow={1}
-          disabled={!canAccept}
-          onClick={onAcceptBitcoinContractOffer}
-        >
-          Accept
-        </Button>
-      </HStack>
+    <Footer flexDirection="row">
+      <Button
+        data-testid={BitcoinContractRequestSelectors.BitcoinContractRejectButton}
+        flexGrow={1}
+        onClick={onRejectBitcoinContractOffer}
+        variant="outline"
+      >
+        Reject
+      </Button>
+      <Button
+        aria-busy={isLoading}
+        data-testid={BitcoinContractRequestSelectors.BitcoinContractAcceptButton}
+        flexGrow={1}
+        disabled={!canAccept}
+        onClick={onAcceptBitcoinContractOffer}
+      >
+        Accept
+      </Button>
     </Footer>
   );
 }

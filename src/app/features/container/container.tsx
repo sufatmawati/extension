@@ -17,16 +17,16 @@ import { useOnSignOut } from '@app/routes/hooks/use-on-sign-out';
 import { useOnWalletLock } from '@app/routes/hooks/use-on-wallet-lock';
 import { useHasStateRehydrated } from '@app/store';
 import { useCurrentNetworkState } from '@app/store/networks/networks.hooks';
+import { ContainerLayout } from '@app/ui/components/containers/container.layout';
 import { NetworkModeBadge } from '@app/ui/components/containers/headers/components/network-mode-badge';
 import { Header } from '@app/ui/components/containers/headers/header';
 import { Flag } from '@app/ui/components/flag/flag';
 import { HamburgerIcon } from '@app/ui/components/icons/hamburger-icon';
 import { Logo } from '@app/ui/components/logo';
 
-import { ContainerLayout } from '../../ui/components/containers/container.layout';
 import { SwitchAccountDialog } from '../dialogs/switch-account-dialog/switch-account-dialog';
 import { useRestoreFormState } from '../popup-send-form-restoration/use-restore-form-state';
-import { SettingsDropdown } from '../settings-dropdown/settings-dropdown';
+import { Settings } from '../settings/settings';
 import { getOnClose } from './get-on-close';
 import { getDisplayAddresssBalanceOf, isKnownPopup, showAccountInfo } from './get-popup-header';
 import { getTitleFromUrl } from './get-title-from-url';
@@ -106,6 +106,8 @@ export function Container() {
   //  && !isPasswordPage(); // && !isSessionLocked;
 
   // FIXME - this isn't working, only showing BACK!
+  // > onClose is now depreacted so get rid of this code
+  // > fix hacky code around showing logo or not - get rid of placeholder etc
   const pageOnClose = getOnClose(pathname as RouteUrls);
 
   // console.log('getOnClose', pageOnClose);
@@ -135,10 +137,10 @@ export function Container() {
               }
               settingsMenu={
                 // disabling settings for all popups for now pending clarification
-                // variant !== 'popup' && <SettingsDropdown triggerButton={<HamburgerIcon />} />
+                // variant !== 'popup' && <Settings triggerButton={<HamburgerIcon />} />
                 // this logic was not working
                 isKnownPopup(pathname as RouteUrls) ? null : (
-                  <SettingsDropdown triggerButton={<HamburgerIcon />} />
+                  <Settings triggerButton={<HamburgerIcon />} />
                 )
               }
               networkBadge={

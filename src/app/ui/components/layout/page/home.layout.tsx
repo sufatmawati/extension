@@ -3,9 +3,8 @@ import React from 'react';
 import { HomePageSelectors } from '@tests/selectors/home.selectors';
 import { Stack } from 'leather-styles/jsx';
 
-import { FULLPAGE_MAX_WIDTH } from '@shared/constants';
-
 import { AccountInfoCard } from '@app/pages/home/components/account-info-card';
+import { FULLPAGE_MAX_WIDTH } from '@app/ui/constants';
 
 type HomeLayoutProps = Record<'currentAccount' | 'children', React.ReactNode>;
 export function HomeLayout({ children }: HomeLayoutProps) {

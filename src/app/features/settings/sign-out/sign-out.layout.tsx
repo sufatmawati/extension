@@ -34,31 +34,29 @@ export function SignOutLayout({ isShowing, onUserDeleteWallet, onClose }: SignOu
       isShowing={isShowing}
       onClose={onClose}
       footer={
-        <Footer>
-          <Flex flexDirection="row" gap="space.04">
-            <Button
-              color="gray"
-              data-testid={SettingsSelectors.BtnSignOutReturnToHomeScreen}
-              flexGrow={1}
-              variant="outline"
-              onClick={() => onClose()}
-            >
-              Cancel
-            </Button>
-            <Button
-              _hover={{ opacity: 0.8 }}
-              background="error.label"
-              color="lightModeBrown.1"
-              opacity={!canSignOut ? 0.8 : undefined}
-              data-testid={SettingsSelectors.BtnSignOutActuallyDeleteWallet}
-              flexGrow={1}
-              disabled={!canSignOut}
-              onClick={() => canSignOut && onUserDeleteWallet()}
-              type="submit"
-            >
-              Sign out
-            </Button>
-          </Flex>
+        <Footer flexDirection="row">
+          <Button
+            color="gray"
+            data-testid={SettingsSelectors.BtnSignOutReturnToHomeScreen}
+            flexGrow={1}
+            variant="outline"
+            onClick={() => onClose()}
+          >
+            Cancel
+          </Button>
+          <Button
+            _hover={{ opacity: 0.8 }}
+            background="error.label"
+            color="lightModeBrown.1"
+            opacity={!canSignOut ? 0.8 : undefined}
+            data-testid={SettingsSelectors.BtnSignOutActuallyDeleteWallet}
+            flexGrow={1}
+            disabled={!canSignOut}
+            onClick={() => canSignOut && onUserDeleteWallet()}
+            type="submit"
+          >
+            Sign out
+          </Button>
         </Footer>
       }
     >

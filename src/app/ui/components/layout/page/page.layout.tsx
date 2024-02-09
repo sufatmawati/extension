@@ -4,6 +4,7 @@ import { Box } from 'leather-styles/jsx';
 
 import { Header } from '@app/ui/components/containers/headers/header';
 import { Logo } from '@app/ui/components/logo';
+import { PAGE_WIDTH } from '@app/ui/constants';
 
 // > read this - https://storybook.js.org/docs/writing-stories/build-pages-with-storybook
 
@@ -25,7 +26,7 @@ export function Page({ children }: PageProps) {
     <Box
       backgroundColor="accent.background-primary"
       borderRadius="xs"
-      width="500px"
+      width={`${PAGE_WIDTH}px`}
       height={{ base: '100vh', md: 'auto' }}
       minHeight="435px"
     >

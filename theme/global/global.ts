@@ -1,6 +1,6 @@
 import { defineGlobalStyles } from '@pandacss/dev';
 
-import { POPUP_HEIGHT, POPUP_WIDTH } from '@shared/constants';
+import { POPUP_HEIGHT, POPUP_WIDTH } from '@app/ui/constants';
 
 // 4370 TODO audit the use of this file as we are pretty close to not needing it
 // - could set some styles in the <Container where radix.css also loaded

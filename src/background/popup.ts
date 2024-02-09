@@ -1,4 +1,4 @@
-import { POPUP_HEIGHT, POPUP_WIDTH } from '@shared/constants';
+import { POPUP_HEIGHT, POPUP_WIDTH } from '@app/ui/constants';
 
 interface PopupOptions {
   url?: string;

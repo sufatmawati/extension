@@ -1,6 +1,6 @@
 import { Flex, Stack } from 'leather-styles/jsx';
 
-import { FULLPAGE_MAX_WIDTH } from '@shared/constants';
+import { FULLPAGE_MAX_WIDTH } from '@app/ui/constants';
 
 interface TwoColumnLayoutProps {
   left: React.JSX.Element;

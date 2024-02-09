@@ -50,8 +50,6 @@ export function RequestPassword({ onSuccess }: RequestPasswordProps) {
   }, [analytics, startWaitingMessage, stopWaitingMessage, unlockWallet, password, onSuccess]);
 
   return (
-    // this page has no header so needs a top margin on md
-    // TODO make header height const
     <Page>
       <Card
         title="Enter your password"
