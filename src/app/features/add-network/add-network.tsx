@@ -13,7 +13,6 @@ import { RouteUrls } from '@shared/route-urls';
 import { isValidUrl } from '@shared/utils/validate-url';
 
 import { removeTrailingSlash } from '@app/common/url-join';
-import { CenteredPageContainer } from '@app/components/centered-page-container';
 import { ErrorLabel } from '@app/components/error-label';
 import {
   useCurrentStacksNetworkState,
@@ -21,6 +20,7 @@ import {
 } from '@app/store/networks/networks.hooks';
 import { Button } from '@app/ui/components/button/button';
 import { Input } from '@app/ui/components/input/input';
+import { Page } from '@app/ui/components/layout/page/page.layout';
 import { Title } from '@app/ui/components/typography/title';
 
 /**
@@ -101,7 +101,7 @@ export function AddNetwork() {
   }, [bitcoinApi, setStacksUrl, setBitcoinUrl]);
 
   return (
-    <CenteredPageContainer>
+    <Page>
       <Formik
         initialValues={addNetworkFormValues}
         onSubmit={async () => {
@@ -205,6 +205,7 @@ export function AddNetwork() {
               maxWidth="centeredPageFullWidth"
               px={['space.05', 'space.04']}
               textAlign={['left', 'center']}
+              marginBottom="space.05"
             >
               <styled.span textStyle="body.02">
                 Use this form to add a new instance of the{' '}
@@ -313,6 +314,6 @@ export function AddNetwork() {
           </form>
         )}
       </Formik>
-    </CenteredPageContainer>
+    </Page>
   );
 }
