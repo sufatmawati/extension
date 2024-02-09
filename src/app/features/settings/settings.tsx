@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { SettingsSelectors } from '@tests/selectors/settings.selectors';
-import { Box, Flex } from 'leather-styles/jsx';
+import { Flex, styled } from 'leather-styles/jsx';
 
 import { RouteUrls } from '@shared/route-urls';
 
@@ -30,8 +30,9 @@ import { LedgerDeviceItemRow } from './components/ledger-item-row';
 import { NetworkList } from './network/network-list';
 import { ThemeList } from './theme/theme-list';
 
+//  TODO 4370 task #2  - Fix AdvancedMenuItems and sub-menu hover interaction
+// on the radix site it says latest version is 2.0.5 but we have 2.0.6?
 export function Settings({ triggerButton }: { triggerButton: React.ReactNode }) {
-  // const ref = useRef<HTMLDivElement | null>(null);
   const [showSignOut, setShowSignOut] = useState(false);
   const hasGeneratedWallet = !!useCurrentStacksAccount();
   const { lockWallet } = useKeyActions();
@@ -46,13 +47,6 @@ export function Settings({ triggerButton }: { triggerButton: React.ReactNode }) 
 
   const isLedger = useHasLedgerKeys();
   const { setIsShowingSwitchAccountsState } = useDialogs();
-  // FIXME #4370 task 1 - need to fix these button links and also lock / theme in extension mode as mentioned above
-  // just open dialogs with no routes
-  // >
-
-  // > keep going here, good progress
-  // > investigate AdvancedMenuItems, even with hidden items
-  // > fix issue with sign out
 
   return (
     <>
@@ -94,20 +88,20 @@ export function Settings({ triggerButton }: { triggerButton: React.ReactNode }) 
                   //   void analytics.track('click_change_theme_menu_item');
                   // }}
                 >
-                  <Flag img={<PlaceholderIcon />} textStyle="label.02">
-                    Change theme
-                  </Flag>
-                  <div className="RightSlot">
-                    <ChevronsRightIcon />
-                  </div>
+                  <DropdownMenu.Item>
+                    <Flag img={<PlaceholderIcon />}>
+                      <Flex justifyContent="space-between">
+                        <styled.span textStyle="label.02">Change theme</styled.span>
+                        <ChevronsRightIcon />
+                      </Flex>
+                    </Flag>
+                  </DropdownMenu.Item>
                 </DropdownMenu.SubTrigger>
                 <DropdownMenu.Portal>
-                  <DropdownMenu.SubContent
-                    className="DropdownMenuSubContent"
-                    sideOffset={2}
-                    alignOffset={-5}
-                  >
-                    <DropdownMenu.Label>Change theme</DropdownMenu.Label>
+                  <DropdownMenu.SubContent>
+                    <DropdownMenu.Item>
+                      <DropdownMenu.Label>Change theme</DropdownMenu.Label>
+                    </DropdownMenu.Item>
                     <ThemeList />
                   </DropdownMenu.SubContent>
                 </DropdownMenu.Portal>
@@ -159,26 +153,23 @@ export function Settings({ triggerButton }: { triggerButton: React.ReactNode }) 
                   //   void analytics.track('click_change_network_menu_item');
                   // }}
                 >
-                  {/* // use item instead of flag here */}
-                  <Flag img={<PlaceholderIcon />} textStyle="label.02">
-                    <Flex width="100%" alignItems="center" justifyContent="space-between">
-                      <Box>Change network</Box>
-                      <Caption data-testid={SettingsSelectors.CurrentNetwork}>
-                        {currentNetworkId}
-                      </Caption>
-                    </Flex>
-                  </Flag>
-                  <div>
-                    <ChevronsRightIcon />
-                  </div>
+                  <DropdownMenu.Item>
+                    <Flag img={<PlaceholderIcon />}>
+                      <Flex justifyContent="space-between">
+                        <styled.span textStyle="label.02">Change network</styled.span>
+                        <Caption data-testid={SettingsSelectors.CurrentNetwork}>
+                          {currentNetworkId}
+                        </Caption>
+                        <ChevronsRightIcon />
+                      </Flex>
+                    </Flag>
+                  </DropdownMenu.Item>
                 </DropdownMenu.SubTrigger>
                 <DropdownMenu.Portal>
-                  <DropdownMenu.SubContent
-                    className="DropdownMenuSubContent"
-                    sideOffset={2}
-                    alignOffset={-5}
-                  >
-                    <DropdownMenu.Label>Change network</DropdownMenu.Label>
+                  <DropdownMenu.SubContent>
+                    <DropdownMenu.Item>
+                      <DropdownMenu.Label>Change network</DropdownMenu.Label>
+                    </DropdownMenu.Item>
                     <NetworkList />
                   </DropdownMenu.SubContent>
                 </DropdownMenu.Portal>
@@ -187,11 +178,11 @@ export function Settings({ triggerButton }: { triggerButton: React.ReactNode }) 
 
               {/* TODO - refactor this section */}
               {/* {showAdvancedMenuOptions && (
-              <AdvancedMenuItems
-                closeHandler={wrappedCloseCallback}
-                settingsShown={isShowingSettings}
-              />
-            )} */}
+                <AdvancedMenuItems
+                  closeHandler={wrappedCloseCallback}
+                  settingsShown={isShowingSettings}
+                />
+              )} */}
               {hasGeneratedWallet && walletType === 'software' && (
                 <DropdownMenu.Item
                   onClick={() => {

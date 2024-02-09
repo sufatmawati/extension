@@ -14,8 +14,6 @@ export interface DropdownMenuItem {
 const Root = RadixDropdownMenu.Root;
 
 const dropdownTriggerStyles = css({
-  // TODO 4370 check this is OK with FARA - better to not set so the page BG dictates it
-  // bg: 'accent.background-primary',
   borderRadius: 'xs',
   fontWeight: 500,
   maxWidth: 'fit-content',
@@ -28,6 +26,7 @@ const dropdownTriggerStyles = css({
     bg: 'accent.component-background-pressed',
   },
 });
+
 const Trigger: typeof RadixDropdownMenu.Trigger = forwardRef((props, ref) => (
   <RadixDropdownMenu.Trigger className={dropdownTriggerStyles} ref={ref} {...props} />
 ));
@@ -43,7 +42,7 @@ const dropdownContentStyles = css({
   borderRadius: 'xs',
   boxShadow:
     '0px 12px 24px 0px rgba(18, 16, 15, 0.08), 0px 4px 8px 0px rgba(18, 16, 15, 0.08), 0px 0px 2px 0px rgba(18, 16, 15, 0.08)',
-  minWidth: '256px',
+  minWidth: '350px',
   p: 'space.02',
   willChange: 'transform, opacity',
   zIndex: 999,
@@ -91,11 +90,11 @@ const Separator: typeof RadixDropdownMenu.Separator = forwardRef((props, ref) =>
 const Sub = RadixDropdownMenu.Sub;
 
 const SubTrigger: typeof RadixDropdownMenu.SubTrigger = forwardRef((props, ref) => (
-  <RadixDropdownMenu.SubTrigger className={dropdownTriggerStyles} ref={ref} {...props} />
+  <RadixDropdownMenu.SubTrigger ref={ref} {...props} />
 ));
 
 const SubContent: typeof RadixDropdownMenu.SubContent = forwardRef((props, ref) => (
-  <RadixDropdownMenu.SubContent ref={ref} {...props} />
+  <RadixDropdownMenu.SubContent className={dropdownContentStyles} ref={ref} {...props} />
 ));
 
 export const DropdownMenu = {

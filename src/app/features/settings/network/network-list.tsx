@@ -11,6 +11,7 @@ import { useBackgroundLocationRedirect } from '@app/routes/hooks/use-background-
 import { useCurrentNetworkState, useNetworksActions } from '@app/store/networks/networks.hooks';
 import { useNetworks } from '@app/store/networks/networks.selectors';
 import { Button } from '@app/ui/components/button/button';
+import { DropdownMenu } from '@app/ui/components/dropdown-menu/dropdown-menu';
 
 const defaultNetworkIds = Object.values(WalletDefaultNetworkConfigurationIds) as string[];
 
@@ -51,11 +52,12 @@ export function NetworkList() {
           }}
         />
       ))}
-      {/* <NetworkListItem> */}
-      <Button data-testid={SettingsSelectors.BtnAddNetwork} fullWidth onClick={addNetwork}>
-        Add a network
-      </Button>
-      {/* </NetworkListItem> */}
+
+      <DropdownMenu.Item>
+        <Button data-testid={SettingsSelectors.BtnAddNetwork} fullWidth onClick={addNetwork}>
+          Add a network
+        </Button>
+      </DropdownMenu.Item>
     </>
   );
 }

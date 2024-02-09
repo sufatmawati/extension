@@ -5,6 +5,7 @@ import { NetworkConfiguration } from '@shared/constants';
 
 import { getUrlHostname } from '@app/common/utils';
 import { Button } from '@app/ui/components/button/button';
+import { DropdownMenu } from '@app/ui/components/dropdown-menu/dropdown-menu';
 import { CheckmarkIcon } from '@app/ui/components/icons/checkmark-icon';
 import { CloudOffIcon } from '@app/ui/components/icons/cloud-off-icon';
 import { TrashIcon } from '@app/ui/components/icons/trash-icon';
@@ -29,7 +30,7 @@ export function NetworkListItemLayout({
 }: NetworkListItemLayoutProps) {
   const unSelectable = !isOnline || isActive;
   return (
-    <Flex data-testid={SettingsSelectors.NetworkListItem}>
+    <DropdownMenu.Item data-testid={SettingsSelectors.NetworkListItem}>
       <Box
         width="100%"
         key={networkId}
@@ -71,6 +72,6 @@ export function NetworkListItemLayout({
           </Button>
         )}
       </Box>
-    </Flex>
+    </DropdownMenu.Item>
   );
 }

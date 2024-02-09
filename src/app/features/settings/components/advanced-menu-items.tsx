@@ -10,9 +10,8 @@ import {
 import { isNumber } from '@shared/utils';
 
 import { Divider } from '@app/components/layout/divider';
+import { DropdownMenu } from '@app/ui/components/dropdown-menu/dropdown-menu';
 import { Caption } from '@app/ui/components/typography/caption';
-
-import { SettingsMenuItem as MenuItem } from './settings-menu-item';
 
 const isAnEmptyLogsArrayByteThreshold = 7;
 
@@ -39,7 +38,7 @@ export function AdvancedMenuItems({ closeHandler, settingsShown }: AdvancedMenuI
 
   return (
     <>
-      <MenuItem
+      <DropdownMenu.Item
         onClick={closeHandler(async () => {
           await copyLogsToClipboard();
           toast.success('Copied to clipboard');
@@ -49,8 +48,8 @@ export function AdvancedMenuItems({ closeHandler, settingsShown }: AdvancedMenuI
         <Caption mt="space.04" fontSize="12px !important">
           Contains private wallet usage activity
         </Caption>
-      </MenuItem>
-      <MenuItem
+      </DropdownMenu.Item>
+      <DropdownMenu.Item
         onClick={closeHandler(async () => {
           await clearBrowserStorageLogs();
           toast.success('Diagnostic logs cleared');
@@ -60,7 +59,7 @@ export function AdvancedMenuItems({ closeHandler, settingsShown }: AdvancedMenuI
         <Caption mt="space.04" fontSize="12px !important">
           {diagnosticLogText}
         </Caption>
-      </MenuItem>
+      </DropdownMenu.Item>
       <Divider />
     </>
   );
