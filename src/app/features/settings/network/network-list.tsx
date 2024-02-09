@@ -6,7 +6,7 @@ import { WalletDefaultNetworkConfigurationIds } from '@shared/constants';
 import { RouteUrls } from '@shared/route-urls';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
-import { NetworkListItem } from '@app/features/settings-dropdown/network/network-list-item';
+import { NetworkListItem } from '@app/features/settings/network/network-list-item';
 import { useBackgroundLocationRedirect } from '@app/routes/hooks/use-background-location-redirect';
 import { useCurrentNetworkState, useNetworksActions } from '@app/store/networks/networks.hooks';
 import { useNetworks } from '@app/store/networks/networks.selectors';

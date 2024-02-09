@@ -45,7 +45,9 @@ export function Header({
     >
       <Flex
         width="100%"
-        maxWidth={{ base: '392px', md: '882px' }}
+        // this maxWidth on base means its not lining up the X properly for dialogs
+        // maxWidth={{ base: '392px', md: '882px' }}
+        maxWidth={{ base: '100vw', md: '882px' }}
         verticalAlign="middle"
         justifyContent="space-between"
         margin={{ base: 0, md: 'auto' }}

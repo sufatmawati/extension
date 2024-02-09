@@ -52,7 +52,7 @@ export function RequestPassword({ onSuccess }: RequestPasswordProps) {
   return (
     // this page has no header so needs a top margin on md
     // TODO make header height const
-    <Page marginTop={{ base: '0', md: '80px' }}>
+    <Page>
       <Card
         title="Enter your password"
         text="Your password is used to secure your Secret Key and is only used locally on your device."

@@ -51,7 +51,6 @@ import { AccountGate } from '@app/routes/account-gate';
 import { receiveRoutes } from '@app/routes/receive-routes';
 import { legacyRequestRoutes } from '@app/routes/request-routes';
 import { rpcRequestRoutes } from '@app/routes/rpc-routes';
-import { settingsRoutes } from '@app/routes/settings-routes';
 
 import { OnboardingGate } from './onboarding-gate';
 
@@ -66,7 +65,6 @@ export function AppRoutes() {
 
 export const homePageModalRoutes = (
   <>
-    {settingsRoutes}
     {receiveRoutes}
     {ledgerStacksTxSigningRoutes}
     {ledgerBitcoinTxSigningRoutes}
@@ -183,8 +181,6 @@ function useAppRoutes() {
             </AccountGate>
           }
         >
-          {settingsRoutes}
-
           <Route path={RouteUrls.ReceiveStx} element={<ReceiveStxModal />} />
           <Route path={RouteUrls.ReceiveBtc} element={<ReceiveBtcModal />} />
         </Route>
@@ -196,7 +192,6 @@ function useAppRoutes() {
             </AccountGate>
           }
         >
-          {settingsRoutes}
           <Route path={RouteUrls.ReceiveStx} element={<ReceiveStxModal />} />
         </Route>
 
@@ -209,11 +204,8 @@ function useAppRoutes() {
               <ViewSecretKey />
             </AccountGate>
           }
-        >
-          {settingsRoutes}
-        </Route>
+        ></Route>
         <Route path={RouteUrls.Unlock} element={<Unlock />}>
-          {settingsRoutes}
           {leatherIntroDialogRoutes}
         </Route>
 

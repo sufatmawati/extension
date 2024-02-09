@@ -9,13 +9,12 @@ import { Footer } from '@app/ui/components/containers/footers/footer';
 import { Flag } from '@app/ui/components/flag/flag';
 import { ErrorIcon } from '@app/ui/components/icons/error-icon';
 
-interface SignOutConfirmLayoutProps {
+interface SignOutLayoutProps {
+  isShowing: boolean;
   onUserDeleteWallet(): void;
-  onUserSafelyReturnToHomepage(): void;
+  onClose(): void;
 }
-export function SignOutConfirmLayout(props: SignOutConfirmLayoutProps) {
-  const { onUserDeleteWallet, onUserSafelyReturnToHomepage } = props;
-
+export function SignOutLayout({ isShowing, onUserDeleteWallet, onClose }: SignOutLayoutProps) {
   const { whenWallet, walletType } = useWalletType();
   const form = useFormik({
     initialValues: {
@@ -32,36 +31,43 @@ export function SignOutConfirmLayout(props: SignOutConfirmLayoutProps) {
   return (
     <Dialog
       title="Sign out"
-      isShowing
-      onClose={onUserSafelyReturnToHomepage}
+      isShowing={isShowing}
+      onClose={onClose}
       footer={
         <Footer>
-          <Button
-            color="gray"
-            data-testid={SettingsSelectors.BtnSignOutReturnToHomeScreen}
-            flexGrow={1}
-            variant="outline"
-            onClick={() => onUserSafelyReturnToHomepage()}
-          >
-            Cancel
-          </Button>
-          <Button
-            _hover={{ opacity: 0.8 }}
-            background="error.label"
-            color="lightModeBrown.1"
-            opacity={!canSignOut ? 0.8 : undefined}
-            data-testid={SettingsSelectors.BtnSignOutActuallyDeleteWallet}
-            flexGrow={1}
-            disabled={!canSignOut}
-            onClick={() => canSignOut && onUserDeleteWallet()}
-            type="submit"
-          >
-            Sign out
-          </Button>
+          <Flex flexDirection="row" gap="space.04">
+            <Button
+              color="gray"
+              data-testid={SettingsSelectors.BtnSignOutReturnToHomeScreen}
+              flexGrow={1}
+              variant="outline"
+              onClick={() => onClose()}
+            >
+              Cancel
+            </Button>
+            <Button
+              _hover={{ opacity: 0.8 }}
+              background="error.label"
+              color="lightModeBrown.1"
+              opacity={!canSignOut ? 0.8 : undefined}
+              data-testid={SettingsSelectors.BtnSignOutActuallyDeleteWallet}
+              flexGrow={1}
+              disabled={!canSignOut}
+              onClick={() => canSignOut && onUserDeleteWallet()}
+              type="submit"
+            >
+              Sign out
+            </Button>
+          </Flex>
         </Footer>
       }
     >
-      <Flex alignItems="center" flexDirection="column" pb={['space.05', 'space.08']} px="space.05">
+      <Flex
+        alignItems="center"
+        flexDirection="column"
+        pb={{ base: 'space.05', md: 'space.08' }}
+        px="space.05"
+      >
         <form onChange={form.handleChange} onSubmit={form.handleSubmit}>
           <styled.p textStyle="label.02">
             When you sign out,

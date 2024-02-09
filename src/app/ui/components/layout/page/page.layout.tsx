@@ -1,6 +1,6 @@
 import { type ReactNode } from 'react';
 
-import { Box, BoxProps } from 'leather-styles/jsx';
+import { Box } from 'leather-styles/jsx';
 
 import { Header } from '@app/ui/components/containers/headers/header';
 import { Logo } from '@app/ui/components/logo';
@@ -16,11 +16,11 @@ import { Logo } from '@app/ui/components/logo';
      - then can add visual regression fot that
 */
 
-interface PageProps extends BoxProps {
+interface PageProps {
   children: ReactNode;
 }
 
-export function Page({ children, ...props }: PageProps) {
+export function Page({ children }: PageProps) {
   return (
     <Box
       backgroundColor="accent.background-primary"
@@ -28,7 +28,6 @@ export function Page({ children, ...props }: PageProps) {
       width="500px"
       height={{ base: '100vh', md: 'auto' }}
       minHeight="435px"
-      {...props}
     >
       <Header logo={<Logo />} variant="card" />
       {children}
