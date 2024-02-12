@@ -7,10 +7,10 @@ import { Flex, styled } from 'leather-styles/jsx';
 import { RouteUrls } from '@shared/route-urls';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
-import { useDialogs } from '@app/common/hooks/use-dialogs';
 import { useKeyActions } from '@app/common/hooks/use-key-actions';
 import { useWalletType } from '@app/common/use-wallet-type';
 import { openInNewTab, openIndexPageInNewTab } from '@app/common/utils/open-in-new-tab';
+import { SwitchAccountDialog } from '@app/features/dialogs/switch-account-dialog/switch-account-dialog';
 import { SignOut } from '@app/features/settings/sign-out/sign-out-confirm';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useHasLedgerKeys, useLedgerDeviceTargetId } from '@app/store/ledger/ledger.selectors';
@@ -36,6 +36,7 @@ import { ThemeList } from './theme/theme-list';
 // use this to add in replaced routable dialogs - void analytics.page('view', '/save-secret-key');
 export function Settings({ triggerButton }: { triggerButton: React.ReactNode }) {
   const [showSignOut, setShowSignOut] = useState(false);
+  const [showSwitchAccount, setShowSwitchAccount] = useState(false);
   const hasGeneratedWallet = !!useCurrentStacksAccount();
   const { lockWallet } = useKeyActions();
 
@@ -48,10 +49,13 @@ export function Settings({ triggerButton }: { triggerButton: React.ReactNode }) 
   const location = useLocation();
 
   const isLedger = useHasLedgerKeys();
-  const { setIsShowingSwitchAccountsState } = useDialogs();
 
   return (
     <>
+      <SwitchAccountDialog
+        isShowing={showSwitchAccount}
+        onClose={() => setShowSwitchAccount(false)}
+      />
       <DropdownMenu.Root>
         <DropdownMenu.Trigger>{triggerButton}</DropdownMenu.Trigger>
         <DropdownMenu.Portal>
@@ -65,7 +69,7 @@ export function Settings({ triggerButton }: { triggerButton: React.ReactNode }) 
               {hasGeneratedWallet && (
                 <DropdownMenu.Item
                   data-testid={SettingsSelectors.SwitchAccountTrigger}
-                  onClick={() => setIsShowingSwitchAccountsState(true)}
+                  onClick={() => setShowSwitchAccount(!showSwitchAccount)}
                 >
                   <Flag img={<SwapIcon />} textStyle="label.02">
                     Switch account

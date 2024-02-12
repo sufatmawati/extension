@@ -10,17 +10,10 @@ interface HomeLayoutProps {
   name: string;
   balance: string;
   children: ReactNode;
-  onClickTrigger(): void;
   accountActions: ReactNode;
 }
 
-export function HomeLayout({
-  name,
-  balance,
-  children,
-  onClickTrigger,
-  accountActions,
-}: HomeLayoutProps) {
+export function HomeLayout({ name, balance, children, accountActions }: HomeLayoutProps) {
   return (
     <Stack alignItems="center" width="100%" mx={['', 'space.04']}>
       <Stack
@@ -31,7 +24,7 @@ export function HomeLayout({
         backgroundColor="ink.1"
         borderRadius="lg"
       >
-        <AccountCard name={name} balance={balance} onClickTrigger={onClickTrigger}>
+        <AccountCard name={name} balance={balance}>
           {accountActions}
         </AccountCard>
         {children}

@@ -5,7 +5,6 @@ import { useWalletType } from '@app/common/use-wallet-type';
 import { useCurrentAccountIndex } from '@app/store/accounts/account';
 import { useFilteredBitcoinAccounts } from '@app/store/accounts/blockchain/bitcoin/bitcoin.ledger';
 import { useStacksAccounts } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
-import { useShowSwitchAccountsState } from '@app/store/ui/ui.hooks';
 import { Button } from '@app/ui/components/button/button';
 import { Dialog } from '@app/ui/components/containers/dialog/dialog';
 import { Footer } from '@app/ui/components/containers/footers/footer';
@@ -13,9 +12,12 @@ import { Footer } from '@app/ui/components/containers/footers/footer';
 import { AccountListUnavailable } from './components/account-list-unavailable';
 import { SwitchAccountList } from './components/switch-account-list';
 
-export const SwitchAccountDialog = memo(() => {
-  const [isShowing, setShowSwitchAccountsState] = useShowSwitchAccountsState();
+interface SwitchAccountDialogProps {
+  isShowing: boolean;
+  onClose(): void;
+}
 
+export const SwitchAccountDialog = memo(({ isShowing, onClose }: SwitchAccountDialogProps) => {
   const currentAccountIndex = useCurrentAccountIndex();
   const createAccount = useCreateAccount();
   const { whenWallet } = useWalletType();
@@ -25,22 +27,14 @@ export const SwitchAccountDialog = memo(() => {
   const btcAddressesNum = bitcoinAccounts.length / 2;
   const stacksAddressesNum = stacksAccounts.length;
 
-  const onClose = () => setShowSwitchAccountsState(false);
-
   const onCreateAccount = () => {
     createAccount();
-    setShowSwitchAccountsState(false);
+    onClose();
   };
 
   if (isShowing && stacksAddressesNum === 0 && btcAddressesNum === 0) {
     return <AccountListUnavailable />;
   }
-
-  // #4370 SMELL without this early return the wallet crashes on new install with: Wallet is neither of type `ledger` nor `software`
-  // FIXME - this shouldn't be rendered until necessary
-  if (!isShowing) return null;
-
-  // FIXME #4370 this fucking thing keeps getting broken allthe time. fix the other issues then come back here
 
   return (
     <Dialog

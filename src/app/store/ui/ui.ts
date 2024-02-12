@@ -10,7 +10,6 @@ export const loadingState = atomFamily(_param => {
 });
 
 // TODO: refactor into atom family
-export const showSwitchAccountsState = atom(false);
 
 export const showHighFeeConfirmationState = atom(false);
 

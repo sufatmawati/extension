@@ -4,16 +4,11 @@ import {
   errorStackTraceState,
   loadingState,
   showHighFeeConfirmationState,
-  showSwitchAccountsState,
   showTxSettingsCallback,
 } from './ui';
 
 export function useShowHighFeeConfirmationState() {
   return useAtom(showHighFeeConfirmationState);
-}
-
-export function useShowSwitchAccountsState() {
-  return useAtom(showSwitchAccountsState);
 }
 
 export function useShowTxSettingsCallback() {
