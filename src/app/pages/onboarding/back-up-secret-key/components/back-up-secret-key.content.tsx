@@ -7,7 +7,7 @@ import { RotateLeftIcon } from '@app/ui/components/icons/rotate-left-icon';
 export function BackUpSecretKeyContent(): React.JSX.Element {
   return (
     <>
-      <styled.h1 textStyle="heading.03" mt="space.00" mb="space.04">
+      <styled.h1 textStyle="heading.03" mb="space.04">
         Back up your Secret Key
       </styled.h1>
       <styled.p textStyle="label.02" mb="space.08">

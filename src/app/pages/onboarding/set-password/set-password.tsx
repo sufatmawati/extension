@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { OnboardingSelectors } from '@tests/selectors/onboarding.selectors';
 import { Form, Formik } from 'formik';
-import { styled } from 'leather-styles/jsx';
+import { Stack, styled } from 'leather-styles/jsx';
 import { debounce } from 'ts-debounce';
 import * as yup from 'yup';
 
@@ -123,8 +123,8 @@ function SetPasswordPage() {
           {/* FIXME 4370 task #3 revisit and test this screen with set-password */}
           <TwoColumnLayout
             left={
-              <>
-                <styled.h1 textStyle="heading.03" mt="space.00" mb="space.04">
+              <Stack gap="space.04">
+                <styled.h1 textStyle="heading.03">
                   Set a <br />
                   password
                 </styled.h1>
@@ -132,7 +132,7 @@ function SetPasswordPage() {
                   Your password protects your Secret Key on this device only. To access your wallet
                   on another device, you'll need just your Secret Key.
                 </styled.p>
-              </>
+              </Stack>
             }
             right={
               <>

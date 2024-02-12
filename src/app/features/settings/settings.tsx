@@ -32,6 +32,8 @@ import { ThemeList } from './theme/theme-list';
 
 //  TODO 4370 task #2  - Fix AdvancedMenuItems and sub-menu hover interaction
 // on the radix site it says latest version is 2.0.5 but we have 2.0.6?
+// designs here https://www.figma.com/file/2MLHeIeL6XPVi3Tc2DfFCr/%E2%9D%96-Leather-%E2%80%93-Design-System?node-id=10352%3A137700&mode=dev
+// use this to add in replaced routable dialogs - void analytics.page('view', '/save-secret-key');
 export function Settings({ triggerButton }: { triggerButton: React.ReactNode }) {
   const [showSignOut, setShowSignOut] = useState(false);
   const hasGeneratedWallet = !!useCurrentStacksAccount();
