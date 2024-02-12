@@ -25,7 +25,6 @@ export function HomeLayout() {
     <Component
       name="leather.btc"
       balance="$1,000"
-      onClickTrigger={() => null}
       accountActions={
         // TODO don't repeat this, compose story
         <Flex justify="space-between">

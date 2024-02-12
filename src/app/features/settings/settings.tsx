@@ -10,7 +10,6 @@ import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useKeyActions } from '@app/common/hooks/use-key-actions';
 import { useWalletType } from '@app/common/use-wallet-type';
 import { openInNewTab, openIndexPageInNewTab } from '@app/common/utils/open-in-new-tab';
-import { SwitchAccountDialog } from '@app/features/dialogs/switch-account-dialog/switch-account-dialog';
 import { SignOut } from '@app/features/settings/sign-out/sign-out-confirm';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { useHasLedgerKeys, useLedgerDeviceTargetId } from '@app/store/ledger/ledger.selectors';
@@ -34,9 +33,14 @@ import { ThemeList } from './theme/theme-list';
 // on the radix site it says latest version is 2.0.5 but we have 2.0.6?
 // designs here https://www.figma.com/file/2MLHeIeL6XPVi3Tc2DfFCr/%E2%9D%96-Leather-%E2%80%93-Design-System?node-id=10352%3A137700&mode=dev
 // use this to add in replaced routable dialogs - void analytics.page('view', '/save-secret-key');
-export function Settings({ triggerButton }: { triggerButton: React.ReactNode }) {
+
+interface SettingsProps {
+  triggerButton: React.ReactNode;
+  toggleSwitchAccount(): void;
+}
+
+export function Settings({ triggerButton, toggleSwitchAccount }: SettingsProps) {
   const [showSignOut, setShowSignOut] = useState(false);
-  const [showSwitchAccount, setShowSwitchAccount] = useState(false);
   const hasGeneratedWallet = !!useCurrentStacksAccount();
   const { lockWallet } = useKeyActions();
 
@@ -52,10 +56,6 @@ export function Settings({ triggerButton }: { triggerButton: React.ReactNode }) 
 
   return (
     <>
-      <SwitchAccountDialog
-        isShowing={showSwitchAccount}
-        onClose={() => setShowSwitchAccount(false)}
-      />
       <DropdownMenu.Root>
         <DropdownMenu.Trigger>{triggerButton}</DropdownMenu.Trigger>
         <DropdownMenu.Portal>
@@ -69,7 +69,7 @@ export function Settings({ triggerButton }: { triggerButton: React.ReactNode }) 
               {hasGeneratedWallet && (
                 <DropdownMenu.Item
                   data-testid={SettingsSelectors.SwitchAccountTrigger}
-                  onClick={() => setShowSwitchAccount(!showSwitchAccount)}
+                  onClick={toggleSwitchAccount}
                 >
                   <Flag img={<SwapIcon />} textStyle="label.02">
                     Switch account

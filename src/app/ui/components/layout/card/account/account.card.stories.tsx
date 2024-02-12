@@ -19,7 +19,7 @@ export default meta;
 
 export function AccountCard() {
   return (
-    <Component name="leather.btc" balance="$1,000" onClickTrigger={() => null}>
+    <Component name="leather.btc" balance="$1,000">
       <Flex justify="space-between">
         <ActionButton icon={<ArrowUpIcon />} label="Send" />
         <ActionButton icon={<ArrowDownIcon />} label="Receive" />
