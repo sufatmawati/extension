@@ -14,8 +14,7 @@ import {
 } from '@app/query/stacks/balance/stacks-ft-balances.hooks';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { ArrowUpIcon } from '@app/ui/components/icons/arrow-up-icon';
-
-import { ActionButton } from './action-button';
+import { ActionButton } from '@app/ui/components/layout/card/account/action-button';
 
 function SendButtonSuspense() {
   const navigate = useNavigate();

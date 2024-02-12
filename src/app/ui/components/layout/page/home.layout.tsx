@@ -1,13 +1,26 @@
-import React from 'react';
+import type { ReactNode } from 'react';
 
 import { HomePageSelectors } from '@tests/selectors/home.selectors';
 import { Stack } from 'leather-styles/jsx';
 
-import { AccountInfoCard } from '@app/pages/home/components/account-info-card';
+import { AccountCard } from '@app/ui/components/layout/card/account/account.card';
 import { FULLPAGE_MAX_WIDTH } from '@app/ui/constants';
 
-type HomeLayoutProps = Record<'currentAccount' | 'children', React.ReactNode>;
-export function HomeLayout({ children }: HomeLayoutProps) {
+interface HomeLayoutProps {
+  name: string;
+  balance: string;
+  children: ReactNode;
+  onClickTrigger(): void;
+  accountActions: ReactNode;
+}
+
+export function HomeLayout({
+  name,
+  balance,
+  children,
+  onClickTrigger,
+  accountActions,
+}: HomeLayoutProps) {
   return (
     <Stack alignItems="center" width="100%" mx={['', 'space.04']}>
       <Stack
@@ -18,7 +31,9 @@ export function HomeLayout({ children }: HomeLayoutProps) {
         backgroundColor="ink.1"
         borderRadius="lg"
       >
-        <AccountInfoCard />
+        <AccountCard name={name} balance={balance} onClickTrigger={onClickTrigger}>
+          {accountActions}
+        </AccountCard>
         {children}
       </Stack>
     </Stack>

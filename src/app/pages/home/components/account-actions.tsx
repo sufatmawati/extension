@@ -14,8 +14,8 @@ import { useCurrentNetwork } from '@app/store/networks/networks.selectors';
 import { ArrowDownIcon } from '@app/ui/components/icons/arrow-down-icon';
 import { PlusIcon } from '@app/ui/components/icons/plus-icon';
 import { SwapIcon } from '@app/ui/components/icons/swap-icon';
+import { ActionButton } from '@app/ui/components/layout/card/account/action-button';
 
-import { ActionButton } from './action-button';
 import { SendButton } from './send-button';
 
 export function AccountActions(props: FlexProps) {
