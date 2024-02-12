@@ -12,7 +12,6 @@ import { virtuosoContainerStyle, virtuosoStyle } from '@app/ui/shared/styles/vir
 
 import { AccountListItem } from './account-list-item';
 
-// TODO 4370 -   should this move to other dialogs in features/dialogs?
 export const RecipientAccountsDialog = memo(() => {
   const stacksAccounts = useStacksAccounts();
   const navigate = useNavigate();
@@ -24,7 +23,7 @@ export const RecipientAccountsDialog = memo(() => {
 
   if (stacksAddressesNum === 0 && btcAddressesNum === 0) return null;
 
-  // TODO 4370 - test UI of this and other virtuoso lists and maybe change to share more code?
+  // TODO 4370 task #5 virtuoso boxes - test UI of this and other virtuoso lists and maybe change to share more code?
   return (
     <Dialog title="My accounts" isShowing onClose={onGoBack}>
       <Box

@@ -98,7 +98,7 @@ export function Settings({ triggerButton }: { triggerButton: React.ReactNode }) 
                   </DropdownMenu.Item>
                 </DropdownMenu.SubTrigger>
                 <DropdownMenu.Portal>
-                  <DropdownMenu.SubContent>
+                  <DropdownMenu.SubContent sideOffset={2} alignOffset={-5}>
                     <DropdownMenu.Item>
                       <DropdownMenu.Label>Change theme</DropdownMenu.Label>
                     </DropdownMenu.Item>
