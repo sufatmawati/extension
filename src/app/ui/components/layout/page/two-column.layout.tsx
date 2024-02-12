@@ -1,15 +1,22 @@
-import { Flex, Stack } from 'leather-styles/jsx';
+import { Box, Flex, Stack, styled } from 'leather-styles/jsx';
 
-import { FULLPAGE_MAX_WIDTH } from '@app/ui/constants';
+import { FULLPAGE_MAX_WIDTH, PAGE_WIDTH, TWO_COLUMN_PAGE_WIDTH } from '@app/ui/constants';
 
 interface TwoColumnLayoutProps {
-  left: React.JSX.Element;
-  right: React.JSX.Element;
+  title: React.JSX.Element;
+  content: React.JSX.Element;
+  action?: React.JSX.Element;
+  children: React.JSX.Element;
+  wideChild?: boolean;
 }
 
-// FIXME 4370 task #4 - finish the TwoColumn improvements and add demo to storybook along with other pages = homepage, standard page etc.
-export function TwoColumnLayout({ left, right }: TwoColumnLayoutProps): React.JSX.Element {
-  // const maxWidth = `${FULLPAGE_MAX_WIDTH}px`;
+export function TwoColumnLayout({
+  title,
+  content,
+  action,
+  children,
+  wideChild,
+}: TwoColumnLayoutProps): React.JSX.Element {
   return (
     <Flex
       flexDirection={{ base: 'column', md: 'row' }}
@@ -18,18 +25,21 @@ export function TwoColumnLayout({ left, right }: TwoColumnLayoutProps): React.JS
       mx={{ base: 'auto', md: 'space.03', lg: 'space.06' }}
       gap="space.05"
       width={{ base: '100vw', md: 'unset' }}
-      maxWidth={`${FULLPAGE_MAX_WIDTH}px`} // not working
-      // maxWidth={maxWidth}
+      maxWidth={`${FULLPAGE_MAX_WIDTH}px`}
     >
       <Flex flexDirection="column" gap="space.04">
-        {left}
+        <Stack gap="space.04">
+          <styled.h1 textStyle="heading.03">{title}</styled.h1>
+          <styled.p textStyle="label.02">{content}</styled.p>
+          <Box marginTop="space.04">{action}</Box>
+        </Stack>
       </Flex>
 
       <Flex
         gap="space.05"
         flexDirection="column"
         px={{ base: 'space.00', md: 'space.10', lg: 'space.02' }}
-        width={{ base: '100%', md: '600px' }} // this 600 should be 500px for password screen but consistent is better?
+        width={{ base: '100%', md: `${TWO_COLUMN_PAGE_WIDTH}px` }}
         mb={{ base: 'space.05', md: '0' }}
       >
         <Stack
@@ -38,10 +48,14 @@ export function TwoColumnLayout({ left, right }: TwoColumnLayoutProps): React.JS
           backgroundColor="accent.background-primary"
           borderRadius="xs"
           width="100%"
-          minWidth={{ base: '100%', md: '400px', lg: '600px' }} // for setPassword need to get this right
+          minWidth={{
+            base: '100%',
+            md: '400px',
+            lg: wideChild ? `${TWO_COLUMN_PAGE_WIDTH}px` : `${PAGE_WIDTH}px`,
+          }}
           flex="1"
         >
-          {right}
+          {children}
         </Stack>
       </Flex>
     </Flex>

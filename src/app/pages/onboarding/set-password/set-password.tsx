@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 
 import { OnboardingSelectors } from '@tests/selectors/onboarding.selectors';
 import { Form, Formik } from 'formik';
-import { Stack, styled } from 'leather-styles/jsx';
 import { debounce } from 'ts-debounce';
 import * as yup from 'yup';
 
@@ -120,44 +119,37 @@ function SetPasswordPage() {
     >
       {({ dirty, isSubmitting, isValid }) => (
         <Form>
-          {/* FIXME 4370 task #3 revisit and test this screen with set-password */}
           <TwoColumnLayout
-            left={
-              <Stack gap="space.04">
-                <styled.h1 textStyle="heading.03">
-                  Set a <br />
-                  password
-                </styled.h1>
-                <styled.p textStyle="label.02">
-                  Your password protects your Secret Key on this device only. To access your wallet
-                  on another device, you'll need just your Secret Key.
-                </styled.p>
-              </Stack>
-            }
-            right={
+            wideChild={false}
+            title={
               <>
-                <styled.h2
-                  textStyle="heading.03"
-                  mt="space.02"
-                  mb="space.04"
-                  hideBelow="sm"
-                  textAlign="center"
-                >
-                  Your password
-                </styled.h2>
-                <PasswordField strengthResult={strengthResult} isDisabled={loading} />
-                <Button
-                  data-testid={OnboardingSelectors.SetPasswordBtn}
-                  disabled={loading || !(dirty && isValid)}
-                  aria-busy={loading || isSubmitting}
-                  mt="space.08"
-                  type="submit"
-                >
-                  Continue
-                </Button>
+                Set a <br />
+                password
               </>
             }
-          />
+            content={
+              <>
+                Your password protects your Secret Key on this device only. To access your wallet on
+                another device, you'll need just your Secret Key.
+              </>
+            }
+          >
+            {/* > check this then try refactor to avoid <br's  */}
+            {/* TODO check visuals here */}
+            {/* <Box maxWidth="500px"> */}
+            <>
+              <PasswordField strengthResult={strengthResult} isDisabled={loading} />
+              <Button
+                data-testid={OnboardingSelectors.SetPasswordBtn}
+                disabled={loading || !(dirty && isValid)}
+                aria-busy={loading || isSubmitting}
+                mt="space.08"
+                type="submit"
+              >
+                Continue
+              </Button>
+            </>
+          </TwoColumnLayout>
         </Form>
       )}
     </Formik>

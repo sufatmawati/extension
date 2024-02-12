@@ -1,6 +1,6 @@
 import { OnboardingSelectors } from '@tests/selectors/onboarding.selectors';
 import { Form, Formik } from 'formik';
-import { Flex, styled } from 'leather-styles/jsx';
+import { Stack } from 'leather-styles/jsx';
 
 import { isEmpty } from '@shared/utils';
 
@@ -69,24 +69,21 @@ export function MnemonicForm({ mnemonic, setMnemonic, twentyFourWordMode }: Mnem
 
         return (
           <Form>
-            <styled.h2 textStyle="heading.03" mt="space.02" mb="space.04" textAlign="center">
-              Your Secret Key
-            </styled.h2>
-            <SecretKeyGrid>
-              {mnemonicFieldArray.map((_, i) => (
-                <MnemonicWordInput
-                  fieldNumber={i + 1}
-                  key={i}
-                  value={mnemonic[i] || ''}
-                  onPasteEntireKey={key => {
-                    (document.activeElement as HTMLInputElement).blur();
-                    updateEntireKey(key, setFieldValue);
-                  }}
-                  onUpdateWord={w => mnemonicWordUpdate(i, w)}
-                />
-              ))}
-            </SecretKeyGrid>
-            <Flex flexDirection="column" justifyContent="center" alignItems="center" gap="space.05">
+            <Stack gap="space.05">
+              <SecretKeyGrid>
+                {mnemonicFieldArray.map((_, i) => (
+                  <MnemonicWordInput
+                    fieldNumber={i + 1}
+                    key={i}
+                    value={mnemonic[i] || ''}
+                    onPasteEntireKey={key => {
+                      (document.activeElement as HTMLInputElement).blur();
+                      updateEntireKey(key, setFieldValue);
+                    }}
+                    onUpdateWord={w => mnemonicWordUpdate(i, w)}
+                  />
+                ))}
+              </SecretKeyGrid>
               {(showMnemonicErrors || error) && (
                 <ErrorLabel data-testid={OnboardingSelectors.SignInSeedError}>
                   {showMnemonicErrors ? mnemonicErrorMessage : error}
@@ -107,7 +104,7 @@ export function MnemonicForm({ mnemonic, setMnemonic, twentyFourWordMode }: Mnem
               >
                 Continue
               </Button>
-            </Flex>
+            </Stack>
           </Form>
         );
       }}

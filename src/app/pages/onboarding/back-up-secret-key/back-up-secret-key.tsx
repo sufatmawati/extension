@@ -1,13 +1,16 @@
 import { memo, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { HStack, Stack, styled } from 'leather-styles/jsx';
+
 import { RouteUrls } from '@shared/route-urls';
 
 import { SecretKeyDisplayer } from '@app/features/secret-key-displayer/secret-key-displayer';
 import { useDefaultWalletSecretKey } from '@app/store/in-memory-key/in-memory-key.selectors';
+import { EyeSlashIcon } from '@app/ui/components/icons/eye-slash-icon';
+import { LockIcon } from '@app/ui/components/icons/lock-icon';
+import { RotateLeftIcon } from '@app/ui/components/icons/rotate-left-icon';
 import { TwoColumnLayout } from '@app/ui/components/layout/page/two-column.layout';
-
-import { BackUpSecretKeyContent } from './components/back-up-secret-key.content';
 
 export const BackUpSecretKeyPage = memo(() => {
   const secretKey = useDefaultWalletSecretKey();
@@ -21,8 +24,37 @@ export const BackUpSecretKeyPage = memo(() => {
 
   return (
     <TwoColumnLayout
-      left={<BackUpSecretKeyContent />}
-      right={<SecretKeyDisplayer secretKey={secretKey} />}
-    />
+      title={<>Back up your Secret Key</>}
+      content={
+        <>
+          You'll need it to access your wallet on a new device, or this one if you lose your
+          password — so back it up somewhere safe!
+        </>
+      }
+      action={
+        <Stack gap="space.05" marginTop="space.04">
+          <HStack alignItems="center">
+            <RotateLeftIcon />
+            <styled.span textStyle="caption.01">
+              Your Secret Key gives <br /> access to your wallet
+            </styled.span>
+          </HStack>
+          <HStack alignItems="center">
+            <EyeSlashIcon />
+            <styled.span textStyle="caption.01">
+              Never share your <br /> Secret Key with anyone
+            </styled.span>
+          </HStack>
+          <HStack alignItems="center">
+            <LockIcon />
+            <styled.span textStyle="caption.01">
+              Store it somewhere <br /> 100% private and secure
+            </styled.span>
+          </HStack>
+        </Stack>
+      }
+    >
+      <SecretKeyDisplayer secretKey={secretKey} />
+    </TwoColumnLayout>
   );
 });
