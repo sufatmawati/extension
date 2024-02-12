@@ -35,8 +35,10 @@ export interface DialogProps {
   // waitingOnPerformedActionMessage?: string;
 }
 
-//  TODO 4370 task #1  - manual task to sift through all Dialogs and read the props
-// make sure that
+//  TODO 4370 task #1
+// - manual task to sift through all Dialogs and read the props
+// - make sure that nothing is missed
+// - check LEDGER DIALOGS!!!
 export const Dialog = memo(
   ({
     children,
@@ -79,8 +81,8 @@ export const Dialog = memo(
                 width: { base: '100vw', md: '90vw' },
                 // TODO wait for answer before commiting to this app wide
                 // checked FIGMA and seems its always this size now
-                height: { base: '100vh', md: '600px' },
-                maxWidth: { base: '100vw', md: '500px' },
+                height: { base: '100vh', md: 'dialogHeight' },
+                maxWidth: { base: '100vw', md: 'pageWidth' },
                 maxHeight: { base: '100vh', md: '85vh' },
                 animation: 'contentShow 150ms cubic-bezier(0.16, 1, 0.3, 1)',
               })}
@@ -95,7 +97,10 @@ export const Dialog = memo(
 
                 could need to split between full page and extension headers also 
                 */}
-                {/* TODO check if this box is even needed now */}
+                {/* TODO check if this box is even needed now 
+                
+                  Probably is needed for account selector
+                */}
                 {/* <Box
         className={css({
           position: 'fixed',
@@ -119,11 +124,13 @@ export const Dialog = memo(
                     onClose={onClose}
                     onGoBack={onGoBack}
                     title={typeof title === 'string' ? <Title title={title} /> : title} // title only used here and passed in by 15 of dialogs
-                    // waitingOnPerformedActionMessage={waitingOnPerformedActionMessage}
                   />
                 )}
 
-                {/* TODO - test this cross browser and remove if repaced by global.ts */}
+                {/* TODO - test this cross browser and remove if repaced by global.ts
+                
+                  Probably is needed for account selector
+                   */}
                 <Box
                   className={css({
                     // overflowY: 'scroll',

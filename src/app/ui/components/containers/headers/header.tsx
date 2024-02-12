@@ -4,7 +4,7 @@ import { Flex, HStack, styled } from 'leather-styles/jsx';
 
 import { ArrowLeftIcon } from '@app/ui/components/icons/arrow-left-icon';
 import { CloseIcon } from '@app/ui/components/icons/close-icon';
-import { HEADER_HEIGHT, POPUP_HEADER_HEIGHT } from '@app/ui/constants';
+import { POPUP_HEADER_HEIGHT } from '@app/ui/constants';
 
 import { HeaderActionButton } from './header-action-button';
 
@@ -43,8 +43,8 @@ export function Header({
     <styled.header
       px={variant === 'card' ? 'space.04' : { base: 'space.04', md: 'space.07' }}
       py={variant === 'card' ? 'space.04' : { base: 'space.04', md: 'space.05' }}
-      // maxHeight={{ base: `${POPUP_HEADER_HEIGHT}px`, md: `${HEADER_HEIGHT}px` }}
-      height={{ base: '68px', md: '80px' }} // get this working, maybe ysing calc?
+      maxHeight={{ base: `${POPUP_HEADER_HEIGHT}px`, md: 'headerHeight' }}
+      height={{ base: 'headerHeightSm', md: 'headerHeight' }}
     >
       <Flex
         width="100%"

@@ -1,7 +1,5 @@
 import { Box, Flex, Stack, styled } from 'leather-styles/jsx';
 
-import { FULLPAGE_MAX_WIDTH, PAGE_WIDTH, TWO_COLUMN_PAGE_WIDTH } from '@app/ui/constants';
-
 interface TwoColumnLayoutProps {
   title: React.JSX.Element;
   content: React.JSX.Element;
@@ -25,7 +23,7 @@ export function TwoColumnLayout({
       mx={{ base: 'auto', md: 'space.03', lg: 'space.06' }}
       gap="space.05"
       width={{ base: '100vw', md: 'unset' }}
-      maxWidth={`${FULLPAGE_MAX_WIDTH}px`}
+      maxWidth="fullPageMaxWidth"
     >
       <Flex flexDirection="column" gap="space.04">
         <Stack gap="space.04">
@@ -39,7 +37,7 @@ export function TwoColumnLayout({
         gap="space.05"
         flexDirection="column"
         px={{ base: 'space.00', md: 'space.10', lg: 'space.02' }}
-        width={{ base: '100%', md: `${TWO_COLUMN_PAGE_WIDTH}px` }}
+        width={{ base: '100%', md: 'twoColumnPageWidth' }}
         mb={{ base: 'space.05', md: '0' }}
       >
         <Stack
@@ -51,7 +49,7 @@ export function TwoColumnLayout({
           minWidth={{
             base: '100%',
             md: '400px',
-            lg: wideChild ? `${TWO_COLUMN_PAGE_WIDTH}px` : `${PAGE_WIDTH}px`,
+            lg: wideChild ? 'twoColumnPageWidth' : 'pageWidth',
           }}
           flex="1"
         >

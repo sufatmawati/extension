@@ -4,7 +4,6 @@ import { HomePageSelectors } from '@tests/selectors/home.selectors';
 import { Stack } from 'leather-styles/jsx';
 
 import { AccountCard } from '@app/ui/components/layout/card/account/account.card';
-import { FULLPAGE_MAX_WIDTH } from '@app/ui/constants';
 
 interface HomeLayoutProps {
   name: string;
@@ -14,11 +13,12 @@ interface HomeLayoutProps {
 }
 
 export function HomeLayout({ name, balance, children, accountActions }: HomeLayoutProps) {
+  //  TODO refactor this to share with two-col layout
   return (
     <Stack alignItems="center" width="100%" mx={['', 'space.04']}>
       <Stack
         data-testid={HomePageSelectors.HomePageContainer}
-        maxWidth={['unset', 'unset', `${FULLPAGE_MAX_WIDTH}px`]}
+        maxWidth={['unset', 'unset', 'fullPageMaxWidth']}
         px={['space.04', 'space.04', 'space.08']}
         width="100%"
         backgroundColor="ink.1"
