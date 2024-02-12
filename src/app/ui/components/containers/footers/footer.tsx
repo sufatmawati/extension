@@ -2,9 +2,6 @@ import type { ReactNode } from 'react';
 
 import { Flex, styled } from 'leather-styles/jsx';
 
-import type { HasChildren } from '@app/common/has-children';
-import { FOOTER_HEIGHT, PAGE_WIDTH } from '@app/ui/constants';
-
 interface FooterProps {
   children: ReactNode;
   variant?: 'page' | 'card';
@@ -18,9 +15,9 @@ export function Footer({ children, variant = 'page', flexDirection = 'column' }:
       p="space.05"
       bottom={0}
       width="100vw"
-      maxWidth={variant === 'card' ? `${PAGE_WIDTH}px` : undefined}
+      maxWidth={variant === 'card' ? 'pageWidth' : '100%'}
       zIndex={1}
-      minHeight={`${FOOTER_HEIGHT}px`}
+      minHeight="footerHeight"
       // footer is always white
       backgroundColor="accent.background-primary"
       borderTop={variant === 'page' ? ' default' : undefined}
