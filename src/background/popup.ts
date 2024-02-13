@@ -1,5 +1,20 @@
-// TODO import from '@leather-wallet/tokens'
-import { tokens } from '../../theme/tokens';
+// FIXME import from '@leather-wallet/tokens'
+// import { tokens } from '../../theme/tokens';
+/**
+ * importing from tokens gives TS error about 
+ * 
+ * You may need an appropriate loader to handle this file type, currently no loaders are configured to process this file. See https://webpack.js.org/concepts#loaders
+|     value: { fontFamily: firaCode, fontSize: '0.6rem', lineHeight: '1rem' },
+|   },
+> } as const;
+ */
+
+const tokens = {
+  sizes: {
+    popupWidth: { value: '390px' },
+    popupHeight: { value: '756px' },
+  },
+};
 
 interface PopupOptions {
   url?: string;
@@ -11,7 +26,7 @@ function pxStringToNumber(pxString: string): number {
   return +pxString.replace('px', '');
 }
 export function popup(options: PopupOptions): Promise<any> {
-  // TODO - ask about this
+  // TODO 4370 - ask about this
   // if APP already open in full screen the window opens in a full screen and looks weird
   const { url } = options;
 
