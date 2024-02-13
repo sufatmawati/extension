@@ -16,9 +16,8 @@ const AppVersionLabel = forwardRef<HTMLSpanElement, AppVersionLabelProps>(
     <styled.span
       ref={ref}
       textStyle="mono.02"
-      marginRight="10px"
-      mb="-4px"
-      ml="space.02"
+      my="auto"
+      mx="space.02"
       opacity={0.5}
       textDecoration={isLatestVersion ? 'none' : 'line-through'}
       textWrap="nowrap"
@@ -28,7 +27,7 @@ const AppVersionLabel = forwardRef<HTMLSpanElement, AppVersionLabelProps>(
     </styled.span>
   )
 );
-// TODO fix this, as its now unused but shouldn't be
+
 export function AppVersion() {
   const { pullRequestLink, isLatestBuild } = useIsLatestPullRequestBuild();
 
