@@ -13,7 +13,10 @@ export const tokens = defineTokens({
     fullPageMaxWidth: { value: '882px' },
     dialogHeight: { value: '600px' },
     headerHeight: { value: '80px' },
-    headerHeightSm: { value: '68px' },
     footerHeight: { value: '95px' },
+    // #4250 setting consistent dimensions of extension + popup to match mobile
+    popupWidth: { value: '390px' },
+    popupHeight: { value: '756px' },
+    popupHeaderHeight: { value: '68px' },
   },
 });

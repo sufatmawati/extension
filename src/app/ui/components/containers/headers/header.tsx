@@ -4,7 +4,6 @@ import { Flex, HStack, styled } from 'leather-styles/jsx';
 
 import { ArrowLeftIcon } from '@app/ui/components/icons/arrow-left-icon';
 import { CloseIcon } from '@app/ui/components/icons/close-icon';
-import { POPUP_HEADER_HEIGHT } from '@app/ui/constants';
 
 import { HeaderActionButton } from './header-action-button';
 
@@ -43,14 +42,12 @@ export function Header({
     <styled.header
       px={variant === 'card' ? 'space.04' : { base: 'space.04', md: 'space.07' }}
       py={variant === 'card' ? 'space.04' : { base: 'space.04', md: 'space.05' }}
-      maxHeight={{ base: `${POPUP_HEADER_HEIGHT}px`, md: 'headerHeight' }}
-      height={{ base: 'headerHeightSm', md: 'headerHeight' }}
+      maxHeight={{ base: 'popupHeaderHeight', md: 'headerHeight' }}
+      height={{ base: 'popupHeaderHeight', md: 'headerHeight' }}
     >
       <Flex
         width="100%"
-        // this maxWidth on base means its not lining up the X properly for dialogs
-        // maxWidth={{ base: '392px', md: '882px' }}
-        maxWidth={{ base: '100vw', md: '882px' }}
+        maxWidth={{ base: '100vw', md: 'fullPageMaxWidth' }}
         verticalAlign="middle"
         justifyContent="space-between"
         margin={{ base: 0, md: 'auto' }}

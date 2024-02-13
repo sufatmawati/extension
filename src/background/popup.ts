@@ -1,17 +1,22 @@
-import { POPUP_HEIGHT, POPUP_WIDTH } from '@app/ui/constants';
+// TODO import from '@leather-wallet/tokens'
+import { tokens } from '../../theme/tokens';
 
 interface PopupOptions {
   url?: string;
   title?: string;
-  w?: number;
-  h?: number;
   skipPopupFallback?: boolean;
 }
+
+function pxStringToNumber(pxString: string): number {
+  return +pxString.replace('px', '');
+}
 export function popup(options: PopupOptions): Promise<any> {
-  // debugger;
-  // check this on DEV - if APP already open in full tab
-  // the window opens in a full screen and looks weird
-  const { url, w = POPUP_WIDTH, h = POPUP_HEIGHT } = options;
+  // TODO - ask about this
+  // if APP already open in full screen the window opens in a full screen and looks weird
+  const { url } = options;
+
+  const popupWidth = pxStringToNumber(tokens.sizes.popupWidth.value);
+  const popupHeight = pxStringToNumber(tokens.sizes.popupHeight.value);
 
   return new Promise(resolve => {
     // @see https://developer.chrome.com/docs/extensions/reference/windows/#method-getCurrent
@@ -25,13 +30,13 @@ export function popup(options: PopupOptions): Promise<any> {
       const width = win.width ?? 0;
       const height = win.height ?? 0;
 
-      const left = Math.floor(width / 2 - w / 2 + dualScreenLeft);
-      const top = Math.floor(height / 2 - h / 2 + dualScreenTop);
+      const left = Math.floor(width / 2 - popupWidth / 2 + dualScreenLeft);
+      const top = Math.floor(height / 2 - popupHeight / 2 + dualScreenTop);
 
       const popup = await chrome.windows.create({
         url,
-        width: w,
-        height: h,
+        width: popupWidth,
+        height: popupHeight,
         top,
         left,
         focused: true,

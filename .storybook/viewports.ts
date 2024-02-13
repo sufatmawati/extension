@@ -1,13 +1,14 @@
 import { breakpoints } from '@leather-wallet/tokens';
 
-import { POPUP_HEIGHT, POPUP_WIDTH } from '../src/app/ui/constants';
+// TODO import from '@leather-wallet/tokens'
+import { tokens } from '../theme/tokens';
 
 export const customViewports = {
   popup: {
     name: 'Popup',
     styles: {
-      width: `${POPUP_WIDTH}px`,
-      height: `${POPUP_HEIGHT}px`,
+      width: tokens.sizes.popupWidth.value,
+      height: tokens.sizes.popupHeight.value,
     },
   },
   sm: {

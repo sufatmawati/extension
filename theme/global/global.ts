@@ -1,6 +1,7 @@
 import { defineGlobalStyles } from '@pandacss/dev';
 
-import { POPUP_HEIGHT, POPUP_WIDTH } from '@app/ui/constants';
+// TODO import from '@leather-wallet/tokens'
+import { tokens } from '../tokens';
 
 // 4370 TODO audit the use of this file as we are pretty close to not needing it
 // - could set some styles in the <Container where radix.css also loaded
@@ -39,13 +40,13 @@ export const globalCss = defineGlobalStyles({
   },
   '.mode__popup': {
     'html,body, #app, .radix-themes': {
-      height: `${POPUP_HEIGHT}px`,
+      height: tokens.sizes.popupHeight.value,
       // setting maxHeight / minHeight stops weird scroll on Session is locked in extension view
       // if set minHeight to 100vh then extension barely opens!
       maxHeight: '100vh',
       // the extension doesn't actually open to POPUP_HEIGHT and if minHeight higher than 600px we can scroll on unlock screen
-      minHeight: `600px`,
-      width: `${POPUP_WIDTH}px`,
+      minHeight: tokens.sizes.dialogHeight.value,
+      width: tokens.sizes.popupWidth.value,
       // scrollbarWidth: 'none',
 
       // TODO  4882 - make sure this shows properly on windows also
