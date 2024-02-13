@@ -32,7 +32,7 @@ export const SwitchAccountDialog = memo(({ isShowing, onClose }: SwitchAccountDi
     onClose();
   };
 
-  if (isShowing && stacksAddressesNum === 0 && btcAddressesNum === 0) {
+  if (stacksAddressesNum === 0 && btcAddressesNum === 0) {
     return <AccountListUnavailable />;
   }
 

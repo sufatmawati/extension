@@ -67,6 +67,9 @@ export function Container() {
   };
 
   // > scroll behaviour
+  // dialog titles
+  // signout dialog bottom padding
+  // mnemonic key login styling
   // > settings fix menu - dialogs
   // - need to show Settings menu on unlock screen
   // > fix hacky code around showing logo or not - get rid of placeholder etc
@@ -103,10 +106,13 @@ export function Container() {
 
   return (
     <>
-      <SwitchAccountDialog
-        isShowing={isShowingSwitchAccount}
-        onClose={() => setIsShowingSwitchAccount(false)}
-      />
+      {/* // #4370 SMELL without this check for isShowingSwitchAccount the wallet crashes on new install with: Wallet is neither of type `ledger` nor `software` */}
+      {isShowingSwitchAccount && (
+        <SwitchAccountDialog
+          isShowing={isShowingSwitchAccount}
+          onClose={() => setIsShowingSwitchAccount(false)}
+        />
+      )}
       <Toaster position="bottom-center" toastOptions={{ style: { fontSize: '14px' } }} />
       <ContainerLayout
         header={
