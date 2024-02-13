@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import { memo, useState } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 
 import { Formik, FormikHelpers } from 'formik';
@@ -40,6 +40,8 @@ import {
 import { Link } from '@app/ui/components/link/link';
 
 function TransactionRequestBase() {
+  const [isShowingHighFeeConfirmation, setIsShowingHighFeeConfirmation] = useState(false);
+
   const transactionRequest = useTransactionRequestState();
   const unsignedTx = useUnsignedStacksTransactionBaseState();
   const { data: stxFees } = useCalculateStacksTxFees(unsignedTx.transaction);
@@ -115,8 +117,14 @@ function TransactionRequestBase() {
               Edit nonce
             </Link>
             <MinimalErrorMessage />
-            <SubmitAction />
-            <HighFeeDialog learnMoreUrl={HIGH_FEE_WARNING_LEARN_MORE_URL_STX} />
+            <SubmitAction
+              setIsShowingHighFeeConfirmation={() => setIsShowingHighFeeConfirmation(true)}
+            />
+
+            <HighFeeDialog
+              isShowing={isShowingHighFeeConfirmation}
+              learnMoreUrl={HIGH_FEE_WARNING_LEARN_MORE_URL_STX}
+            />
             <Outlet />
           </>
         )}

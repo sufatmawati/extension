@@ -106,6 +106,7 @@ export function BtcSendForm() {
                 </Button>
                 <AvailableBalance balance={formatMoney(btcBalance.balance)} />
               </Footer>
+              {/* FIXME find out if this is needed. I don't think this is doing anything? I can't find a HIGH_FEE_AMOUNT_BTC */}
               <HighFeeDialog learnMoreUrl={HIGH_FEE_WARNING_LEARN_MORE_URL_BTC} />
               <Outlet />
 

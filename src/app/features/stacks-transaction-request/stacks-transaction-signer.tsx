@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
 import { StacksTransaction } from '@stacks/transactions';
@@ -50,6 +51,7 @@ export function StacksTransactionSigner({
   onSignStacksTransaction,
   isMultisig,
 }: StacksTransactionSignerProps) {
+  const [isShowingHighFeeConfirmation, setIsShowingHighFeeConfirmation] = useState(false);
   const transactionRequest = useTransactionRequestState();
   const { data: stxFees } = useCalculateStacksTxFees(stacksTransaction);
   const analytics = useAnalytics();
@@ -129,8 +131,13 @@ export function StacksTransactionSigner({
               </Link>
             )}
             <MinimalErrorMessage />
-            <SubmitAction />
-            <HighFeeDialog learnMoreUrl={HIGH_FEE_WARNING_LEARN_MORE_URL_STX} />
+            <SubmitAction
+              setIsShowingHighFeeConfirmation={() => setIsShowingHighFeeConfirmation(true)}
+            />
+            <HighFeeDialog
+              isShowing={isShowingHighFeeConfirmation}
+              learnMoreUrl={HIGH_FEE_WARNING_LEARN_MORE_URL_STX}
+            />
             <Outlet />
           </>
         )}

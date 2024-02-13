@@ -1,19 +1,6 @@
 import { useAtom } from 'jotai';
 
-import {
-  errorStackTraceState,
-  loadingState,
-  showHighFeeConfirmationState,
-  showTxSettingsCallback,
-} from './ui';
-
-export function useShowHighFeeConfirmationState() {
-  return useAtom(showHighFeeConfirmationState);
-}
-
-export function useShowTxSettingsCallback() {
-  return useAtom(showTxSettingsCallback);
-}
+import { errorStackTraceState, loadingState } from './ui';
 
 export function useLoadingState(key: string) {
   return useAtom(loadingState(key));
