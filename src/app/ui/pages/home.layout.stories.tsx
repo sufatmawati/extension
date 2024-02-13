@@ -3,11 +3,11 @@ import { Box, Flex, Stack } from 'leather-styles/jsx';
 
 import { RouteUrls } from '@shared/route-urls';
 
+import { ActionButton } from '@app/ui/components/account/action-button';
 import { ArrowDownIcon } from '@app/ui/components/icons/arrow-down-icon';
 import { ArrowUpIcon } from '@app/ui/components/icons/arrow-up-icon';
 import { PlusIcon } from '@app/ui/components/icons/plus-icon';
 import { SwapIcon } from '@app/ui/components/icons/swap-icon';
-import { ActionButton } from '@app/ui/components/layout/card/account/action-button';
 import { Tabs } from '@app/ui/components/tabs/tabs';
 
 import { HomeLayout as Component } from './home.layout';

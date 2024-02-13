@@ -9,8 +9,7 @@ import { AccountListItemLayout } from '@app/components/account/account-list-item
 import { AccountNameLayout } from '@app/components/account/account-name';
 import { useNativeSegwitSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useStacksAccounts } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
-
-import { AccountAvatarItem } from '../../../../components/account/account-avatar-item';
+import { AccountAvatarItem } from '@app/ui/components/account/account-avatar/account-avatar-item';
 
 interface SwitchAccountListItemProps {
   handleClose(): void;

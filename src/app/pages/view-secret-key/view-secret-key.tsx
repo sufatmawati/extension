@@ -3,9 +3,9 @@ import { Outlet } from 'react-router-dom';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { RequestPassword } from '@app/components/request-password';
-import { SecretKeyDisplayer } from '@app/features/secret-key-displayer/secret-key-displayer';
+import { SecretKey } from '@app/features/secret-key-displayer/secret-key-displayer';
 import { useDefaultWalletSecretKey } from '@app/store/in-memory-key/in-memory-key.selectors';
-import { TwoColumnLayout } from '@app/ui/components/layout/page/two-column.layout';
+import { TwoColumnLayout } from '@app/ui/pages/two-column.layout';
 
 export function ViewSecretKey() {
   const analytics = useAnalytics();
@@ -33,7 +33,7 @@ export function ViewSecretKey() {
           </>
         }
       >
-        <SecretKeyDisplayer secretKey={defaultWalletSecretKey ?? ''} />
+        <SecretKey secretKey={defaultWalletSecretKey ?? ''} />
       </TwoColumnLayout>
     );
   }

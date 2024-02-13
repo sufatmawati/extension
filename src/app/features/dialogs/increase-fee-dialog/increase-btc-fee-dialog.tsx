@@ -8,14 +8,8 @@ import { useLocationStateWithCache } from '@app/common/hooks/use-location-state'
 import { IncreaseBtcFeeForm } from './components/increase-btc-fee-form';
 import { IncreaseFeeDialog } from './increase-fee-dialog';
 
-function useIncreaseBtcFeeDialogState() {
-  return {
-    tx: useLocationStateWithCache('btcTx') as BitcoinTx,
-  };
-}
-
 export function IncreaseBtcFeeDialog() {
-  const { tx } = useIncreaseBtcFeeDialogState();
+  const tx = useLocationStateWithCache('btcTx') as BitcoinTx;
   const navigate = useNavigate();
   const location = useLocation();
 

@@ -14,7 +14,7 @@ import { homePageModalRoutes } from '@app/routes/app-routes';
 import { ModalBackgroundWrapper } from '@app/routes/components/modal-background-wrapper';
 import { useCurrentAccountNativeSegwitAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
-import { HomeLayout } from '@app/ui/components/layout/page/home.layout';
+import { HomeLayout } from '@app/ui/pages/home.layout';
 
 import { AccountActions } from './components/account-actions';
 import { HomeTabs } from './components/home-tabs';

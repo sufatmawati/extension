@@ -6,17 +6,17 @@ import { isEmpty } from '@shared/utils';
 
 import { createNullArrayOfLength } from '@app/common/utils';
 import { ErrorLabel } from '@app/components/error-label';
-import { SecretKeyGrid } from '@app/components/secret-key/secret-key-grid';
 import { useSignIn } from '@app/pages/onboarding/sign-in/hooks/use-sign-in';
 import { Button } from '@app/ui/components/button/button';
+import { SecretKeyGrid } from '@app/ui/components/secret-key/secret-key-grid';
 
-import { MnemonicWordInput } from '../../../components/secret-key/mnemonic-key/mnemonic-word-input';
+import { MnemonicWordInput } from '../../../ui/components/secret-key/mnemonic-key/mnemonic-word-input';
 import {
   getMnemonicErrorFields,
   getMnemonicErrorMessage,
   hasMnemonicFormValues,
-} from '../../../components/secret-key/mnemonic-key/utils/error-handling';
-import { validationSchema } from '../../../components/secret-key/mnemonic-key/utils/validation';
+} from '../../../ui/components/secret-key/mnemonic-key/utils/error-handling';
+import { validationSchema } from '../../../ui/components/secret-key/mnemonic-key/utils/validation';
 
 interface MnemonicFormProps {
   mnemonic: (string | null)[];

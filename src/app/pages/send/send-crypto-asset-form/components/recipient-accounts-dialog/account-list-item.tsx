@@ -7,11 +7,11 @@ import { BitcoinSendFormValues, StacksSendFormValues } from '@shared/models/form
 import { useAccountDisplayName } from '@app/common/hooks/account/use-account-names';
 import { AccountTotalBalance } from '@app/components/account-total-balance';
 import { AcccountAddresses } from '@app/components/account/account-addresses';
-import { AccountAvatarItem } from '@app/components/account/account-avatar-item';
 import { AccountListItemLayout } from '@app/components/account/account-list-item.layout';
 import { AccountNameLayout } from '@app/components/account/account-name';
 import { useNativeSegwitSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { StacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.models';
+import { AccountAvatarItem } from '@app/ui/components/account/account-avatar/account-avatar-item';
 
 interface AccountListItemProps {
   stacksAccount: StacksAccount;

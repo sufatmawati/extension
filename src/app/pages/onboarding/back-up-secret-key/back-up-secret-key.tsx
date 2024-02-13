@@ -5,12 +5,12 @@ import { HStack, Stack, styled } from 'leather-styles/jsx';
 
 import { RouteUrls } from '@shared/route-urls';
 
-import { SecretKeyDisplayer } from '@app/features/secret-key-displayer/secret-key-displayer';
+import { SecretKey } from '@app/features/secret-key-displayer/secret-key-displayer';
 import { useDefaultWalletSecretKey } from '@app/store/in-memory-key/in-memory-key.selectors';
 import { EyeSlashIcon } from '@app/ui/components/icons/eye-slash-icon';
 import { LockIcon } from '@app/ui/components/icons/lock-icon';
 import { RotateLeftIcon } from '@app/ui/components/icons/rotate-left-icon';
-import { TwoColumnLayout } from '@app/ui/components/layout/page/two-column.layout';
+import { TwoColumnLayout } from '@app/ui/pages/two-column.layout';
 
 export const BackUpSecretKeyPage = memo(() => {
   const secretKey = useDefaultWalletSecretKey();
@@ -54,7 +54,7 @@ export const BackUpSecretKeyPage = memo(() => {
         </Stack>
       }
     >
-      <SecretKeyDisplayer secretKey={secretKey} />
+      <SecretKey secretKey={secretKey} />
     </TwoColumnLayout>
   );
 });

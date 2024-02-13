@@ -3,10 +3,10 @@ import { memo } from 'react';
 import { CircleProps } from 'leather-styles/jsx';
 
 import { useCurrentAccountDisplayName } from '@app/common/hooks/account/use-account-names';
-import { AccountAvatar } from '@app/components/account/account-avatar';
 import { useCurrentAccountIndex } from '@app/store/accounts/account';
 import { useStacksAccounts } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { StacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.models';
+import { AccountAvatar } from '@app/ui/components/account/account-avatar/account-avatar';
 
 interface CurrentAccountAvatar extends CircleProps {
   toggleSwitchAccount(): void;

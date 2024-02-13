@@ -9,18 +9,22 @@ import { CopyIcon } from '@app/ui/components/icons/copy-icon';
 import { EyeIcon } from '@app/ui/components/icons/eye-icon';
 import { EyeSlashIcon } from '@app/ui/components/icons/eye-slash-icon';
 
-import { SecretKeyGrid } from '../../components/secret-key/secret-key-grid';
-import { SecretKeyWord } from './components/secret-key-word';
+import { SecretKeyGrid } from './secret-key-grid';
+import { SecretKeyWord } from './secret-key-word';
 
-interface SecretKeyDisplayerLayoutProps {
+interface SecretKeyLayoutProps {
   hasCopied: boolean;
   onCopyToClipboard(): void;
   secretKeyWords: string[] | undefined;
   showTitleAndIllustration: boolean;
   onBackedUpSecretKey(): void;
 }
-export function SecretKeyDisplayerLayout(props: SecretKeyDisplayerLayoutProps) {
-  const { hasCopied, onCopyToClipboard, onBackedUpSecretKey, secretKeyWords } = props;
+export function SecretKeyLayout({
+  hasCopied,
+  onCopyToClipboard,
+  onBackedUpSecretKey,
+  secretKeyWords,
+}: SecretKeyLayoutProps) {
   const [showSecretKey, setShowSecretKey] = useState(false);
 
   return (

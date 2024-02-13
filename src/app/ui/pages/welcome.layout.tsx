@@ -35,7 +35,6 @@ export function WelcomeLayout({
     },
 
     _hover: {
-      /* TODO 4370 - design check hover + text color on md */
       bg: 'accent.action-primary-hover',
       color: theme === 'light' ? 'lightModeInk.1' : 'darkModeInk.1',
     },

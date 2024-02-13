@@ -1,6 +1,6 @@
 import { memo } from 'react';
 
-import { AccountAvatar } from '@app/components/account/account-avatar';
+import { AccountAvatar } from '@app/ui/components/account/account-avatar/account-avatar';
 
 interface AccountAvatarItemProps {
   publicKey: string;

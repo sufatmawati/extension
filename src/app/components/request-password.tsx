@@ -9,8 +9,8 @@ import { buildEnterKeyEvent } from '@app/common/hooks/use-modifier-key';
 import { WaitingMessages, useWaitingMessage } from '@app/common/utils/use-waiting-message';
 import { Button } from '@app/ui/components/button/button';
 import { Footer } from '@app/ui/components/containers/footers/footer';
-import { Card } from '@app/ui/components/layout/card/card';
-import { Page } from '@app/ui/components/layout/page/page.layout';
+import { Card } from '@app/ui/layout/card/card';
+import { Page } from '@app/ui/layout/page/page.layout';
 
 import { ErrorLabel } from './error-label';
 

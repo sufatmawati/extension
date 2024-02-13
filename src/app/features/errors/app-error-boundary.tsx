@@ -8,7 +8,6 @@ import { useErrorStackTraceState } from '@app/store/ui/ui.hooks';
 import { CodeBlock } from '@app/ui/components/codeblock';
 import { Title } from '@app/ui/components/typography/title';
 
-//  FIXME - need to make sure this actually shows correctly
 function ErrorFallback({ error, resetErrorBoundary }: FallbackProps) {
   const [value] = useErrorStackTraceState();
 

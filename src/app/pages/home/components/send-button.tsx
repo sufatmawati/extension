@@ -13,8 +13,8 @@ import {
   useTransferableStacksFungibleTokenAssetBalances,
 } from '@app/query/stacks/balance/stacks-ft-balances.hooks';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
+import { ActionButton } from '@app/ui/components/account/action-button';
 import { ArrowUpIcon } from '@app/ui/components/icons/arrow-up-icon';
-import { ActionButton } from '@app/ui/components/layout/card/account/action-button';
 
 function SendButtonSuspense() {
   const navigate = useNavigate();

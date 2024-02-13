@@ -3,7 +3,7 @@ import type { ReactNode } from 'react';
 import { HomePageSelectors } from '@tests/selectors/home.selectors';
 import { Stack } from 'leather-styles/jsx';
 
-import { AccountCard } from '@app/ui/components/layout/card/account/account.card';
+import { AccountCard } from '@app/ui/components/account/account.card';
 
 interface HomeLayoutProps {
   name: string;

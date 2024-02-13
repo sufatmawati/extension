@@ -20,8 +20,8 @@ import {
 } from '@app/store/networks/networks.hooks';
 import { Button } from '@app/ui/components/button/button';
 import { Input } from '@app/ui/components/input/input';
-import { Page } from '@app/ui/components/layout/page/page.layout';
 import { Title } from '@app/ui/components/typography/title';
+import { Page } from '@app/ui/layout/page/page.layout';
 
 /**
  * The **peer** network ID.
@@ -45,7 +45,6 @@ const addNetworkFormValues: AddNetworkFormValues = {
   bitcoinUrl: '',
 };
 
-// FIXME 4370 task #11 make this look better
 export function AddNetwork() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
