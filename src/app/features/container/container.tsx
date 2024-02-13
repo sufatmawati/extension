@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Toaster } from 'react-hot-toast';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
@@ -27,12 +27,13 @@ import { Logo } from '@app/ui/components/logo';
 import { SwitchAccountDialog } from '../dialogs/switch-account-dialog/switch-account-dialog';
 import { useRestoreFormState } from '../popup-send-form-restoration/use-restore-form-state';
 import { Settings } from '../settings/settings';
-import { getOnClose } from './get-on-close';
 import { getDisplayAddresssBalanceOf, isKnownPopup, showAccountInfo } from './get-popup-header';
 import { getTitleFromUrl } from './get-title-from-url';
 import { TotalBalance } from './total-balance';
 
 export function Container() {
+  // setIsShowingSwitchAccount is repeated so could be improved but at least jotai isShowingSwitchAccountsState is gone
+  const [isShowingSwitchAccount, setIsShowingSwitchAccount] = useState(false);
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const analytics = useAnalytics();
@@ -64,8 +65,6 @@ export function Container() {
     );
   };
 
-  // > lint errors
-  // > update PR description
   // > onClose removal
   // > scroll behaviour
   // > settings
@@ -79,6 +78,14 @@ export function Container() {
   //   // view-secret-key page only shows header logo IF show password true, uses the same route :D
   // };
 
+  // Settings menu needs to show if session locked
+  // just show the F-ing header here to keep it simple
+  //  && !isPasswordPage(); // && !isSessionLocked;
+
+  // FIXME - this isn't working, only showing BACK!
+  // > onClose is now depreacted so get rid of this code
+  // > fix hacky code around showing logo or not - get rid of placeholder etc
+
   // TODO 4370 test RouteUrls.Unlock as not sure what header there, page I guess
   // PETe - need to show Settings menu on unlock screen
   const getVariant = () => {
@@ -88,8 +95,6 @@ export function Container() {
   };
 
   const variant = getVariant();
-  // console.log('variant', variant);
-  // ? messing with headers for 2 columns. just sort the ui , headers later
   useEffect(() => {
     // set the whole body colour based on page variant so it can update dynamically
     if (variant === 'home') {
@@ -108,22 +113,15 @@ export function Container() {
   };
 
   const displayHeader = !isLandingPage() && !isGetAddressesPopup;
-  // Settings menu needs to show here if session locked
-  // just show the F-ing header here to keep it simple
-  //  && !isPasswordPage(); // && !isSessionLocked;
-
-  // FIXME - this isn't working, only showing BACK!
-  // > onClose is now depreacted so get rid of this code
-  // > fix hacky code around showing logo or not - get rid of placeholder etc
-  const pageOnClose = getOnClose(pathname as RouteUrls);
-
-  // console.log('getOnClose', pageOnClose);
 
   if (!hasStateRehydrated) return <LoadingSpinner />;
 
   return (
     <>
-      <SwitchAccountDialog />
+      <SwitchAccountDialog
+        isShowing={isShowingSwitchAccount}
+        onClose={() => setIsShowingSwitchAccount(false)}
+      />
       <Toaster position="bottom-center" toastOptions={{ style: { fontSize: '14px' } }} />
       <ContainerLayout
         header={
@@ -133,21 +131,19 @@ export function Container() {
               // on /fund/:currency goBack doesn't make sense as it re-opens popup.
               // Need to test everywhere and add custom logic
               onGoBack={
-                isSessionLocked || pageOnClose || isKnownPopup(pathname as RouteUrls)
+                isSessionLocked || isKnownPopup(pathname as RouteUrls)
                   ? undefined
                   : () => navigate(-1)
-              }
-              onClose={
-                pageOnClose
-                  ? () => navigate(RouteUrls.Fund ? RouteUrls.FundChooseCurrency : RouteUrls.Home)
-                  : undefined
               }
               settingsMenu={
                 // disabling settings for all popups for now pending clarification
                 // variant !== 'popup' && <Settings triggerButton={<HamburgerIcon />} />
                 // this logic was not working
                 isKnownPopup(pathname as RouteUrls) ? null : (
-                  <Settings triggerButton={<HamburgerIcon />} />
+                  <Settings
+                    triggerButton={<HamburgerIcon />}
+                    toggleSwitchAccount={() => setIsShowingSwitchAccount(!!isShowingSwitchAccount)}
+                  />
                 )
               }
               networkBadge={

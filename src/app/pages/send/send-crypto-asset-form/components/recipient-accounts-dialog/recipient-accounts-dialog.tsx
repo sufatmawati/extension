@@ -23,7 +23,7 @@ export const RecipientAccountsDialog = memo(() => {
 
   if (stacksAddressesNum === 0 && btcAddressesNum === 0) return null;
 
-  // TODO 4370 task #5 virtuoso boxes - test UI of this and other virtuoso lists and maybe change to share more code?
+  // TODO 4370 task #3 virtuoso boxes - test UI of this and other virtuoso lists and maybe change to share more code?
   return (
     <Dialog title="My accounts" isShowing onClose={onGoBack}>
       <Box

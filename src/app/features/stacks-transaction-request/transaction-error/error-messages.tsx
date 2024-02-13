@@ -24,7 +24,7 @@ interface InsufficientFundsActionButtonsProps {
 }
 function InsufficientFundsActionButtons({ eventName }: InsufficientFundsActionButtonsProps) {
   const analytics = useAnalytics();
-  const [showSwitchAccount, setShowSwitchAccount] = useState(false);
+  const [isShowingSwitchAccount, setIsShowingSwitchAccount] = useState(false);
 
   const onGetStx = () => {
     void analytics.track(eventName);
@@ -35,11 +35,11 @@ function InsufficientFundsActionButtons({ eventName }: InsufficientFundsActionBu
   return (
     <>
       <SwitchAccountDialog
-        isShowing={showSwitchAccount}
-        onClose={() => setShowSwitchAccount(false)}
+        isShowing={isShowingSwitchAccount}
+        onClose={() => setIsShowingSwitchAccount(false)}
       />
       <Button onClick={onGetStx}>Get STX</Button>
-      <Button onClick={() => setShowSwitchAccount(true)} variant="outline">
+      <Button onClick={() => setIsShowingSwitchAccount(true)} variant="outline">
         Switch account
       </Button>
     </>

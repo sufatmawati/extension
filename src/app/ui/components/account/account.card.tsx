@@ -14,12 +14,12 @@ interface AccountCardProps {
 }
 
 export function AccountCard({ name, balance, children }: AccountCardProps) {
-  const [showSwitchAccount, setShowSwitchAccount] = useState(false);
+  const [isShowingSwitchAccount, setIsShowingSwitchAccount] = useState(false);
   return (
     <>
       <SwitchAccountDialog
-        isShowing={showSwitchAccount}
-        onClose={() => setShowSwitchAccount(false)}
+        isShowing={isShowingSwitchAccount}
+        onClose={() => setIsShowingSwitchAccount(false)}
       />
       <Flex
         direction="column"
@@ -33,7 +33,7 @@ export function AccountCard({ name, balance, children }: AccountCardProps) {
           _before={{ bg: 'transparent' }}
           _hover={{ color: 'accent.action-primary-hover' }}
           data-testid={SettingsSelectors.SwitchAccountTrigger}
-          onClick={() => setShowSwitchAccount(!showSwitchAccount)}
+          onClick={() => setIsShowingSwitchAccount(!isShowingSwitchAccount)}
         >
           <Flex>
             <styled.p
