@@ -4,6 +4,7 @@ import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
 import { ChainID } from '@stacks/transactions';
 import { OnboardingSelectors } from '@tests/selectors/onboarding.selectors';
+import { Box } from 'leather-styles/jsx';
 import { token } from 'leather-styles/tokens';
 
 import { RouteUrls } from '@shared/route-urls';
@@ -13,6 +14,7 @@ import { useAnalytics, useInitalizeAnalytics } from '@app/common/hooks/analytics
 import { LoadingSpinner } from '@app/components/loading-spinner';
 import { CurrentAccountAvatar } from '@app/features/current-account/current-account-avatar';
 import { CurrentAccountName } from '@app/features/current-account/current-account-name';
+import { SwitchAccountDialog } from '@app/features/dialogs/switch-account-dialog/switch-account-dialog';
 import { useOnSignOut } from '@app/routes/hooks/use-on-sign-out';
 import { useOnWalletLock } from '@app/routes/hooks/use-on-wallet-lock';
 import { useHasStateRehydrated } from '@app/store';
@@ -24,7 +26,6 @@ import { Flag } from '@app/ui/components/flag/flag';
 import { HamburgerIcon } from '@app/ui/components/icons/hamburger-icon';
 import { Logo } from '@app/ui/components/logo';
 
-import { SwitchAccountDialog } from '../dialogs/switch-account-dialog/switch-account-dialog';
 import { useRestoreFormState } from '../popup-send-form-restoration/use-restore-form-state';
 import { Settings } from '../settings/settings';
 import { getDisplayAddresssBalanceOf, isKnownPopup, showAccountInfo } from './get-popup-header';
@@ -65,29 +66,12 @@ export function Container() {
     );
   };
 
-  // > onClose removal
   // > scroll behaviour
-  // > settings
-  // > storybook
-
-  // const isPasswordPage = () => {
-  //   return pathname === RouteUrls.Unlock || pathname === RouteUrls.ViewSecretKey;
-  //   // maybe add a <Header /> inside the two column routes?
-  //   // thats messeir. headers should be here
-  //   //ViewSecretKey is wrong but needs to be on another request password page
-  //   // view-secret-key page only shows header logo IF show password true, uses the same route :D
-  // };
-
-  // Settings menu needs to show if session locked
-  // just show the F-ing header here to keep it simple
-  //  && !isPasswordPage(); // && !isSessionLocked;
-
-  // FIXME - this isn't working, only showing BACK!
-  // > onClose is now depreacted so get rid of this code
+  // > settings fix menu - dialogs
+  // - need to show Settings menu on unlock screen
   // > fix hacky code around showing logo or not - get rid of placeholder etc
+  // => add storybook pages
 
-  // TODO 4370 test RouteUrls.Unlock as not sure what header there, page I guess
-  // PETe - need to show Settings menu on unlock screen
   const getVariant = () => {
     if (isHomePage()) return 'home';
     if (isOnboardingPage()) return 'onboarding';
@@ -113,6 +97,7 @@ export function Container() {
   };
 
   const displayHeader = !isLandingPage() && !isGetAddressesPopup;
+  const [showSwitchAccount, setShowSwitchAccount] = useState(false);
 
   if (!hasStateRehydrated) return <LoadingSpinner />;
 
@@ -162,7 +147,7 @@ export function Container() {
                 ) : (
                   // <>Pete this hides the logo but moves the menu to the left! </>
                   // fix this hack
-                  <div width="102px" height="32px"></div>
+                  <Box width="102px" height="32px" />
                 )
               }
               account={
@@ -175,6 +160,7 @@ export function Container() {
                         fontSize="16px"
                         fontWeight={500}
                         size="32px"
+                        toggleSwitchAccount={() => setShowSwitchAccount(!showSwitchAccount)}
                       />
                     }
                   >

@@ -4,6 +4,8 @@ import * as RadixDialog from '@radix-ui/react-dialog';
 import { css } from 'leather-styles/css';
 import { Box, styled } from 'leather-styles/jsx';
 
+import { isString } from '@shared/utils';
+
 import { Header } from '@app/ui/components/containers/headers/header';
 
 function Title({ title }: { title: string }) {
@@ -36,9 +38,9 @@ export interface DialogProps {
 }
 
 //  TODO 4370 task #1
-// - manual task to sift through all Dialogs and read the props
-// - make sure that nothing is missed
-// - check LEDGER DIALOGS!!!
+// - manual task to sift through all Dialogs and read the props - make sure that nothing is missed
+// - fix styling of dialog overflow and BigTitles
+// - test  LEDGER DIALOGS
 export const Dialog = memo(
   ({
     children,
@@ -48,7 +50,7 @@ export const Dialog = memo(
     //=> this is needed to block closing of Ledger dialog + some others
     // check useDialog
     isWaitingOnPerformedAction,
-    onGoBack,
+    // onGoBack,
     onClose,
     title,
     isShowing,
@@ -122,8 +124,8 @@ export const Dialog = memo(
                     variant="page"
                     isWaitingOnPerformedAction={isWaitingOnPerformedAction}
                     onClose={onClose}
-                    onGoBack={onGoBack}
-                    title={typeof title === 'string' ? <Title title={title} /> : title} // title only used here and passed in by 15 of dialogs
+                    // onGoBack={onGoBack}
+                    title={isString(title) ? <Title title={title} /> : title}
                   />
                 )}
 

@@ -47,7 +47,7 @@ export function AccountCard({ name, balance, children }: AccountCardProps) {
             </Box>
           </Flex>
         </Link>
-        <Flex flexDir={{ base: 'column', md: 'row' }} justify="space-between" alignItems="center">
+        <Flex flexDir={{ base: 'column', md: 'row' }} justify="space-between">
           <styled.h1 textStyle="heading.02" mb="space.05" mt="space.04">
             {balance}
           </styled.h1>
