@@ -8,6 +8,7 @@ import { RouteUrls } from '@shared/route-urls';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useKeyActions } from '@app/common/hooks/use-key-actions';
+import { useModifierKey } from '@app/common/hooks/use-modifier-key';
 import { useWalletType } from '@app/common/use-wallet-type';
 import { openInNewTab, openIndexPageInNewTab } from '@app/common/utils/open-in-new-tab';
 import { SignOut } from '@app/features/settings/sign-out/sign-out-confirm';
@@ -24,12 +25,12 @@ import { Caption } from '@app/ui/components/typography/caption';
 
 import { openFeedbackDialog } from '../feedback-button/feedback-button';
 import { extractDeviceNameFromKnownTargetIds } from '../ledger/utils/generic-ledger-utils';
-// import { AdvancedMenuItems } from './components/advanced-menu-items';
+import { AdvancedMenuItems } from './components/advanced-menu-items';
 import { LedgerDeviceItemRow } from './components/ledger-item-row';
 import { NetworkList } from './network/network-list';
 import { ThemeList } from './theme/theme-list';
 
-//  TODO 4370 task #2  - Fix AdvancedMenuItems and sub-menu hover interaction
+//  TODO 4370 task #2  - Fix sub-menu hover interaction
 // on the radix site it says latest version is 2.0.5 but we have 2.0.6?
 // designs here https://www.figma.com/file/2MLHeIeL6XPVi3Tc2DfFCr/%E2%9D%96-Leather-%E2%80%93-Design-System?node-id=10352%3A137700&mode=dev
 // use this to add in replaced routable dialogs - void analytics.page('view', '/save-secret-key');
@@ -53,6 +54,7 @@ export function Settings({ triggerButton, toggleSwitchAccount }: SettingsProps) 
   const location = useLocation();
 
   const isLedger = useHasLedgerKeys();
+  const { isPressed: showAdvancedMenuOptions } = useModifierKey('alt', 120);
 
   return (
     <>
@@ -112,21 +114,22 @@ export function Settings({ triggerButton, toggleSwitchAccount }: SettingsProps) 
                   </DropdownMenu.SubContent>
                 </DropdownMenu.Portal>
               </DropdownMenu.Sub>
-              <DropdownMenu.Item
-                // hideFrom="md" // FIXME - improve this to not load DropdownMenu.Item also
-                data-testid={SettingsSelectors.OpenWalletInNewTab}
-                onClick={() => {
-                  void analytics.track('click_open_in_new_tab_menu_item');
-                  openIndexPageInNewTab(location.pathname);
-                }}
-              >
-                <Flag img={<PlaceholderIcon />} textStyle="label.02">
-                  <Flex justifyContent="space-between">
-                    Open in new tab
-                    <ExternalLinkIcon />
-                  </Flex>
-                </Flag>
-              </DropdownMenu.Item>
+              <styled.div hideFrom="md">
+                <DropdownMenu.Item
+                  data-testid={SettingsSelectors.OpenWalletInNewTab}
+                  onClick={() => {
+                    void analytics.track('click_open_in_new_tab_menu_item');
+                    openIndexPageInNewTab(location.pathname);
+                  }}
+                >
+                  <Flag img={<PlaceholderIcon />} textStyle="label.02">
+                    <Flex justifyContent="space-between">
+                      Open in new tab
+                      <ExternalLinkIcon />
+                    </Flex>
+                  </Flag>
+                </DropdownMenu.Item>
+              </styled.div>
 
               <DropdownMenu.Item
                 data-testid={SettingsSelectors.GetSupportMenuItem}
@@ -182,13 +185,7 @@ export function Settings({ triggerButton, toggleSwitchAccount }: SettingsProps) 
               </DropdownMenu.Sub>
               <DropdownMenu.Separator />
 
-              {/* TODO - refactor this section */}
-              {/* {showAdvancedMenuOptions && (
-                <AdvancedMenuItems
-                  closeHandler={wrappedCloseCallback}
-                  settingsShown={isShowingSettings}
-                />
-              )} */}
+              {showAdvancedMenuOptions && <AdvancedMenuItems />}
               {hasGeneratedWallet && walletType === 'software' && (
                 <DropdownMenu.Item
                   onClick={() => {
@@ -206,13 +203,7 @@ export function Settings({ triggerButton, toggleSwitchAccount }: SettingsProps) 
 
               <DropdownMenu.Item
                 color="error.label"
-                onClick={
-                  () => setShowSignOut(!showSignOut)
-                  // navigate(RouteUrls.SignOutConfirm, {
-                  //   relative: linkRelativeType,
-                  //   state: { backgroundLocation: location },
-                  // })
-                }
+                onClick={() => setShowSignOut(!showSignOut)}
                 data-testid={SettingsSelectors.SignOutListItem}
               >
                 <Flag img={<PlaceholderIcon />} textStyle="label.02">

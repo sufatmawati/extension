@@ -64,13 +64,20 @@ export function Container() {
     );
   };
 
-  const isPasswordPage = () => {
-    return pathname === RouteUrls.Unlock || pathname === RouteUrls.ViewSecretKey;
-    // maybe add a <Header /> inside the two column routes?
-    // thats messeir. headers should be here
-    //ViewSecretKey is wrong but needs to be on another request password page
-    // view-secret-key page only shows header logo IF show password true, uses the same route :D
-  };
+  // > lint errors
+  // > update PR description
+  // > onClose removal
+  // > scroll behaviour
+  // > settings
+  // > storybook
+
+  // const isPasswordPage = () => {
+  //   return pathname === RouteUrls.Unlock || pathname === RouteUrls.ViewSecretKey;
+  //   // maybe add a <Header /> inside the two column routes?
+  //   // thats messeir. headers should be here
+  //   //ViewSecretKey is wrong but needs to be on another request password page
+  //   // view-secret-key page only shows header logo IF show password true, uses the same route :D
+  // };
 
   // TODO 4370 test RouteUrls.Unlock as not sure what header there, page I guess
   // PETe - need to show Settings menu on unlock screen

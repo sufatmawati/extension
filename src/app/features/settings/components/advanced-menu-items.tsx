@@ -20,12 +20,8 @@ function isSmallEnoughToBeConsiderdEmptyCache(logSizeInBytes?: number) {
   return logSizeInBytes < isAnEmptyLogsArrayByteThreshold;
 }
 
-interface AdvancedMenuItemsProps {
-  closeHandler(fn: () => void): () => void;
-  settingsShown: boolean;
-}
-export function AdvancedMenuItems({ closeHandler, settingsShown }: AdvancedMenuItemsProps) {
-  const { result: logSizeInBytes } = useAsync(async () => getLogSizeInBytes(), [settingsShown]);
+export function AdvancedMenuItems() {
+  const { result: logSizeInBytes } = useAsync(async () => getLogSizeInBytes(), []);
 
   const diagnosticLogText = useMemo(() => {
     const noLogInfoMsg = `There are no logs cached`;
@@ -39,10 +35,10 @@ export function AdvancedMenuItems({ closeHandler, settingsShown }: AdvancedMenuI
   return (
     <>
       <DropdownMenu.Item
-        onClick={closeHandler(async () => {
+        onClick={async () => {
           await copyLogsToClipboard();
           toast.success('Copied to clipboard');
-        })}
+        }}
       >
         Copy diagnostics to clipboard
         <Caption mt="space.04" fontSize="12px !important">
@@ -50,10 +46,10 @@ export function AdvancedMenuItems({ closeHandler, settingsShown }: AdvancedMenuI
         </Caption>
       </DropdownMenu.Item>
       <DropdownMenu.Item
-        onClick={closeHandler(async () => {
+        onClick={async () => {
           await clearBrowserStorageLogs();
           toast.success('Diagnostic logs cleared');
-        })}
+        }}
       >
         Clear diagnostic information
         <Caption mt="space.04" fontSize="12px !important">

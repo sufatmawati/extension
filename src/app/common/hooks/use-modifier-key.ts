@@ -1,4 +1,4 @@
-// import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 export function buildEnterKeyEvent(onClick: () => void) {
   return (event: React.KeyboardEvent<HTMLInputElement>) => {
@@ -8,48 +8,46 @@ export function buildEnterKeyEvent(onClick: () => void) {
   };
 }
 
-// TODO try deprecate this in favour of new settings menu https://github.com/leather-wallet/extension/pull/2732/files
+let timer = 0;
 
-// let timer = 0;
+export function useModifierKey(key: 'alt' | 'control', delay = 0) {
+  const [isPressed, setIsPressed] = useState(false);
 
-// export function useModifierKey(key: 'alt' | 'control', delay = 0) {
-//   const [isPressed, setIsPressed] = useState(false);
+  const keydownFn = useCallback(
+    (event: KeyboardEvent) => {
+      if (key === 'alt' && event.altKey) {
+        timer = window.setTimeout(() => setIsPressed(true), delay);
+      }
+      if (key === 'control' && event.ctrlKey) {
+        timer = window.setTimeout(() => setIsPressed(true), delay);
+      }
+    },
+    [delay, key]
+  );
 
-//   const keydownFn = useCallback(
-//     (event: KeyboardEvent) => {
-//       if (key === 'alt' && event.altKey) {
-//         timer = window.setTimeout(() => setIsPressed(true), delay);
-//       }
-//       if (key === 'control' && event.ctrlKey) {
-//         timer = window.setTimeout(() => setIsPressed(true), delay);
-//       }
-//     },
-//     [delay, key]
-//   );
+  const keyupFn = useCallback(
+    (event: KeyboardEvent) => {
+      if (key === 'alt' && !event.altKey) {
+        clearTimeout(timer);
+        setIsPressed(false);
+      }
+      if (key === 'control' && !event.ctrlKey) {
+        clearTimeout(timer);
+        setIsPressed(false);
+      }
+    },
+    [key]
+  );
 
-//   const keyupFn = useCallback(
-//     (event: KeyboardEvent) => {
-//       if (key === 'alt' && !event.altKey) {
-//         clearTimeout(timer);
-//         setIsPressed(false);
-//       }
-//       if (key === 'control' && !event.ctrlKey) {
-//         clearTimeout(timer);
-//         setIsPressed(false);
-//       }
-//     },
-//     [key]
-//   );
+  useEffect(() => {
+    document.addEventListener('keydown', keydownFn);
+    document.addEventListener('keyup', keyupFn);
+    return () => {
+      clearTimeout(timer);
+      document.removeEventListener('keydown', keydownFn);
+      document.removeEventListener('keyup', keyupFn);
+    };
+  }, [keydownFn, keyupFn]);
 
-//   useEffect(() => {
-//     document.addEventListener('keydown', keydownFn);
-//     document.addEventListener('keyup', keyupFn);
-//     return () => {
-//       clearTimeout(timer);
-//       document.removeEventListener('keydown', keydownFn);
-//       document.removeEventListener('keyup', keyupFn);
-//     };
-//   }, [keydownFn, keyupFn]);
-
-//   return { isPressed };
-// }
+  return { isPressed };
+}
