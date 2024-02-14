@@ -37,7 +37,6 @@ export function TwoColumnLayout({
         gap="space.05"
         flexDirection="column"
         px={{ base: 'space.00', md: 'space.10', lg: 'space.02' }}
-        width={{ base: '100%', md: 'twoColumnPageWidth' }}
         mb={{ base: 'space.05', md: '0' }}
       >
         <Stack
