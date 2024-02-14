@@ -66,13 +66,15 @@ export function Container() {
     );
   };
 
-  // > scroll behaviour - test more
-  // signout dialog bottom radius
+  //  > scroll behaviour - test more
+  //  - remove global styles and test virtuoso and popup mode
 
   // > settings fix menu - dialogs
   // - need to show Settings menu on unlock screen
   // > fix hacky code around showing logo or not - get rid of placeholder etc
   // => add storybook pages
+
+  // BUG - when create account in Extension mode it doesn't show up there but does in full screen
 
   const getVariant = () => {
     if (isHomePage()) return 'home';
@@ -146,8 +148,7 @@ export function Container() {
                     onClick={variant !== 'home' ? () => navigate(RouteUrls.Home) : undefined}
                   />
                 ) : (
-                  // <>Pete this hides the logo but moves the menu to the left! </>
-                  // fix this hack
+                  // FIXME get rid of this Box used to position when no logo
                   <Box width="102px" height="32px" />
                 )
               }
