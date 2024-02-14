@@ -22,6 +22,7 @@ export function Footer({ children, variant = 'page', flexDirection = 'column' }:
       backgroundColor="accent.background-primary"
       borderTop={variant === 'page' ? ' default' : undefined}
       position={{ base: 'fixed', md: variant === 'card' ? ' absolute' : 'fixed' }}
+      borderBottomRadius="md"
     >
       <Flex flexDirection={flexDirection} width="100%" gap="space.04">
         {children}
