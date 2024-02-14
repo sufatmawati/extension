@@ -69,57 +69,47 @@ export const Dialog = memo(
                 left: '50%',
                 transform: 'translate(-50%, -50%)',
                 width: { base: '100vw', md: '90vw' },
-                height: { base: '100vh', md: 'dialogHeight' },
+                height: { base: '100vh', md: '100%' },
                 maxWidth: { base: '100vw', md: 'pageWidth' },
-                maxHeight: { base: '100vh', md: '85vh' },
+                maxHeight: { base: '100vh', md: '50vh' },
                 animation: 'contentShow 150ms cubic-bezier(0.16, 1, 0.3, 1)',
               })}
             >
-              <Box maxHeight="100vh" overflowY="hidden">
-                {/* TODO check if this box is even needed now 
-                
-                  Probably is needed for account selector
-                */}
-                {/* <Box
-        className={css({
-          position: 'fixed',
-          width: '100%',
-          height: '68px',
-          padding: '16px',
-        })}
-      > */}
-                {/* PETE check this for onboarding as the header spacing should be space.04 and not space.05 */}
-                {/* {header ? (
+              {/* PETE check this for onboarding as the header spacing should be space.04 and not space.05 */}
+              {/* {header ? (
                   header
                 ) : ( */}
 
-                {title && (
-                  <Header
-                    variant="page"
-                    isWaitingOnPerformedAction={isWaitingOnPerformedAction}
-                    onClose={onClose}
-                    // onGoBack={onGoBack}
-                    title={isString(title) ? <Title title={title} /> : title}
-                  />
-                )}
+              {title && (
+                <Header
+                  variant="page"
+                  isWaitingOnPerformedAction={isWaitingOnPerformedAction}
+                  onClose={onClose}
+                  // onGoBack={onGoBack}
+                  title={isString(title) ? <Title title={title} /> : title}
+                />
+              )}
 
-                {/* TODO - test this cross browser and remove if repaced by global.ts
+              {/* TODO - test this cross browser and remove if repaced by global.ts
                 
                   Probably is needed for account selector
                    */}
-                <Box
-                  className={css({
-                    // overflowY: 'scroll',
-                    overflowY: 'auto',
-                    '&::-webkit-scrollbar': {
-                      display: 'none',
-                    },
-                  })}
-                >
-                  {children}
-                </Box>
-                {footer}
+              <Box
+                className={css({
+                  // height: '520px',
+                  // maxHeight: 'fit-content',
+                  height: 'dialogContentHeight',
+                  maxHeight: 'dialogContentHeight',
+                  // overflowY: 'scroll',
+                  overflowY: 'auto',
+                  '&::-webkit-scrollbar': {
+                    display: 'none',
+                  },
+                })}
+              >
+                {children}
               </Box>
+              {footer}
             </RadixDialog.Content>
           </RadixDialog.Overlay>
         </RadixDialog.Portal>

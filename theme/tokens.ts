@@ -12,6 +12,7 @@ export const tokens = defineTokens({
     twoColumnPageWidth: { value: '500px' },
     fullPageMaxWidth: { value: '882px' },
     dialogHeight: { value: '600px' },
+    dialogContentHeight: { value: '500px' },
     headerHeight: { value: '80px' },
     footerHeight: { value: '95px' },
     // #4250 setting consistent dimensions of extension + popup to match mobile

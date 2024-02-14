@@ -32,9 +32,12 @@ export const SwitchAccountDialog = memo(({ isShowing, onClose }: SwitchAccountDi
     onClose();
   };
 
-  if (stacksAddressesNum === 0 && btcAddressesNum === 0) {
+  if (isShowing && stacksAddressesNum === 0 && btcAddressesNum === 0) {
     return <AccountListUnavailable />;
   }
+  // #4370 SMELL without this early return the wallet crashes on new install with: Wallet is neither of type `ledger` nor `software`
+  // test this more as it could be OK to remove.
+  if (!isShowing) return null;
 
   return (
     <Dialog

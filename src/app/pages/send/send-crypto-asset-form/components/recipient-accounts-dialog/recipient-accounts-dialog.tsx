@@ -2,13 +2,11 @@ import { memo, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Virtuoso } from 'react-virtuoso';
 
-import { css } from 'leather-styles/css';
 import { Box } from 'leather-styles/jsx';
 
 import { useFilteredBitcoinAccounts } from '@app/store/accounts/blockchain/bitcoin/bitcoin.ledger';
 import { useStacksAccounts } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
 import { Dialog } from '@app/ui/components/containers/dialog/dialog';
-import { virtuosoContainerStyle, virtuosoStyle } from '@app/ui/shared/styles/virtuoso-styles';
 
 import { AccountListItem } from './account-list-item';
 
@@ -23,19 +21,17 @@ export const RecipientAccountsDialog = memo(() => {
 
   if (stacksAddressesNum === 0 && btcAddressesNum === 0) return null;
 
-  // TODO 4370 task #3 virtuoso boxes - test UI of this and other virtuoso lists and maybe change to share more code?
   return (
     <Dialog title="My accounts" isShowing onClose={onGoBack}>
       <Box
-        className={css(virtuosoContainerStyle)}
         css={{
+          // PETE try this just being 'auto' to fix windows problems also
           // only allow scroll if more than 7 accounts
           overflowY: stacksAccounts.length > 7 ? 'scroll' : 'hidden',
           maxHeight: '100vh',
         }}
       >
         <Virtuoso
-          className={css(virtuosoStyle)}
           itemContent={index => (
             <AccountListItem
               key={index}
