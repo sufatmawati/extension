@@ -100,6 +100,7 @@ export const Dialog = memo(
                   // maxHeight: 'fit-content',
                   height: 'dialogContentHeight',
                   maxHeight: 'dialogContentHeight',
+                  paddingX: 'space.05',
                   // overflowY: 'scroll',
                   overflowY: 'auto',
                   '&::-webkit-scrollbar': {
