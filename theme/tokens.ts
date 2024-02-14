@@ -18,5 +18,7 @@ export const tokens = defineTokens({
     popupWidth: { value: '390px' },
     popupHeight: { value: '756px' },
     popupHeaderHeight: { value: '68px' },
+    bigTitleHeight: { value: '70px' },
+    bigTitleWidth: { value: '270px' },
   },
 });

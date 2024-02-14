@@ -18,7 +18,7 @@ function Title({ title }: { title: string }) {
 
 export function BigTitle({ title }: { title: string }) {
   return (
-    <styled.h1 textStyle="heading.03" maxWidth="270px">
+    <styled.h1 textStyle="heading.03" maxWidth="bigTitleWidth" height="bigTitleHeight">
       {title}
     </styled.h1>
   );
@@ -42,19 +42,7 @@ export interface DialogProps {
 // - fix styling of dialog overflow and BigTitles
 // - test  LEDGER DIALOGS
 export const Dialog = memo(
-  ({
-    children,
-    // header,
-    // maybe I need a dialog variant for onboarding
-    footer,
-    //=> this is needed to block closing of Ledger dialog + some others
-    // check useDialog
-    isWaitingOnPerformedAction,
-    // onGoBack,
-    onClose,
-    title,
-    isShowing,
-  }: DialogProps) => {
+  ({ children, footer, isWaitingOnPerformedAction, onClose, title, isShowing }: DialogProps) => {
     if (!isShowing) return null;
 
     return (
@@ -81,8 +69,6 @@ export const Dialog = memo(
                 left: '50%',
                 transform: 'translate(-50%, -50%)',
                 width: { base: '100vw', md: '90vw' },
-                // TODO wait for answer before commiting to this app wide
-                // checked FIGMA and seems its always this size now
                 height: { base: '100vh', md: 'dialogHeight' },
                 maxWidth: { base: '100vw', md: 'pageWidth' },
                 maxHeight: { base: '100vh', md: '85vh' },
@@ -90,15 +76,6 @@ export const Dialog = memo(
               })}
             >
               <Box maxHeight="100vh" overflowY="hidden">
-                {/*  PETE - now dialogs are always showing a header! - not required 
-                
-                maybe I need to pass in header instead of title for those? 
-                and be able to pass in big/ small text? 
-                make them like the receive modal is now
-                maybe simpler answer here is to have a dialog variant?
-
-                could need to split between full page and extension headers also 
-                */}
                 {/* TODO check if this box is even needed now 
                 
                   Probably is needed for account selector
@@ -111,14 +88,11 @@ export const Dialog = memo(
           padding: '16px',
         })}
       > */}
-
-                {/* //so far header  only passed in my receive-modal + swap-choose 
-  and as flavour - 'big-title' - may be able to simplify but is it worth it? 
- */}
                 {/* PETE check this for onboarding as the header spacing should be space.04 and not space.05 */}
                 {/* {header ? (
                   header
                 ) : ( */}
+
                 {title && (
                   <Header
                     variant="page"

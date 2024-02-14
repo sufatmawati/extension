@@ -12,7 +12,7 @@ import { HeaderActionButton } from './header-action-button';
 // - Ledger:seems to be the only thing using enableGoBack, isWaitingOnPerformedAction
 // - Send summary screens as onClose is now deprecated - action button needs to go Home
 export interface HeaderProps {
-  variant: 'home' | 'page' | 'onboarding' | 'card';
+  variant: 'page' | 'home' | 'onboarding' | 'card'; //TODO add shared types
   // got rid of enableGoBack as in ledger allowUserToGoBack is used to pass undefined /onGoBack to header
   // enableGoBack?: boolean; // seems this is needed in ledger and sendInscription. Would be good to merge it and onGoBack
   isWaitingOnPerformedAction?: boolean; // seems this is needed for ledger - change it to ledgerAction?
@@ -36,15 +36,13 @@ export function Header({
   totalBalance,
   settingsMenu,
   networkBadge,
-  title, // should make this a consistent string and also have an option for bigTitle? a different variant perhaps?
+  title,
   logo,
 }: HeaderProps) {
   return (
     <styled.header
       px={variant === 'card' ? 'space.04' : { base: 'space.04', md: 'space.07' }}
       py={variant === 'card' ? 'space.04' : { base: 'space.04', md: 'space.05' }}
-      maxHeight={{ base: 'popupHeaderHeight', md: 'headerHeight' }}
-      height={{ base: 'popupHeaderHeight', md: 'headerHeight' }}
     >
       <Flex
         width="100%"

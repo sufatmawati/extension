@@ -106,13 +106,18 @@ export function Container() {
 
   return (
     <>
-      {/* // #4370 SMELL without this check for isShowingSwitchAccount the wallet crashes on new install with: Wallet is neither of type `ledger` nor `software` */}
+      {/* #4370 SMELL
+       -  without this check for isShowingSwitchAccount the wallet crashes on new install
+       - Wallet is neither of type `ledger` nor `software`
+       Moved here from SwitchAccountDialog but should be improved
+       */}
       {isShowingSwitchAccount && (
         <SwitchAccountDialog
           isShowing={isShowingSwitchAccount}
           onClose={() => setIsShowingSwitchAccount(false)}
         />
       )}
+      {/* TODO #4310 Toast */}
       <Toaster position="bottom-center" toastOptions={{ style: { fontSize: '14px' } }} />
       <ContainerLayout
         header={
@@ -128,8 +133,6 @@ export function Container() {
               }
               settingsMenu={
                 // disabling settings for all popups for now pending clarification
-                // variant !== 'popup' && <Settings triggerButton={<HamburgerIcon />} />
-                // this logic was not working
                 isKnownPopup(pathname as RouteUrls) ? null : (
                   <Settings
                     triggerButton={<HamburgerIcon />}
