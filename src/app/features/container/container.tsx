@@ -76,7 +76,10 @@ export function Container() {
   // => add storybook pages
 
   // BUG - when create account in Extension mode it doesn't show up there but does in full screen
-
+  // BUG - in extension mode popout when account locked can scroll and header beige?
+  // BUG - receive modal copy address not working (since pre-tabs)
+  // BUG - send BTC / STX footer looks weird, fixed to bottom
+  // BUG - send BTC/ STX select account not showing anything in modal - recipient-accounts
   const getVariant = () => {
     if (isHomePage()) return 'home';
     if (isOnboardingPage()) return 'onboarding';

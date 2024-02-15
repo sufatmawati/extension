@@ -87,7 +87,11 @@ export const Dialog = memo(
                 className={css({
                   height: 'dialogContentHeight',
                   maxHeight: 'dialogContentHeight',
-                  paddingX: 'space.05',
+                  // PEte need to add this padding directly to children instead
+                  // this is so tabs can be full width in receive
+                  // check when reviewing all dialogs
+                  // paddingX: 'space.05',
+                  // paddingX: 'space.03',
                   overflowY: 'auto',
                   '&::-webkit-scrollbar': {
                     display: 'none',
