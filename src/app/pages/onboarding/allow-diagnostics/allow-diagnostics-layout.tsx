@@ -4,7 +4,9 @@ import { Box, Flex, Stack, styled } from 'leather-styles/jsx';
 import { Button } from '@app/ui/components/button/button';
 import { Dialog } from '@app/ui/components/containers/dialog/dialog';
 import { Footer } from '@app/ui/components/containers/footers/footer';
+import { Header } from '@app/ui/components/containers/headers/header';
 import { CheckmarkIcon } from '@app/ui/components/icons/checkmark-icon';
+import { LeatherIcon } from '@app/ui/components/icons/leather-icon';
 
 interface ReasonToAllowDiagnosticsProps {
   text: string;
@@ -29,8 +31,35 @@ export function AllowDiagnosticsLayout({
   onUserDenyDiagnostics,
 }: AllowDiagnosticsLayoutProps) {
   return (
-    <Dialog isShowing>
-      <Stack gap="space.04" p="space.05" minWidth={{ base: '100%', md: '452px' }}>
+    <Dialog
+      isShowing
+      footer={
+        <Footer>
+          <Flex flexDirection="row" gap="space.04">
+            <Button
+              flexGrow={1}
+              variant="outline"
+              onClick={() => onUserDenyDiagnostics()}
+              data-testid={OnboardingSelectors.DenyAnalyticsBtn}
+            >
+              Deny
+            </Button>
+            <Button
+              flexGrow={1}
+              autoFocus
+              data-testid={OnboardingSelectors.AllowAnalyticsBtn}
+              onClick={onUserAllowDiagnostics}
+            >
+              Allow
+            </Button>
+          </Flex>
+        </Footer>
+      }
+    >
+      <Stack py="space.04" gap="space.04">
+        <Box height="32px">
+          <LeatherIcon />
+        </Box>
         <styled.h1 textStyle="heading.03">Help us improve</styled.h1>
         <styled.p textStyle="heading.05">
           Leather would like to gather deidentified service usage data to help improve the
@@ -43,26 +72,6 @@ export function AllowDiagnosticsLayout({
           <ReasonToAllowDiagnostics text="This data is used to generate and send crash reports, help fix errors, and analyze statistics" />
         </Stack>
       </Stack>
-      <Footer>
-        <Flex flexDirection="row" gap="space.04">
-          <Button
-            flexGrow={1}
-            variant="outline"
-            onClick={() => onUserDenyDiagnostics()}
-            data-testid={OnboardingSelectors.DenyAnalyticsBtn}
-          >
-            Deny
-          </Button>
-          <Button
-            flexGrow={1}
-            autoFocus
-            data-testid={OnboardingSelectors.AllowAnalyticsBtn}
-            onClick={onUserAllowDiagnostics}
-          >
-            Allow
-          </Button>
-        </Flex>
-      </Footer>
     </Dialog>
   );
 }

@@ -26,7 +26,6 @@ export function BigTitle({ title }: { title: string }) {
 
 export interface DialogProps {
   children?: ReactNode;
-  header?: ReactNode;
   footer?: ReactNode;
   isShowing: boolean;
   isWaitingOnPerformedAction?: boolean;
@@ -75,33 +74,20 @@ export const Dialog = memo(
                 animation: 'contentShow 150ms cubic-bezier(0.16, 1, 0.3, 1)',
               })}
             >
-              {/* PETE check this for onboarding as the header spacing should be space.04 and not space.05 */}
-              {/* {header ? (
-                  header
-                ) : ( */}
-
               {title && (
                 <Header
                   variant="page"
                   isWaitingOnPerformedAction={isWaitingOnPerformedAction}
                   onClose={onClose}
-                  // onGoBack={onGoBack}
                   title={isString(title) ? <Title title={title} /> : title}
                 />
               )}
 
-              {/* TODO - test this cross browser and remove if repaced by global.ts
-                
-                  Probably is needed for account selector
-                   */}
               <Box
                 className={css({
-                  // height: '520px',
-                  // maxHeight: 'fit-content',
                   height: 'dialogContentHeight',
                   maxHeight: 'dialogContentHeight',
                   paddingX: 'space.05',
-                  // overflowY: 'scroll',
                   overflowY: 'auto',
                   '&::-webkit-scrollbar': {
                     display: 'none',

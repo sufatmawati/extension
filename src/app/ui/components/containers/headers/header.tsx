@@ -2,7 +2,6 @@ import { ReactNode } from 'react';
 
 import { Flex, HStack, styled } from 'leather-styles/jsx';
 
-import { AppVersion } from '@app/components/app-version';
 import { ArrowLeftIcon } from '@app/ui/components/icons/arrow-left-icon';
 import { CloseIcon } from '@app/ui/components/icons/close-icon';
 
@@ -27,7 +26,7 @@ export interface HeaderProps {
 }
 
 export function Header({
-  variant = 'page',
+  variant,
   // enableGoBack,
   isWaitingOnPerformedAction,
   onClose,
@@ -61,7 +60,6 @@ export function Header({
               />
             ) : undefined}
             {account ? account : logo}
-            <AppVersion />
           </Flex>
         )}
         {title}
