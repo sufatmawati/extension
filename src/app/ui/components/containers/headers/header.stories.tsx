@@ -1,7 +1,6 @@
 import type { Meta } from '@storybook/react';
 
-import { BigTitle } from '../dialog/dialog';
-import { Header as Component, HeaderProps } from './header';
+import { BigTitle, Header as Component, HeaderProps } from './header';
 
 const meta: Meta<typeof Component> = {
   component: Component,
