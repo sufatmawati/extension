@@ -1,7 +1,6 @@
 import toast from 'react-hot-toast';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { css } from 'leather-styles/css';
 import get from 'lodash.get';
 
 import { RouteUrls } from '@shared/route-urls';
@@ -13,7 +12,8 @@ import { useBackgroundLocationRedirect } from '@app/routes/hooks/use-background-
 import { useZeroIndexTaprootAddress } from '@app/store/accounts/blockchain/bitcoin/bitcoin.hooks';
 import { useCurrentAccountNativeSegwitAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentAccountStxAddressState } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
-import { BigTitle, Dialog } from '@app/ui/components/containers/dialog/dialog';
+import { Dialog } from '@app/ui/components/containers/dialog/dialog';
+import { BigTitle } from '@app/ui/components/containers/headers/header';
 import { Tabs } from '@app/ui/components/tabs/tabs';
 
 import { ReceiveCollectibles } from './components/receive-collectibles';
@@ -24,7 +24,12 @@ type ReceiveDialog = 'full' | 'collectible';
 interface ReceiveDialogProps {
   type?: 'full' | 'collectible';
 }
-
+// ideally all tabs should match but choose-fee has a different variation
+export const receiveTabStyle = {
+  marginTop: 'space.03',
+  paddingX: 'space.03',
+  paddingBottom: 'space.05',
+};
 export function ReceiveDialog({ type = 'full' }: ReceiveDialogProps) {
   useBackgroundLocationRedirect();
   const analytics = useAnalytics();
@@ -47,12 +52,6 @@ export function ReceiveDialog({ type = 'full' }: ReceiveDialogProps) {
   }
 
   const title = type === 'full' ? 'Choose asset to receive' : 'Receive collectible';
-
-  const receiveTabStyle = {
-    marginTop: 'space.03',
-    paddingX: 'space.03',
-    paddingBottom: 'space.05',
-  };
 
   function Collectibles() {
     return (
@@ -103,7 +102,7 @@ export function ReceiveDialog({ type = 'full' }: ReceiveDialogProps) {
               Collectibles
             </Tabs.Trigger>
           </Tabs.List>
-          <Tabs.Content value="tokens" className={css(receiveTabStyle)}>
+          <Tabs.Content value="tokens">
             <ReceiveTokens
               btcAddressNativeSegwit={btcAddressNativeSegwit}
               stxAddress={stxAddress}
@@ -121,7 +120,7 @@ export function ReceiveDialog({ type = 'full' }: ReceiveDialogProps) {
               }
             />
           </Tabs.Content>
-          <Tabs.Content value="collectibles" className={css(receiveTabStyle)}>
+          <Tabs.Content value="collectibles">
             <Collectibles />
           </Tabs.Content>
         </Tabs.Root>

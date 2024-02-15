@@ -13,7 +13,7 @@ export function Logo({ onClick }: LogoProps) {
       cursor={onClick ? 'pointer' : 'unset'}
       onClick={onClick ? onClick : undefined}
     >
-      <LeatherIcon width="102px" height="32px" />
+      <LeatherIcon width="logoWidth" height="logoHeight" />
     </styled.button>
   );
 }

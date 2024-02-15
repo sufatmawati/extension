@@ -2,10 +2,34 @@ import { ReactNode } from 'react';
 
 import { Flex, HStack, styled } from 'leather-styles/jsx';
 
+import { isString } from '@shared/utils';
+
 import { ArrowLeftIcon } from '@app/ui/components/icons/arrow-left-icon';
 import { CloseIcon } from '@app/ui/components/icons/close-icon';
 
 import { HeaderActionButton } from './header-action-button';
+
+function Title({ title }: { title: string }) {
+  return (
+    <styled.span margin="auto" textStyle="heading.05">
+      {title}
+    </styled.span>
+  );
+}
+
+export function BigTitle({ title }: { title: string }) {
+  return (
+    <styled.h1
+      textStyle="heading.03"
+      maxWidth="bigTitleWidth"
+      height="bigTitleHeight"
+      // padding applied here to avoid specific header variant
+      padding="space.01"
+    >
+      {title}
+    </styled.h1>
+  );
+}
 
 // TODO 4370 task #4 TEST:
 // - Ledger:seems to be the only thing using enableGoBack, isWaitingOnPerformedAction
@@ -39,10 +63,7 @@ export function Header({
   logo,
 }: HeaderProps) {
   return (
-    <styled.header
-      px={variant === 'card' ? 'space.04' : { base: 'space.04', md: 'space.07' }}
-      py={variant === 'card' ? 'space.04' : { base: 'space.04', md: 'space.05' }}
-    >
+    <styled.header p="space.04">
       <Flex
         width="100%"
         maxWidth={{ base: '100vw', md: 'fullPageMaxWidth' }}
@@ -51,7 +72,7 @@ export function Header({
         margin={{ base: 0, md: 'auto' }}
       >
         {(onGoBack || logo || account) && (
-          <Flex>
+          <Flex py={{ base: 0, md: 'space.01' }} px={{ base: 0, md: 'space.02' }}>
             {variant !== 'home' && onGoBack ? (
               <HeaderActionButton
                 icon={<ArrowLeftIcon />}
@@ -62,7 +83,7 @@ export function Header({
             {account ? account : logo}
           </Flex>
         )}
-        {title}
+        {isString(title) ? <Title title={title} /> : title}
         <HStack alignItems="center" justifyContent="flex-end">
           {networkBadge}
           {totalBalance}

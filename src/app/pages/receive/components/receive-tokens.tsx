@@ -1,9 +1,11 @@
 import { HomePageSelectors } from '@tests/selectors/home.selectors';
+import { css } from 'leather-styles/css';
 import { Stack } from 'leather-styles/jsx';
 
 import { StxAvatar } from '@app/components/crypto-assets/stacks/components/stx-avatar';
 import { BtcIcon } from '@app/ui/components/icons/btc-icon';
 
+import { receiveTabStyle } from '../receive-dialog';
 import { ReceiveItem } from './receive-item';
 
 interface ReceiveTokensProps {
@@ -23,7 +25,7 @@ export function ReceiveTokens({
   onClickQrStx,
 }: ReceiveTokensProps) {
   return (
-    <Stack>
+    <Stack className={css(receiveTabStyle)}>
       <ReceiveItem
         address={btcAddressNativeSegwit}
         icon={<BtcIcon />}

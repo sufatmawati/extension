@@ -2,27 +2,9 @@ import { ReactNode, memo } from 'react';
 
 import * as RadixDialog from '@radix-ui/react-dialog';
 import { css } from 'leather-styles/css';
-import { Box, styled } from 'leather-styles/jsx';
-
-import { isString } from '@shared/utils';
+import { Box } from 'leather-styles/jsx';
 
 import { Header } from '@app/ui/components/containers/headers/header';
-
-function Title({ title }: { title: string }) {
-  return (
-    <styled.span margin="auto" textStyle="heading.05">
-      {title}
-    </styled.span>
-  );
-}
-
-export function BigTitle({ title }: { title: string }) {
-  return (
-    <styled.h1 textStyle="heading.03" maxWidth="bigTitleWidth" height="bigTitleHeight">
-      {title}
-    </styled.h1>
-  );
-}
 
 export interface DialogProps {
   children?: ReactNode;
@@ -79,7 +61,7 @@ export const Dialog = memo(
                   variant="page"
                   isWaitingOnPerformedAction={isWaitingOnPerformedAction}
                   onClose={onClose}
-                  title={isString(title) ? <Title title={title} /> : title}
+                  title={title}
                 />
               )}
 

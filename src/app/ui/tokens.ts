@@ -16,5 +16,7 @@ export const tempTokens = {
     popupHeaderHeight: { value: '68px' },
     bigTitleHeight: { value: '70px' },
     bigTitleWidth: { value: '270px' },
+    logoHeight: { value: '32px' },
+    logoWidth: { value: '86px' },
   },
 };
