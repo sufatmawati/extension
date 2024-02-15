@@ -64,7 +64,7 @@ export function SignOutLayout({ isShowing, onUserDeleteWallet, onClose }: SignOu
         alignItems="center"
         flexDirection="column"
         pb={{ base: 'space.05', md: 'space.08' }}
-        px="space.05"
+        px="space.08"
       >
         <form onChange={form.handleChange} onSubmit={form.handleSubmit}>
           <styled.p textStyle="label.02">
