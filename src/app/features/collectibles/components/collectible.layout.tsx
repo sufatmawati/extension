@@ -1,5 +1,4 @@
 import { Flex, Grid, HStack, styled } from 'leather-styles/jsx';
-import { token } from 'leather-styles/tokens';
 
 import { LoadingSpinner } from '@app/components/loading-spinner';
 import { RefreshIcon } from '@app/ui/components/icons/refresh-icon';
@@ -23,11 +22,13 @@ export function CollectiblesLayout({
 }: CollectiblesLayoutProps) {
   return (
     <>
-      <Flex flexDirection="row" justifyContent="space-between" flex={1} mt="space.05">
+      <Flex flexDirection="row" justifyContent="space-between" flex={1}>
         <HStack columnGap="space.02">
-          <styled.span textStyle="label.01">{title}</styled.span>
-          {isLoading ? (
-            <Spinner color={token('colors.accent.text-primary')} opacity={0.5} size="16px" />
+          <styled.span textStyle="label.01" paddingY="space.05">
+            {title}
+          </styled.span>
+          {!isLoading ? (
+            <Spinner color="text-primary" opacity={0.5} size="16px" />
           ) : (
             <RefreshIcon cursor="pointer" onClick={() => onRefresh()} />
           )}
@@ -35,12 +36,10 @@ export function CollectiblesLayout({
         {subHeader}
       </Flex>
       <Grid
-        gap="space.04"
-        rowGap="space.06"
-        gridTemplateColumns={[
-          'repeat(auto-fill, minmax(164px, 1fr))',
-          'repeat(auto-fill, minmax(184px, 1fr))',
-        ]}
+        gridTemplateColumns={{
+          base: 'repeat(auto-fill, minmax(164px, 1fr))',
+          md: 'repeat(auto-fill, minmax(184px, 1fr))',
+        }}
       >
         {children}
       </Grid>

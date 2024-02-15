@@ -23,11 +23,11 @@ export function AccountCard({ name, balance, children }: AccountCardProps) {
       />
       <Flex
         direction="column"
-        bgColor={{ base: 'ink.2', sm: 'unset' }}
+        bgColor={{ base: 'accent.background-secondary', sm: 'unset' }}
         rounded="sm"
         px={{ base: 'space.05', sm: '0' }}
-        pt={{ base: 'space.05', sm: 'space.06' }}
-        pb={{ base: 'space.02', sm: 'space.06' }}
+        pt={{ base: 'space.05', md: '0' }}
+        pb={{ base: 'space.02', md: '0' }}
       >
         <Link
           _before={{ bg: 'transparent' }}

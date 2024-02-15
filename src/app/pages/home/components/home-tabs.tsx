@@ -17,19 +17,22 @@ export function HomeTabs({ children }: HomeTabsProps) {
   const location = useLocation();
 
   return (
-    <Stack flexGrow={1} mt="space.05" gap="space.06">
+    <Stack>
       <Tabs.Root onValueChange={slug => navigate(slug)} defaultValue={location.pathname}>
         <Tabs.List>
           <Tabs.Trigger data-testid="tab-assets" value={RouteUrls.Home}>
             Assets
           </Tabs.Trigger>
           <Tabs.Trigger data-testid="tab-activity" value={`${RouteUrls.Home}${RouteUrls.Activity}`}>
-            Activity
+            {/* TODO - do we also want to update the route to history? */}
+            History
           </Tabs.Trigger>
         </Tabs.List>
       </Tabs.Root>
       <Suspense fallback={<LoadingSpinner pb="72px" />}>
-        <Box width="100%">{children}</Box>
+        <Box px={{ base: 'space.04', md: 0 }} width="100%">
+          {children}
+        </Box>
       </Suspense>
     </Stack>
   );
