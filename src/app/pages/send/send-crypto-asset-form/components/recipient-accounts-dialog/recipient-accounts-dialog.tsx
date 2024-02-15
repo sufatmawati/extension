@@ -2,7 +2,7 @@ import { memo, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Virtuoso } from 'react-virtuoso';
 
-import { Box } from 'leather-styles/jsx';
+import { css } from 'leather-styles/css';
 
 import { useFilteredBitcoinAccounts } from '@app/store/accounts/blockchain/bitcoin/bitcoin.ledger';
 import { useStacksAccounts } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
@@ -20,29 +20,23 @@ export const RecipientAccountsDialog = memo(() => {
   const stacksAddressesNum = stacksAccounts.length;
 
   if (stacksAddressesNum === 0 && btcAddressesNum === 0) return null;
-
   return (
     <Dialog title="My accounts" isShowing onClose={onGoBack}>
-      <Box
-        css={{
-          // PETE try this just being 'auto' to fix windows problems also
-          // only allow scroll if more than 7 accounts
-          overflowY: stacksAccounts.length > 7 ? 'scroll' : 'hidden',
-          maxHeight: '100vh',
-        }}
-      >
-        <Virtuoso
-          itemContent={index => (
-            <AccountListItem
-              key={index}
-              stacksAccount={stacksAccounts[index]}
-              onClose={onGoBack}
-              index={index}
-            />
-          )}
-          totalCount={stacksAddressesNum || btcAddressesNum}
-        />
-      </Box>
+      <Virtuoso
+        className={css({
+          marginX: 'space.05',
+        })}
+        useWindowScroll
+        itemContent={index => (
+          <AccountListItem
+            key={index}
+            stacksAccount={stacksAccounts[index]}
+            onClose={onGoBack}
+            index={index}
+          />
+        )}
+        totalCount={stacksAddressesNum || btcAddressesNum}
+      />
     </Dialog>
   );
 });

@@ -117,7 +117,6 @@ export const ChooseAccountsList = memo(() => {
   return (
     <Box mt="space.05" width="100%">
       {whenWallet({ software: <AddAccountAction />, ledger: <></> })}
-      {/* TODO test this virtuoso */}
       <Virtuoso
         useWindowScroll
         data={accounts}
