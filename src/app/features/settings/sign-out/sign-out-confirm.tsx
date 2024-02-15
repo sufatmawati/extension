@@ -20,7 +20,8 @@ export function SignOut({ isShowing = false, onClose }: SignOutProps) {
   useEffect(() => void analytics.track('sign-out'), [analytics]);
   const { signOut } = useKeyActions();
   const navigate = useNavigate();
-
+  // FIXME same bug as SwitchAcccount dialog where we call hooks from useWalletType when no wallet yet set
+  if (!isShowing) return null;
   return (
     <SignOutLayout
       isShowing={isShowing}

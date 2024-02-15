@@ -11,6 +11,7 @@ import { RouteUrls } from '@shared/route-urls';
 import { closeWindow } from '@shared/utils';
 
 import { useAnalytics, useInitalizeAnalytics } from '@app/common/hooks/analytics/use-analytics';
+import { AppVersion } from '@app/components/app-version';
 import { LoadingSpinner } from '@app/components/loading-spinner';
 import { CurrentAccountAvatar } from '@app/features/current-account/current-account-avatar';
 import { CurrentAccountName } from '@app/features/current-account/current-account-name';
@@ -143,10 +144,13 @@ export function Container() {
               title={getTitleFromUrl(pathname as RouteUrls)}
               logo={
                 !hideLogo() ? (
-                  <Logo
-                    data-testid={OnboardingSelectors.LogoRouteToHome}
-                    onClick={variant !== 'home' ? () => navigate(RouteUrls.Home) : undefined}
-                  />
+                  <>
+                    <Logo
+                      data-testid={OnboardingSelectors.LogoRouteToHome}
+                      onClick={variant !== 'home' ? () => navigate(RouteUrls.Home) : undefined}
+                    />
+                    <AppVersion />
+                  </>
                 ) : (
                   // FIXME get rid of this Box used to position when no logo
                   <Box width="102px" height="32px" />
