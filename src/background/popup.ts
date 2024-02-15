@@ -1,3 +1,5 @@
+import { pxStringToNumber } from '@shared/utils/px-string-to-number';
+
 // FIXME import from '@leather-wallet/tokens'
 // import { tokens } from '../../theme/tokens';
 /**
@@ -22,9 +24,6 @@ interface PopupOptions {
   skipPopupFallback?: boolean;
 }
 
-function pxStringToNumber(pxString: string): number {
-  return +pxString.replace('px', '');
-}
 export function popup(options: PopupOptions): Promise<any> {
   // TODO 4370 - ask about this
   // if APP already open in full screen the window opens in a full screen and looks weird
