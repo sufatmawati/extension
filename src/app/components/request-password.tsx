@@ -38,7 +38,7 @@ export function RequestPassword({ onSuccess }: RequestPasswordProps) {
   }, [analytics, unlockWallet, password, onSuccess]);
 
   return (
-    <Page>
+    <Page showLogo>
       <Card
         title={<styled.h3 textStyle="heading.03">Enter your password</styled.h3>}
         text="Your password is used to secure your Secret Key and is only used locally on your device."
