@@ -13,8 +13,6 @@ export function getTitleFromUrl(pathname: RouteUrls) {
       return 'Add a network';
     case RouteUrls.BitcoinContractList:
       return 'Bitcoin Contracts';
-    case RouteUrls.SendCryptoAsset:
-      return 'Send';
     case RouteUrls.BitcoinContractLockSuccess:
       return 'Locked Bitcoin';
     case RouteUrls.SendBrc20ChooseFee:
