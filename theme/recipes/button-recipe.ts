@@ -111,6 +111,8 @@ export const buttonRecipe = defineRecipe({
         ...loadingStyles('accent.action-primary-default'),
       },
     },
+
+    // TODO: Remove invert code
     invert: { true: {} },
 
     fullWidth: { true: { width: '100%' } },
@@ -122,6 +124,7 @@ export const buttonRecipe = defineRecipe({
     variant: 'solid',
   },
 
+  // TODO: Remove invert code
   compoundVariants: [
     {
       css: {

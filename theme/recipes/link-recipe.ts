@@ -92,6 +92,8 @@ export const linkRecipe = defineRecipe({
         color: 'accent.text-primary',
       },
     },
+
+    // TODO: Remove invert code
     invert: { true: {} },
     disabled: { true: {} },
     fullWidth: { true: { width: '100%' } },
@@ -102,6 +104,7 @@ export const linkRecipe = defineRecipe({
     variant: 'underlined',
   },
 
+  // TODO: Remove invert code
   compoundVariants: [
     {
       css: {
