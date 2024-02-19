@@ -13,6 +13,8 @@ import { Button } from '@app/ui/components/button/button';
 import { AvailableBalance } from '@app/ui/components/containers/footers/available-balance';
 import { Footer } from '@app/ui/components/containers/footers/footer';
 import { Link } from '@app/ui/components/link/link';
+import { Card } from '@app/ui/layout/card/card';
+import { Page } from '@app/ui/layout/page/page.layout';
 
 import { AmountField } from '../../components/amount-field';
 import { SelectedAssetField } from '../../components/selected-asset-field';
@@ -54,48 +56,55 @@ export function Brc20SendForm() {
           onFormStateChange(props.values);
           return (
             <Form>
-              <SendCryptoAssetFormLayout>
-                <AmountField
-                  balance={moneyBalance}
-                  bottomInputOverlay={
-                    <SendMaxButton
-                      balance={moneyBalance}
-                      sendMaxBalance={moneyBalance.amount.toString()}
-                    />
+              <Page>
+                <Card
+                  action={
+                    <Footer variant="card">
+                      <Button
+                        data-testid={SendCryptoAssetSelectors.PreviewSendTxBtn}
+                        onClick={() => props.handleSubmit()}
+                        type="submit"
+                      >
+                        Continue
+                      </Button>
+                      <AvailableBalance
+                        balance={formatMoney(moneyBalance)}
+                        balanceTooltipLabel="Total balance minus any amounts already represented by transfer inscriptions in your wallet."
+                      />
+                    </Footer>
                   }
-                  autoComplete="off"
-                />
-                <SelectedAssetField icon={<Brc20TokenIcon />} name={tick} symbol={tick} />
-                <InfoLabel title="Sending BRC-20 tokens requires two steps">
-                  <styled.ol mb="space.02">
-                    <li>1. Create transfer inscription with amount to send</li>
-                    <li>2. Send transfer inscription to recipient of choice</li>
-                  </styled.ol>
-                  <Link
-                    onClick={() => {
-                      openInNewTab(
-                        'https://leather.gitbook.io/guides/bitcoin/sending-brc-20-tokens'
-                      );
-                    }}
-                    textStyle="body.02"
-                  >
-                    Learn more
-                  </Link>
-                </InfoLabel>
-              </SendCryptoAssetFormLayout>
-              <Footer>
-                <Button
-                  data-testid={SendCryptoAssetSelectors.PreviewSendTxBtn}
-                  onClick={() => props.handleSubmit()}
-                  type="submit"
                 >
-                  Continue
-                </Button>
-                <AvailableBalance
-                  balance={formatMoney(moneyBalance)}
-                  balanceTooltipLabel="Total balance minus any amounts already represented by transfer inscriptions in your wallet."
-                />
-              </Footer>
+                  <SendCryptoAssetFormLayout>
+                    <AmountField
+                      balance={moneyBalance}
+                      bottomInputOverlay={
+                        <SendMaxButton
+                          balance={moneyBalance}
+                          sendMaxBalance={moneyBalance.amount.toString()}
+                        />
+                      }
+                      autoComplete="off"
+                    />
+                    <SelectedAssetField icon={<Brc20TokenIcon />} name={tick} symbol={tick} />
+                    <InfoLabel title="Sending BRC-20 tokens requires two steps">
+                      <styled.ol mb="space.02">
+                        <li>1. Create transfer inscription with amount to send</li>
+                        <li>2. Send transfer inscription to recipient of choice</li>
+                      </styled.ol>
+                      <Link
+                        onClick={() => {
+                          openInNewTab(
+                            'https://leather.gitbook.io/guides/bitcoin/sending-brc-20-tokens'
+                          );
+                        }}
+                        textStyle="body.02"
+                      >
+                        Learn more
+                      </Link>
+                    </InfoLabel>
+                  </SendCryptoAssetFormLayout>
+                </Card>
+              </Page>
 
               <Outlet />
             </Form>

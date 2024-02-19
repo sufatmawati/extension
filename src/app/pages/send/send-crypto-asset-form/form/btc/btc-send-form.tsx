@@ -16,6 +16,8 @@ import { BtcIcon } from '@app/ui/components/avatar-icon/btc-icon';
 import { Button } from '@app/ui/components/button/button';
 import { AvailableBalance } from '@app/ui/components/containers/footers/available-balance';
 import { Footer } from '@app/ui/components/containers/footers/footer';
+import { Card } from '@app/ui/layout/card/card';
+import { Page } from '@app/ui/layout/page/page.layout';
 
 import { AmountField } from '../../components/amount-field';
 import { SelectedAssetField } from '../../components/selected-asset-field';
@@ -68,45 +70,52 @@ export function BtcSendForm() {
 
           return (
             <Form>
-              <SendCryptoAssetFormLayout>
-                <AmountField
-                  autoComplete="off"
-                  balance={btcBalance.balance}
-                  bottomInputOverlay={
-                    <BitcoinSendMaxButton
-                      balance={btcBalance.balance}
-                      isSendingMax={isSendingMax}
-                      onSetIsSendingMax={onSetIsSendingMax}
-                      sendMaxBalance={sendMaxCalculation.spendableBitcoin.toString()}
-                      sendMaxFee={sendMaxCalculation.spendAllFee.toString()}
-                    />
+              <Page>
+                <Card
+                  action={
+                    <Footer variant="card">
+                      <Button
+                        data-testid={SendCryptoAssetSelectors.PreviewSendTxBtn}
+                        onClick={() => props.handleSubmit()}
+                        type="submit"
+                      >
+                        Continue
+                      </Button>
+                      <AvailableBalance balance={formatMoney(btcBalance.balance)} />
+                    </Footer>
                   }
-                  onSetIsSendingMax={onSetIsSendingMax}
-                  isSendingMax={isSendingMax}
-                  switchableAmount={
-                    <SendFiatValue marketData={btcMarketData} assetSymbol={symbol} />
-                  }
-                />
-                <SelectedAssetField
-                  icon={<BtcIcon />}
-                  name={btcBalance.asset.name}
-                  symbol={symbol}
-                />
-                <BitcoinRecipientField />
-                {currentNetwork.chain.bitcoin.bitcoinNetwork === 'testnet' && <TestnetBtcMessage />}
-              </SendCryptoAssetFormLayout>
-
-              <Footer>
-                <Button
-                  data-testid={SendCryptoAssetSelectors.PreviewSendTxBtn}
-                  onClick={() => props.handleSubmit()}
-                  type="submit"
                 >
-                  Continue
-                </Button>
-                <AvailableBalance balance={formatMoney(btcBalance.balance)} />
-              </Footer>
-              {/* FIXME find out if this is needed. I don't think this is doing anything? I can't find a HIGH_FEE_AMOUNT_BTC */}
+                  <SendCryptoAssetFormLayout>
+                    <AmountField
+                      autoComplete="off"
+                      balance={btcBalance.balance}
+                      bottomInputOverlay={
+                        <BitcoinSendMaxButton
+                          balance={btcBalance.balance}
+                          isSendingMax={isSendingMax}
+                          onSetIsSendingMax={onSetIsSendingMax}
+                          sendMaxBalance={sendMaxCalculation.spendableBitcoin.toString()}
+                          sendMaxFee={sendMaxCalculation.spendAllFee.toString()}
+                        />
+                      }
+                      onSetIsSendingMax={onSetIsSendingMax}
+                      isSendingMax={isSendingMax}
+                      switchableAmount={
+                        <SendFiatValue marketData={btcMarketData} assetSymbol={symbol} />
+                      }
+                    />
+                    <SelectedAssetField
+                      icon={<BtcIcon />}
+                      name={btcBalance.asset.name}
+                      symbol={symbol}
+                    />
+                    <BitcoinRecipientField />
+                    {currentNetwork.chain.bitcoin.bitcoinNetwork === 'testnet' && (
+                      <TestnetBtcMessage />
+                    )}
+                  </SendCryptoAssetFormLayout>
+                </Card>
+              </Page>
               <HighFeeDialog learnMoreUrl={HIGH_FEE_WARNING_LEARN_MORE_URL_BTC} />
               <Outlet />
 

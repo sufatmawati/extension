@@ -100,7 +100,7 @@ export function AddNetwork() {
   }, [bitcoinApi, setStacksUrl, setBitcoinUrl]);
 
   return (
-    <Page showLogo={false}>
+    <Page>
       <Formik
         initialValues={addNetworkFormValues}
         onSubmit={async () => {

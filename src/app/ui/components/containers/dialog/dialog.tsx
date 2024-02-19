@@ -19,10 +19,6 @@ export interface DialogProps {
   // waitingOnPerformedActionMessage?: string;
 }
 
-//  TODO 4370 task #1
-// - manual task to sift through all Dialogs and read the props - make sure that nothing is missed
-// - fix styling of dialog overflow and BigTitles
-// - test  LEDGER DIALOGS
 export const Dialog = memo(
   ({
     children,
@@ -59,10 +55,8 @@ export const Dialog = memo(
                 left: '50%',
                 transform: 'translate(-50%, -50%)',
                 width: { base: '100vw', md: '90vw' },
-                // try to refactor this onClose so that its big for onBoarding and not others .
-                // Of course test everything
                 // in popup card doing 167px not 150px - try make it consistent
-                //
+                // TODO 4370 task #1
                 // FIXME - get this to calc using footerHeight + headerHeight?
                 // maxHeight="calc(100vh - (headerHeight + footerHeight ))"
 

@@ -6,8 +6,12 @@ import { RouteUrls } from '@shared/route-urls';
 // - investigate having title as a route param
 
 //  FIXME - these titles look a bit off, not sure if we should remove them and add them into the `Page`
+// its tricky with the current design as sometimes titles in Page inside layout and sometimes in header. Keeping them to header for now
 
+// TODO 4370 task #3 sort out consistent headers. For now keeping in main header not page
 export function getTitleFromUrl(pathname: RouteUrls) {
+  if (pathname.match(RouteUrls.SendCryptoAsset)) return 'Send';
+
   switch (pathname) {
     case RouteUrls.AddNetwork:
       return 'Add a network';

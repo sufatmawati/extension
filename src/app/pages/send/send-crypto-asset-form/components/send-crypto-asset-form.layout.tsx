@@ -11,11 +11,13 @@ export function SendCryptoAssetFormLayout({ children }: SendCryptoAssetFormLayou
       data-testid={SendCryptoAssetSelectors.SendForm}
       flexDirection="column"
       maxHeight={['calc(100vh - 116px)', 'calc(85vh - 116px)']}
+      height={['calc(100vh - 116px)', 'calc(85vh - 116px)']}
+      //TODO 4370 task #1
+      // need to fix this for STX send and ideally in Page and remove this component
+      // minHeight={{ base: '100vh', md: 'dialogHeight' }}
+      // height="100vh"
+      p={{ base: 'space.04', md: 'space.08' }}
       overflowY="auto"
-      pb={['120px', '48px']}
-      pt={['space.04', '48px']}
-      px="space.05"
-      width="100%"
     >
       {children}
     </Flex>

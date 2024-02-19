@@ -66,19 +66,20 @@ export function Container() {
     );
   };
 
-  // BUG: need to test all app using just laptop. get the dialogs perfect
+  //
+  //  TODO 4370 task #1  BUG: need to test all app using just laptop. get the dialogs perfect
+  // - manual task to sift through all Dialogs and read the props - make sure that nothing is missed
+  // - fix styling of dialog overflow and BigTitles
+  // - test  LEDGER DIALOGS
+  // - auto height on send flows
   // BUG - sweitch account in sm not reaching full height on browser adjusted / popup. misses last account when 8
-  // that was fixed before :(
-  // BUG - send BTC / STX footer looks weird, fixed to bottom
+
   // BUG - view-secret-key - don't show top navigation header
   // BUG - in extension mode popout when account locked can scroll and header beige?
+  // BUG - page header needs to be white in 'sm'
+
   // BUG - receive modal copy address not working (since pre-tabs) + copy success behind modal
   // > fix hacky code around showing logo or not - get rid of placeholder etc
-
-  // FIX titles //https://github.com/leather-wallet/extension/pull/4655#issuecomment-1948441511
-
-  // All buttons are broken
-
   //  > scroll behaviour - test more
   //  - remove global styles and test virtuoso and popup mode
   // => add storybook pages
