@@ -35,9 +35,7 @@ export function BigTitle({ title }: { title: string }) {
 // - Send summary screens as onClose is now deprecated - action button needs to go Home
 export interface HeaderProps {
   variant: 'page' | 'home' | 'onboarding' | 'card'; //TODO add shared types
-  // got rid of enableGoBack as in ledger allowUserToGoBack is used to pass undefined /onGoBack to header
-  // enableGoBack?: boolean; // seems this is needed in ledger and sendInscription. Would be good to merge it and onGoBack
-  isWaitingOnPerformedAction?: boolean; // seems this is needed for ledger - change it to ledgerAction?
+  isWaitingOnPerformedAction?: boolean;
   onClose?(): void;
   onGoBack?(): void;
   title?: ReactNode;
@@ -50,7 +48,6 @@ export interface HeaderProps {
 
 export function Header({
   variant,
-  // enableGoBack,
   isWaitingOnPerformedAction,
   onClose,
   onGoBack,

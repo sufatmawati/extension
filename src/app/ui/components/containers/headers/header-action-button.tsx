@@ -6,9 +6,11 @@ interface HeaderActionButtonProps {
   isWaitingOnPerformedAction?: boolean;
   onAction?(): void;
 }
-export function HeaderActionButton(props: HeaderActionButtonProps) {
-  const { icon, isWaitingOnPerformedAction, onAction } = props;
-
+export function HeaderActionButton({
+  icon,
+  isWaitingOnPerformedAction,
+  onAction,
+}: HeaderActionButtonProps) {
   return (
     <Grid
       _hover={{
