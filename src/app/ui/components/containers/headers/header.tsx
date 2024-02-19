@@ -62,7 +62,10 @@ export function Header({
   logo,
 }: HeaderProps) {
   return (
-    <styled.header p="space.04">
+    <styled.header
+      p="space.04"
+      backgroundColor={{ base: 'accent.background-primary', sm: 'transparent' }}
+    >
       <Flex
         width="100%"
         maxWidth={{ base: '100vw', md: 'fullPageMaxWidth' }}
