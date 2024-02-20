@@ -76,7 +76,7 @@ export function Container() {
 
   // BUG - Send / Swap pages need work on extension - margins, scroll etc.
   // BUG - in extension mode popout when account locked can scroll and header beige?
-  // BUG - page header needs to be white in 'sm'
+  // BUG - settings menu doesn't scroll
 
   // BUG - receive modal copy address not working (since pre-tabs) + copy success behind modal
   // > fix hacky code around showing logo or not - get rid of placeholder etc
