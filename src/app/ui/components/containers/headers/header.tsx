@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 
-import { Flex, HStack, styled } from 'leather-styles/jsx';
+import { Flex, Grid, GridItem, HStack, styled } from 'leather-styles/jsx';
 
 import { isString } from '@shared/utils';
 
@@ -58,45 +58,49 @@ export function Header({
   title,
   logo,
 }: HeaderProps) {
+  const logoItem = onGoBack || logo || account;
   return (
     <styled.header
       p="space.04"
       backgroundColor={{ base: 'accent.background-primary', sm: 'transparent' }}
     >
-      <Flex
+      <Grid
+        gridTemplateColumns="1fr 4fr 1fr"
         width="100%"
         maxWidth={{ base: '100vw', md: 'fullPageMaxWidth' }}
-        verticalAlign="middle"
-        justifyContent="space-between"
         margin={{ base: 0, md: 'auto' }}
       >
-        {(onGoBack || logo || account) && (
-          <Flex py={{ base: 0, md: 'space.01' }} px={{ base: 0, md: 'space.02' }}>
-            {variant !== 'home' && onGoBack ? (
-              <HeaderActionButton
-                icon={<ArrowLeftIcon />}
-                isWaitingOnPerformedAction={isWaitingOnPerformedAction}
-                onAction={onGoBack}
-              />
-            ) : undefined}
-            {account ? account : logo}
-          </Flex>
-        )}
-        {isString(title) ? <Title title={title} /> : title}
-        <HStack alignItems="center" justifyContent="flex-end">
-          {networkBadge}
-          {totalBalance}
-          {variant !== 'onboarding' && settingsMenu}
-        </HStack>
-        {/*  TODO test all dialogs and if needed re-write this as a grid. Also to avoid pasing logo space*/}
-        {onClose && (
-          <HeaderActionButton
-            icon={<CloseIcon />}
-            isWaitingOnPerformedAction={isWaitingOnPerformedAction}
-            onAction={onClose}
-          />
-        )}
-      </Flex>
+        <GridItem>
+          {logoItem && (
+            <Flex py={{ base: 0, md: 'space.01' }} px={{ base: 0, md: 'space.02' }}>
+              {variant !== 'home' && onGoBack ? (
+                <HeaderActionButton
+                  icon={<ArrowLeftIcon />}
+                  isWaitingOnPerformedAction={isWaitingOnPerformedAction}
+                  onAction={onGoBack}
+                />
+              ) : undefined}
+              {account ? account : logo}
+            </Flex>
+          )}
+        </GridItem>
+        <GridItem margin="auto">{isString(title) ? <Title title={title} /> : title}</GridItem>
+        <GridItem>
+          <HStack alignItems="center" justifyContent="flex-end">
+            {networkBadge}
+            {totalBalance}
+            {variant !== 'onboarding' && settingsMenu}
+          </HStack>
+
+          {onClose && (
+            <HeaderActionButton
+              icon={<CloseIcon />}
+              isWaitingOnPerformedAction={isWaitingOnPerformedAction}
+              onAction={onClose}
+            />
+          )}
+        </GridItem>
+      </Grid>
     </styled.header>
   );
 }
