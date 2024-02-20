@@ -44,7 +44,7 @@ export function AccountCard({ name, balance, children }: AccountCardProps) {
               {name}
             </styled.p>
             <Box mt="space.01" ml="space.02">
-              <ChevronDownIcon />
+              <ChevronDownIcon variant="small" />
             </Box>
           </Flex>
         </Link>
