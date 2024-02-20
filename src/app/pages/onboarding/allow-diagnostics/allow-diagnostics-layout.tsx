@@ -4,7 +4,8 @@ import { Box, Flex, Stack, styled } from 'leather-styles/jsx';
 import { Button } from '@app/ui/components/button/button';
 import { Dialog } from '@app/ui/components/containers/dialog/dialog';
 import { Footer } from '@app/ui/components/containers/footers/footer';
-import { CheckmarkIcon, LogomarkIcon } from '@app/ui/icons/';
+import { CheckmarkIcon } from '@app/ui/icons/';
+import { LogomarkIcon } from '@app/ui/icons/logomark-icon';
 
 interface ReasonToAllowDiagnosticsProps {
   text: string;

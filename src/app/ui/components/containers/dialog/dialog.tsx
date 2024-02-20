@@ -73,10 +73,11 @@ export const Dialog = memo(
               <Box
                 className={css({
                   height: '100%',
-                  maxHeight: { base: '100%', md: 'calc(90vh - 160px)' },
+                  // TODO - make this smarter to compute height based on if footer / header for more precision
+                  maxHeight: { base: 'calc(100vh - 160px)', md: 'calc(90vh - 160px)' },
                   // 175px = headerHeight + footerHeight
                   marginBottom: '175px',
-                  overflowY: 'scroll',
+                  overflowY: 'auto',
                 })}
               >
                 {children}

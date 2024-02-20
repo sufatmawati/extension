@@ -71,10 +71,10 @@ export function Container() {
   // - manual task to sift through all Dialogs and read the props - make sure that nothing is missed
   // - fix styling of dialog overflow and BigTitles
   // - test  LEDGER DIALOGS
-  // - auto height on send flows
-  // BUG - sweitch account in sm not reaching full height on browser adjusted / popup. misses last account when 8
+  // - auto height on send flows - needs work on minHeight
+  //
 
-  // BUG - Send / Swap pages need work on mobile
+  // BUG - Send / Swap pages need work on extension - margins, scroll etc.
   // BUG - in extension mode popout when account locked can scroll and header beige?
   // BUG - page header needs to be white in 'sm'
 
