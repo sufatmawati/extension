@@ -16,7 +16,7 @@ export function ContainerLayout({ children, header, variant }: ContainerLayoutPr
       flexDirection="column"
       flexGrow={1}
       width="100%"
-      height="100%"
+      height="100%" // ??
       className={css(radixBaseCSS)}
       // need to set this to secondary when variant is 'page'
       backgroundColor={variant !== 'home' ? 'accent.background-secondary' : undefined}

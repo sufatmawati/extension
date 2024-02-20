@@ -10,13 +10,14 @@ export interface DialogProps {
   children?: ReactNode;
   footer?: ReactNode;
   isShowing: boolean;
+  // figure out if isWaitingOnPerformedAction this just controls onClose
+  // it stops click on headerActionButton, maybe thats enough?
   isWaitingOnPerformedAction?: boolean;
   onGoBack?(): void;
   onClose(): void;
   canClose?: boolean;
   pauseOnClickOutside?: boolean; // FIXME - seem to have lost what this does in useDrawer() I think it blocked close on click outside?
   title?: ReactNode;
-  // waitingOnPerformedActionMessage?: string;
 }
 
 export const Dialog = memo(
@@ -55,54 +56,27 @@ export const Dialog = memo(
                 left: '50%',
                 transform: 'translate(-50%, -50%)',
                 width: { base: '100vw', md: '90vw' },
-                // in popup card doing 167px not 150px - try make it consistent
-                // TODO 4370 task #1
-                // FIXME - get this to calc using footerHeight + headerHeight?
-                // maxHeight="calc(100vh - (headerHeight + footerHeight ))"
 
-                // height: { base: '100vh', md: !onClose ? '50vh' : 'calc(50vh - 150px)' },
-                // this !onClose stuff breaks select account . Need to just make custom for Allow Diag using a specific flag
-                // height: { base: '100vh', md: !onClose ? '50vh' : 'calc(50vh - 150px)' },
-                height: { base: '100%', md: '50vh' },
-                // minHeight: { base: '100vh', md: '20vh' },
+                height: { base: '100%', md: 'auto' },
                 maxWidth: { base: '100vw', md: 'pageWidth' },
-                // maxHeight: { base: '100vh', md: '50vh' },
-
-                // maxHeight="calc(50vh - (footerHeight ))"
-                // maxHeight: { base: '100vh', md: 'calc(50vh - 150px)' },
-                // TODO need work on height here to make it consistent
-
-                // need to do work on height when on smaller browser heights as some modal content are overflowing outside
-                // could need an overflow <Box inside the dialog
-
-                maxHeight: { base: '100%', md: '50vh' },
+                maxHeight: { base: '100vh', md: '90vh' },
                 animation: 'contentShow 150ms cubic-bezier(0.16, 1, 0.3, 1)',
               })}
             >
-              {/* {title && ( */}
               <Header
                 variant="page"
                 isWaitingOnPerformedAction={isWaitingOnPerformedAction}
                 onClose={canClose ? onClose : undefined}
                 title={title}
               />
-              {/* )} */}
 
               <Box
                 className={css({
-                  // PEte need to add this padding directly to children instead
-                  // try dataProp / prop for autoPadd here
-                  // this is so tabs can be full width in receive
-                  // check when reviewing all dialogs
-                  // paddingX: 'space.05',
-                  // need to tweak this to alter if no header / footer
-                  // check LEDGER + SWAP and improve. Pass title as <JSX again to help?
-                  height: footer ? 'dialogContentHeight' : 'dialogHeight',
-                  maxHeight: footer ? 'dialogContentHeight' : 'dialogHeight',
-                  overflowY: 'auto',
-                  '&::-webkit-scrollbar': {
-                    display: 'none',
-                  },
+                  height: '100%',
+                  maxHeight: { base: '100%', md: 'calc(90vh - 160px)' },
+                  // 175px = headerHeight + footerHeight
+                  marginBottom: '175px',
+                  overflowY: 'scroll',
                 })}
               >
                 {children}

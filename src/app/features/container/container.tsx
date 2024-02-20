@@ -74,7 +74,7 @@ export function Container() {
   // - auto height on send flows
   // BUG - sweitch account in sm not reaching full height on browser adjusted / popup. misses last account when 8
 
-  // BUG - view-secret-key - don't show top navigation header
+  // BUG - Send / Swap pages need work on mobile
   // BUG - in extension mode popout when account locked can scroll and header beige?
   // BUG - page header needs to be white in 'sm'
 
