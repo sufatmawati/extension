@@ -4,8 +4,6 @@ import { Outlet, Route, useNavigate } from 'react-router-dom';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { delay } from '@app/common/utils';
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
-import { useAppDispatch } from '@app/store';
-import { settingsActions } from '@app/store/settings/settings.actions';
 
 import {
   LeatherIntroDialog,
@@ -38,8 +36,6 @@ export function useLeatherIntroDialogContext() {
 function LeatherIntroDialogContainer() {
   const analytics = useAnalytics();
   const navigate = useNavigate();
-  const dispatch = useAppDispatch();
-
   async function onRevealNewName() {
     void analytics.track('new_brand_reveal_name');
     await delay(4000);
@@ -48,7 +44,6 @@ function LeatherIntroDialogContainer() {
 
   async function onAcceptTerms() {
     void analytics.track('new_brand_accept_terms');
-    dispatch(settingsActions.setHasApprovedNewBrand());
     navigate('../', { replace: true });
   }
 
