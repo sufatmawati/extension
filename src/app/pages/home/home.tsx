@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Route, useNavigate } from 'react-router-dom';
 
 import { RouteUrls } from '@shared/route-urls';
@@ -8,18 +9,21 @@ import { useTotalBalance } from '@app/common/hooks/balance/use-total-balance';
 import { useOnMount } from '@app/common/hooks/use-on-mount';
 import { ActivityList } from '@app/features/activity-list/activity-list';
 import { AssetsList } from '@app/features/asset-list/asset-list';
+import { SwitchAccountDialog } from '@app/features/dialogs/switch-account-dialog/switch-account-dialog';
 import { FeedbackButton } from '@app/features/feedback-button/feedback-button';
 import { InAppMessages } from '@app/features/hiro-messages/in-app-messages';
 import { homePageModalRoutes } from '@app/routes/app-routes';
 import { ModalBackgroundWrapper } from '@app/routes/components/modal-background-wrapper';
 import { useCurrentAccountNativeSegwitAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentStacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.hooks';
+import { AccountCard } from '@app/ui/components/account/account.card';
 import { HomeLayout } from '@app/ui/pages/home.layout';
 
 import { AccountActions } from './components/account-actions';
 import { HomeTabs } from './components/home-tabs';
 
 export function Home() {
+  const [isShowingSwitchAccount, setIsShowingSwitchAccount] = useState(false);
   const { decodedAuthRequest } = useOnboardingState();
 
   const navigate = useNavigate();
@@ -35,9 +39,21 @@ export function Home() {
 
   return (
     <HomeLayout
-      name={name}
-      balance={totalBalance?.totalUsdBalance}
-      accountActions={<AccountActions />}
+      accountCard={
+        <AccountCard
+          name={name}
+          balance={totalBalance?.totalUsdBalance}
+          switchAccount={
+            <SwitchAccountDialog
+              isShowing={isShowingSwitchAccount}
+              onClose={() => setIsShowingSwitchAccount(false)}
+            />
+          }
+          toggleSwitchAccount={() => setIsShowingSwitchAccount(!isShowingSwitchAccount)}
+        >
+          <AccountActions />
+        </AccountCard>
+      }
     >
       <InAppMessages />
       <FeedbackButton />

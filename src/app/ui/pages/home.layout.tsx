@@ -3,16 +3,12 @@ import type { ReactNode } from 'react';
 import { HomePageSelectors } from '@tests/selectors/home.selectors';
 import { Box, Stack } from 'leather-styles/jsx';
 
-import { AccountCard } from '@app/ui/components/account/account.card';
-
 interface HomeLayoutProps {
-  name: string;
-  balance: string;
   children: ReactNode;
-  accountActions: ReactNode;
+  accountCard: ReactNode;
 }
 
-export function HomeLayout({ name, balance, children, accountActions }: HomeLayoutProps) {
+export function HomeLayout({ children, accountCard }: HomeLayoutProps) {
   return (
     <Stack
       data-testid={HomePageSelectors.HomePageContainer}
@@ -27,9 +23,7 @@ export function HomeLayout({ name, balance, children, accountActions }: HomeLayo
       animationDuration="500ms"
     >
       <Box px={{ base: 'space.05', md: 0 }} paddingBottom={{ base: 'space.05', md: 0 }}>
-        <AccountCard name={name} balance={balance}>
-          {accountActions}
-        </AccountCard>
+        {accountCard}
       </Box>
       {children}
     </Stack>
