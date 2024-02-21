@@ -23,6 +23,8 @@ export function HomeLayout({ name, balance, children, accountActions }: HomeLayo
       width="100%"
       backgroundColor="ink.1"
       borderRadius="lg"
+      animation="fadein"
+      animationDuration="500ms"
     >
       <Box px={{ base: 'space.05', md: 0 }} paddingBottom={{ base: 'space.05', md: 0 }}>
         <AccountCard name={name} balance={balance}>
