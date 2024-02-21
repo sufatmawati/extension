@@ -3,8 +3,6 @@ import { atomFamily } from 'jotai/utils';
 
 type LoadingState = 'idle' | 'loading';
 
-// TODO investigate jotai removal as we are close now
-
 export const loadingState = atomFamily(_param => {
   const anAtom = atom<LoadingState>('idle');
   anAtom.debugLabel = `loading-atom/${_param}`;

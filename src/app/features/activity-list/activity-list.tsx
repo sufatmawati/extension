@@ -112,8 +112,6 @@ export function ActivityList() {
       </ActivityListTabWrapper>
     );
 
-  // maybe some weird BG location redirect causings issue here?s
-
   return (
     <>
       <ActivityListTabWrapper>

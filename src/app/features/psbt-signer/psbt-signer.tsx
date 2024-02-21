@@ -11,7 +11,7 @@ import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/account
 import { useCurrentAccountTaprootIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
 import { PopupCard } from '@app/ui/components/containers/popup/popup-card';
 
-import * as PSBT from './components';
+import * as Psbt from './components';
 import { useParsedPsbt } from './hooks/use-parsed-psbt';
 import { usePsbtSigner } from './hooks/use-psbt-signer';
 import { PsbtSignerContext, PsbtSignerProvider } from './psbt-signer.context';
@@ -79,22 +79,22 @@ export function PsbtSigner(props: PsbtSignerProps) {
     shouldDefaultToAdvancedView,
   };
 
-  if (shouldDefaultToAdvancedView && psbtRaw) return <PSBT.PsbtRequestRaw psbt={psbtRaw} />;
+  if (shouldDefaultToAdvancedView && psbtRaw) return <Psbt.PsbtRequestRaw psbt={psbtRaw} />;
 
   return (
     <PsbtSignerProvider value={psbtSignerContext}>
       <PopupCard>
-        <PSBT.PsbtRequestHeader name={name} origin={origin} />
-        <PSBT.PsbtRequestDetailsLayout>
-          {isPsbtMutable ? <PSBT.PsbtRequestSighashWarningLabel origin={origin} /> : null}
-          <PSBT.PsbtRequestDetailsHeader />
-          <PSBT.PsbtInputsOutputsTotals />
-          <PSBT.PsbtInputsAndOutputs />
-          {psbtRaw ? <PSBT.PsbtRequestRaw psbt={psbtRaw} /> : null}
-          <PSBT.PsbtRequestFee fee={fee} />
-        </PSBT.PsbtRequestDetailsLayout>
+        <Psbt.PsbtRequestHeader name={name} origin={origin} />
+        <Psbt.PsbtRequestDetailsLayout>
+          {isPsbtMutable ? <Psbt.PsbtRequestSighashWarningLabel origin={origin} /> : null}
+          <Psbt.PsbtRequestDetailsHeader />
+          <Psbt.PsbtInputsOutputsTotals />
+          <Psbt.PsbtInputsAndOutputs />
+          {psbtRaw ? <Psbt.PsbtRequestRaw psbt={psbtRaw} /> : null}
+          <Psbt.PsbtRequestFee fee={fee} />
+        </Psbt.PsbtRequestDetailsLayout>
       </PopupCard>
-      <PSBT.PsbtRequestActions
+      <Psbt.PsbtRequestActions
         isLoading={isBroadcasting}
         onCancel={onCancel}
         onSignPsbt={() =>

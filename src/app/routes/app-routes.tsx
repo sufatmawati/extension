@@ -204,7 +204,7 @@ function useAppRoutes() {
               <ViewSecretKey />
             </AccountGate>
           }
-        ></Route>
+        />
         <Route path={RouteUrls.Unlock} element={<Unlock />}>
           {leatherIntroDialogRoutes}
         </Route>
