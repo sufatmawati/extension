@@ -31,7 +31,7 @@ export enum RouteUrls {
   IncreaseStxFee = '/increase-fee/stx',
   IncreaseBtcFee = '/increase-fee/btc',
   IncreaseFeeSent = '/increase-fee/sent',
-  // Send = '/send-transaction', // cannot find usage
+  Send = '/send-transaction',
   ViewSecretKey = '/view-secret-key',
 
   // nested routes must have relative paths

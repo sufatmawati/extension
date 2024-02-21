@@ -46,15 +46,12 @@ export function ChooseCryptoAsset() {
       flexGrow={1}
       flexDirection="column"
       justifyContent="start"
-      // maxHeight={['unset', '85vh']}
       overflowY="auto"
       pb="space.04"
     >
-      <Box p="space.04">
-        <styled.h1 width="250px" textStyle="heading.03">
-          choose asset to send
-        </styled.h1>
-      </Box>
+      <styled.h1 width="250px" textStyle="heading.03" p="space.04">
+        choose asset to send
+      </styled.h1>
       <CryptoAssetList
         onItemClick={cryptoAssetBalance => navigateToSendForm(cryptoAssetBalance)}
         cryptoAssetBalances={allTransferableCryptoAssetBalances.filter(asset =>
