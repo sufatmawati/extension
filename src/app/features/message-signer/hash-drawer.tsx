@@ -13,10 +13,11 @@ function ShowHashButton(props: ShowHashButtonProps) {
   return expanded ? <ChevronUpIcon variant="small" /> : <ChevronDownIcon variant="small" />;
 }
 
-interface HashDialogProps {
+interface HashDrawerProps {
   hash: string;
 }
-export function HashDialog(props: HashDialogProps) {
+
+export function HashDrawer(props: HashDrawerProps) {
   const { hash } = props;
   const [showHash, setShowHash] = useState(false);
   const [displayHash, setDisplayHash] = useState(hash);
