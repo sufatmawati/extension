@@ -10,7 +10,7 @@ import {
   cvToDisplay,
   deriveStructuredMessageHash,
 } from '@app/features/ledger/flows/stacks-message-signing/message-signing.utils';
-import { HashDialog } from '@app/features/message-signer/hash-dialog';
+import { HashDrawer } from '@app/features/message-signer/hash-drawer';
 
 import { ClarityValueListDisplayer } from './clarity-value-list';
 
@@ -59,7 +59,7 @@ export function StructuredDataBox(props: {
             </Box>
           </Box>
         </Box>
-        {hash ? <HashDialog hash={hash} /> : null}
+        {hash ? <HashDrawer hash={hash} /> : null}
       </Stack>
     </Box>
   );
