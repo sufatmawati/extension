@@ -30,9 +30,6 @@ export function BigTitle({ title }: { title: string }) {
   );
 }
 
-// TODO 4370 task #4 TEST:
-// - Ledger:seems to be the only thing using enableGoBack, isWaitingOnPerformedAction
-// - Send summary screens as onClose is now deprecated - action button needs to go Home
 export interface HeaderProps {
   variant: 'page' | 'home' | 'onboarding' | 'card'; //TODO add shared types
   isWaitingOnPerformedAction?: boolean;

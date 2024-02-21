@@ -33,7 +33,6 @@ import { getTitleFromUrl } from './get-title-from-url';
 import { TotalBalance } from './total-balance';
 
 export function Container() {
-  // setIsShowingSwitchAccount is repeated so could be improved but at least jotai isShowingSwitchAccountsState is gone
   const [isShowingSwitchAccount, setIsShowingSwitchAccount] = useState(false);
   const navigate = useNavigate();
   const { pathname } = useLocation();
@@ -49,14 +48,13 @@ export function Container() {
 
   useEffect(() => void analytics.page('view', `${pathname}`), [analytics, pathname]);
 
-  const isHomePage = () => {
-    // match for '/activity' could be better to use === `/${activity}`
+  function isHomePage() {
     return pathname === RouteUrls.Home || pathname.match(RouteUrls.Activity);
-  };
+  }
 
-  const isLandingPage = () => {
+  function isLandingPage() {
     return pathname === RouteUrls.RequestDiagnostics || pathname.match(RouteUrls.Onboarding); // need to match get-started/ledger
-  };
+  }
   const isOnboardingPage = () => {
     return (
       pathname === RouteUrls.BackUpSecretKey ||
@@ -66,36 +64,11 @@ export function Container() {
     );
   };
 
-  //
-  //  TODO 4370 task #1  BUG: need to test all app using just laptop. get the dialogs perfect
-  // - manual task to sift through all Dialogs and read the props - make sure that nothing is missed
-  // - fix styling of dialog overflow and BigTitles
-  // - test  LEDGER DIALOGS
-  // - auto height on send flows - needs work on minHeight
-  //
-
-  // BUG - Send / Swap pages need work on extension - margins, scroll etc.
-  // BUG - in extension mode popout when account locked can scroll and header beige?
-  // BUG - settings menu doesn't scroll
-
-  // BUG - receive modal copy address not working (since pre-tabs) + copy success behind modal
-  // > fix hacky code around showing logo or not - get rid of placeholder etc
-  //  > scroll behaviour - test more
-  //  - remove global styles and test virtuoso and popup mode
-  // => add storybook pages
-
-  // TODO
-  // new designs:
-  // Loading button
-  // https://www.figma.com/file/2stUYm67q6Tkwe31CshODA/Onboarding?type=design&node-id=161-7424&mode=design&t=CWwmbrDMYMIft3iL-4
-  // Adjusted the Fund your account page
-  // Sign out flow
-
-  const getVariant = () => {
+  function getVariant() {
     if (isHomePage()) return 'home';
     if (isOnboardingPage()) return 'onboarding';
     return 'page';
-  };
+  }
 
   const variant = getVariant();
   useEffect(() => {
@@ -111,9 +84,9 @@ export function Container() {
   const isGetAddressesPopup = pathname === RouteUrls.RpcGetAddresses;
   const isSessionLocked = pathname === RouteUrls.Unlock;
 
-  const hideLogo = () => {
+  function hideLogo() {
     return pathname === RouteUrls.RpcGetAddresses || pathname === RouteUrls.Unlock;
-  };
+  }
 
   const displayHeader = !isLandingPage() && !isGetAddressesPopup;
   const [showSwitchAccount, setShowSwitchAccount] = useState(false);
@@ -126,8 +99,6 @@ export function Container() {
         isShowing={isShowingSwitchAccount}
         onClose={() => setIsShowingSwitchAccount(false)}
       />
-      {/* TODO #4310 Toast */}
-      {/* // add z-index here? */}
       <Toaster position="bottom-center" toastOptions={{ style: { fontSize: '14px' } }} />
       <ContainerLayout
         header={
@@ -142,7 +113,6 @@ export function Container() {
                   : () => navigate(-1)
               }
               settingsMenu={
-                // disabling settings for all popups for now pending clarification
                 isKnownPopup(pathname as RouteUrls) ? null : (
                   <Settings
                     triggerButton={<HamburgerIcon />}
