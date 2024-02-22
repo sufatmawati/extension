@@ -6,7 +6,6 @@ import get from 'lodash.get';
 import { RouteUrls } from '@shared/route-urls';
 
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
-import { useClipboard } from '@app/common/hooks/use-copy-to-clipboard';
 import { useLocationState } from '@app/common/hooks/use-location-state';
 import { useBackgroundLocationRedirect } from '@app/routes/hooks/use-background-location-redirect';
 import { useZeroIndexTaprootAddress } from '@app/store/accounts/blockchain/bitcoin/bitcoin.hooks';
@@ -43,16 +42,6 @@ export function ReceiveDialog({ type = 'full' }: ReceiveDialogProps) {
   const accountIndex = get(location.state, 'accountIndex', undefined);
   const btcAddressTaproot = useZeroIndexTaprootAddress(accountIndex);
 
-  const { onCopy: onCopyBtc } = useClipboard(btcAddressNativeSegwit);
-  const { onCopy: onCopyStx } = useClipboard(stxAddress);
-  const { onCopy: onCopyOrdinal } = useClipboard(btcAddressTaproot);
-
-  function copyToClipboard(copyHandler: () => void, tracker = 'copy_address_to_clipboard') {
-    void analytics.track(tracker);
-    toast.success('Copied to clipboard!');
-    copyHandler();
-  }
-
   const title = type === 'full' ? 'Choose asset to receive' : 'Receive collectible';
 
   function Collectibles() {
@@ -61,9 +50,21 @@ export function ReceiveDialog({ type = 'full' }: ReceiveDialogProps) {
         btcAddressTaproot={btcAddressTaproot}
         btcAddressNativeSegwit={btcAddressNativeSegwit}
         stxAddress={stxAddress}
-        onCopyStamp={() => copyToClipboard(onCopyBtc, 'select_stamp_to_add_new_collectible')}
-        onCopyStacksNft={() => copyToClipboard(onCopyStx, 'select_nft_to_add_new_collectible')}
-        onCopyOrdinal={() => copyToClipboard(onCopyOrdinal)}
+        onCopyStamp={() => {
+          void analytics.track('select_stamp_to_add_new_collectible');
+          toast.success('Copied to clipboard!');
+          navigator.clipboard.writeText(btcAddressNativeSegwit);
+        }}
+        onCopyStacksNft={() => {
+          void analytics.track('select_nft_to_add_new_collectible');
+          toast.success('Copied to clipboard!');
+          navigator.clipboard.writeText(stxAddress);
+        }}
+        onCopyOrdinal={() => {
+          void analytics.track('copy_address_to_clipboard');
+          toast.success('Copied to clipboard!');
+          navigator.clipboard.writeText(btcAddressNativeSegwit);
+        }}
         onClickQrOrdinal={() => {
           void analytics.track('select_inscription_to_add_new_collectible');
           navigate(`${RouteUrls.Home}${RouteUrls.ReceiveCollectibleOrdinal}`, {
@@ -108,8 +109,16 @@ export function ReceiveDialog({ type = 'full' }: ReceiveDialogProps) {
             <ReceiveTokens
               btcAddressNativeSegwit={btcAddressNativeSegwit}
               stxAddress={stxAddress}
-              onCopyBtc={() => copyToClipboard(onCopyBtc)}
-              onCopyStx={() => copyToClipboard(onCopyStx)}
+              onCopyBtc={() => {
+                void analytics.track('copy_address_to_clipboard');
+                toast.success('Copied to clipboard!');
+                navigator.clipboard.writeText(btcAddressNativeSegwit);
+              }}
+              onCopyStx={() => {
+                void analytics.track('copy_address_to_clipboard');
+                toast.success('Copied to clipboard!');
+                navigator.clipboard.writeText(stxAddress);
+              }}
               onClickQrBtc={() =>
                 navigate(`${RouteUrls.Home}${RouteUrls.ReceiveBtc}`, {
                   state: { backgroundLocation },
@@ -122,9 +131,7 @@ export function ReceiveDialog({ type = 'full' }: ReceiveDialogProps) {
               }
             />
           </Tabs.Content>
-          <Tabs.Content value="collectibles">
-            <Collectibles />
-          </Tabs.Content>
+          <Tabs.Content value="collectibles">{/* <Collectibles /> */}</Tabs.Content>
         </Tabs.Root>
       )}
     </Dialog>
