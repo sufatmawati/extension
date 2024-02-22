@@ -16,7 +16,6 @@ export interface DialogProps {
   onGoBack?(): void;
   onClose(): void;
   canClose?: boolean;
-  pauseOnClickOutside?: boolean; // FIXME - seem to have lost what this does in useDrawer() I think it blocked close on click outside?
   title?: ReactNode;
 }
 

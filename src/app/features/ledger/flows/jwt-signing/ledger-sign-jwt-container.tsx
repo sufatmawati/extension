@@ -184,7 +184,6 @@ export function LedgerSignJwtContainer() {
         isShowing
         isWaitingOnPerformedAction={awaitingDeviceConnection || canUserCancelAction}
         onClose={onCancelConnectLedger}
-        pauseOnClickOutside
       >
         <Outlet />
       </Dialog>

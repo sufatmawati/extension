@@ -165,7 +165,6 @@ function LedgerSignStacksMsg({ account, unsignedMessage }: LedgerSignMsgProps) {
         isShowing
         isWaitingOnPerformedAction={awaitingDeviceConnection || canUserCancelAction}
         onClose={ledgerNavigate.cancelLedgerAction}
-        pauseOnClickOutside
       >
         <Outlet />
       </Dialog>
