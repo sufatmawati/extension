@@ -24,7 +24,7 @@ export function Card() {
         </Button>
       }
     >
-      <Box height="200px" backgroundColor="lightModeRed.300" />
+      <Box height="200px" bg="lightModeRed.300" />
     </Component>
   );
 }

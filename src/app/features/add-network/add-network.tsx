@@ -204,7 +204,7 @@ export function AddNetwork() {
               maxWidth="pageWidth"
               px={['space.05', 'space.04']}
               textAlign={['left', 'center']}
-              marginBottom="space.05"
+              mb="space.05"
             >
               <styled.span textStyle="body.02">
                 Use this form to add a new instance of the{' '}

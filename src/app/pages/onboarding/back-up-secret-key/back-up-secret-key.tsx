@@ -30,7 +30,7 @@ export const BackUpSecretKeyPage = memo(() => {
         </>
       }
       action={
-        <Stack gap="space.05" marginTop="space.04">
+        <Stack gap="space.05" mt="space.04">
           <HStack alignItems="center">
             <KeyIcon />
             <styled.span textStyle="caption.01">

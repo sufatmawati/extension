@@ -12,11 +12,11 @@ export function PasswordStrengthBars({ bars }: PasswordStrengthBarsProps) {
             borderRadius="xs"
             flexGrow={1}
             key={index}
-            marginBottom="0"
+            mb="0"
             marginInline={index < bars.length - 1 ? '0 8px' : 0}
-            marginTop="0"
+            mt="0"
             style={{
-              backgroundColor: bar,
+              bg: bar,
             }}
           />
         );

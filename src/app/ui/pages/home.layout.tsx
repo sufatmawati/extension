@@ -17,12 +17,12 @@ export function HomeLayout({ children, accountCard }: HomeLayoutProps) {
       py={{ base: 0, md: 'space.07' }}
       gap={{ base: 0, md: 'space.06' }}
       width="100%"
-      backgroundColor="ink.1"
+      bg="ink.1"
       borderRadius="lg"
       animation="fadein"
       animationDuration="500ms"
     >
-      <Box px={{ base: 'space.05', md: 0 }} paddingBottom={{ base: 'space.05', md: 0 }}>
+      <Box px={{ base: 'space.05', md: 0 }} pb={{ base: 'space.05', md: 0 }}>
         {accountCard}
       </Box>
       {children}

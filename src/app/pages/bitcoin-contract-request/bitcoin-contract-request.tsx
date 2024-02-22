@@ -112,7 +112,7 @@ export function BitcoinContractRequest() {
               bitcoinContractOfferDetails.counterpartyWalletDetails.counterpartyWalletIcon
             }
           />
-          <Stack gap="space.04" backgroundColor="white" borderRadius="lg">
+          <Stack gap="space.04" bg="white" borderRadius="lg">
             <BitcoinContractRequestWarningLabel
               appName={bitcoinContractOfferDetails.counterpartyWalletDetails.counterpartyWalletName}
             />

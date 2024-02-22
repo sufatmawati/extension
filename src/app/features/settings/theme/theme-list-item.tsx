@@ -24,7 +24,7 @@ export function ThemeListItem({ theme, onThemeSelected, isActive }: ThemeListIte
         isActive
           ? undefined
           : {
-              backgroundColor: 'ink.component-background-hover',
+              bg: 'ink.component-background-hover',
             }
       }
       px="space.05"

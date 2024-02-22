@@ -5,7 +5,7 @@ export function StatusPending() {
         width: '8px',
         height: '8px',
         borderRadius: '50%',
-        backgroundColor: '#F59300',
+        bg: '#F59300',
       }}
     />
   );

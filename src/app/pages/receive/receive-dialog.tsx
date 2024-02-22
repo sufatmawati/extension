@@ -21,15 +21,17 @@ import { ReceiveTokens } from './components/receive-tokens';
 
 type ReceiveDialog = 'full' | 'collectible';
 
+// TODO ask design ideally all tabs should match but choose-fee has a different variation
+export const receiveTabStyle = {
+  mt: 'space.03',
+  paddingX: 'space.03',
+  pb: 'space.05',
+};
+
 interface ReceiveDialogProps {
   type?: 'full' | 'collectible';
 }
-// ideally all tabs should match but choose-fee has a different variation
-export const receiveTabStyle = {
-  marginTop: 'space.03',
-  paddingX: 'space.03',
-  paddingBottom: 'space.05',
-};
+
 export function ReceiveDialog({ type = 'full' }: ReceiveDialogProps) {
   useBackgroundLocationRedirect();
   const analytics = useAnalytics();

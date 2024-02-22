@@ -16,8 +16,8 @@ const AppVersionLabel = forwardRef<HTMLSpanElement, AppVersionLabelProps>(
     <styled.span
       ref={ref}
       textStyle="mono.02"
-      marginTop="auto"
-      marginBottom="space.02"
+      mt="auto"
+      mb="space.02"
       mx="space.02"
       opacity={0.5}
       textDecoration={isLatestVersion ? 'none' : 'line-through'}

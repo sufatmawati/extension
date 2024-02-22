@@ -37,7 +37,7 @@ export const Dialog = memo(
         <RadixDialog.Portal>
           <RadixDialog.Overlay
             className={css({
-              backgroundColor: 'overlay',
+              bg: 'overlay',
               position: 'fixed',
               inset: 0,
               animation: 'overlayShow 150ms cubic-bezier(0.16, 1, 0.3, 1)',
@@ -46,7 +46,7 @@ export const Dialog = memo(
             <RadixDialog.Content
               onPointerDownOutside={onClose}
               className={css({
-                backgroundColor: 'accent.background-primary',
+                bg: 'accent.background-primary',
                 // remove borderRadius on small to give impression of full page
                 borderRadius: { base: '0', md: 'md' },
                 boxShadow:
@@ -76,7 +76,7 @@ export const Dialog = memo(
                   // TODO - make this smarter to compute height based on if footer / header for more precision
                   maxHeight: { base: 'calc(100vh - 160px)', md: 'calc(90vh - 160px)' },
                   // 175px = headerHeight + footerHeight
-                  marginBottom: '175px',
+                  mb: '175px',
                   overflowY: 'auto',
                 })}
               >
