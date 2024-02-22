@@ -8,15 +8,14 @@ import { createNullArrayOfLength } from '@app/common/utils';
 import { ErrorLabel } from '@app/components/error-label';
 import { useSignIn } from '@app/pages/onboarding/sign-in/hooks/use-sign-in';
 import { Button } from '@app/ui/components/button/button';
-import { SecretKeyGrid } from '@app/ui/components/secret-key/secret-key-grid';
-
-import { MnemonicWordInput } from '../../../ui/components/secret-key/mnemonic-key/mnemonic-word-input';
+import { MnemonicWordInput } from '@app/ui/components/secret-key/mnemonic-key/mnemonic-word-input';
 import {
   getMnemonicErrorFields,
   getMnemonicErrorMessage,
   hasMnemonicFormValues,
-} from '../../../ui/components/secret-key/mnemonic-key/utils/error-handling';
-import { validationSchema } from '../../../ui/components/secret-key/mnemonic-key/utils/validation';
+} from '@app/ui/components/secret-key/mnemonic-key/utils/error-handling';
+import { validationSchema } from '@app/ui/components/secret-key/mnemonic-key/utils/validation';
+import { SecretKeyGrid } from '@app/ui/components/secret-key/secret-key-grid';
 
 interface MnemonicFormProps {
   mnemonic: (string | null)[];
@@ -97,7 +96,6 @@ export function MnemonicForm({ mnemonic, setMnemonic, twentyFourWordMode }: Mnem
                 aria-busy={isLoading}
                 width="100%"
                 type="submit"
-                // need to check the disabled variants of solid button
                 variant="solid"
                 onClick={e => {
                   e.preventDefault();

@@ -57,10 +57,7 @@ export function Header({
 }: HeaderProps) {
   const logoItem = onGoBack || logo || account;
   return (
-    <styled.header
-      p="space.04"
-      backgroundColor={{ base: 'accent.background-primary', sm: 'transparent' }}
-    >
+    <styled.header p="space.04" bg={{ base: 'accent.background-primary', sm: 'transparent' }}>
       <Grid
         gridTemplateColumns="1fr 4fr 1fr"
         width="100%"

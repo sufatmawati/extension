@@ -13,7 +13,7 @@ interface PageProps {
 export function Page({ children, showLogo = false }: PageProps) {
   return (
     <Box
-      backgroundColor="accent.background-primary"
+      bg="accent.background-primary"
       borderRadius="xs"
       width="pageWidth"
       height={{ base: '100vh', md: 'auto' }}

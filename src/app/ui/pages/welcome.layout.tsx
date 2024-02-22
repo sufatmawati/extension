@@ -97,7 +97,7 @@ export function WelcomeLayout({
           <Flex gap="space.05" alignItems="flex-start">
             {/* Links for size 'md' and up */}
             <Link
-              paddingTop="space.02"
+              pt="space.02"
               hideBelow="md"
               color={actionLinkColour}
               data-testid={OnboardingSelectors.SignInLink}
@@ -107,7 +107,7 @@ export function WelcomeLayout({
               Use existing key
             </Link>
             <Link
-              paddingTop="space.02"
+              pt="space.02"
               hideBelow="md"
               color={actionLinkColour}
               onClick={onSelectConnectLedger}

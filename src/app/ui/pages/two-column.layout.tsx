@@ -18,7 +18,7 @@ export function TwoColumnLayout({
   return (
     <Flex
       flexDirection={{ base: 'column', md: 'row' }}
-      paddingTop="space.06"
+      pt="space.06"
       px={{ base: 'space.05', md: 'space.00' }}
       mx={{ base: 'auto', md: 'space.03', lg: 'space.06' }}
       gap="space.05"
@@ -29,7 +29,7 @@ export function TwoColumnLayout({
         <Stack gap="space.04">
           <styled.h1 textStyle="heading.03">{title}</styled.h1>
           <styled.p textStyle="label.02">{content}</styled.p>
-          <Box marginTop="space.04">{action}</Box>
+          <Box mt="space.04">{action}</Box>
         </Stack>
       </Flex>
 
@@ -42,7 +42,7 @@ export function TwoColumnLayout({
         <Stack
           p={{ base: 'space.02', md: 'space.05' }}
           gap="space.04"
-          backgroundColor="accent.background-primary"
+          bg="accent.background-primary"
           borderRadius="xs"
           width="100%"
           minWidth={{
