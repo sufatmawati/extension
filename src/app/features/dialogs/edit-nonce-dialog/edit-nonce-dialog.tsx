@@ -47,7 +47,7 @@ export function EditNonceDialog() {
   }, [loadedNextNonce, onGoBack, setFieldError, setFieldValue, values.nonce]);
 
   return (
-    <Dialog isShowing onClose={onClose} pauseOnClickOutside title="Edit nonce">
+    <Dialog isShowing onClose={onClose} title="Edit nonce">
       <Stack gap="space.05" pb="space.06" px="space.05">
         <styled.span textStyle="caption.01">
           If your transaction has been pending for a long time, its nonce might not be correct.

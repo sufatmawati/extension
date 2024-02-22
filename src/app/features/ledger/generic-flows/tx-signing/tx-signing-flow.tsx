@@ -29,7 +29,6 @@ export function TxSigningFlow({
         isShowing
         isWaitingOnPerformedAction={awaitingDeviceConnection || canUserCancelAction}
         onClose={closeAction}
-        pauseOnClickOutside
       >
         <Outlet />
       </Dialog>

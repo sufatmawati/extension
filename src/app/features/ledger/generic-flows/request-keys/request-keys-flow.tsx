@@ -24,7 +24,6 @@ export function RequestKeysFlow({
         isShowing
         isWaitingOnPerformedAction={isActionCancellableByUser}
         onClose={onCancelConnectLedger ? onCancelConnectLedger : () => navigate('../')}
-        pauseOnClickOutside
       >
         <Outlet />
       </Dialog>
