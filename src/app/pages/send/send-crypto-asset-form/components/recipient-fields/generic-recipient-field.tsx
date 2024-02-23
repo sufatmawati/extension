@@ -1,7 +1,7 @@
 import { TextInputFieldError } from '@app/components/field-error';
 import { RecipientFieldType } from '@app/pages/send/send-crypto-asset-form/components/recipient-type-dropdown/recipient-type-dropdown';
 
-import { SelectAccountButton } from '../recipient-accounts-drawer/select-account-button';
+import { SelectAccountButton } from '../recipient-accounts-dialog/select-account-button';
 import { RecipientField } from '../recipient-field';
 import { RecipientDropdownOverlay } from '../recipient-type-dropdown/components/recipient-dropdown-overlay';
 import { useRecipientSelectFields } from './hooks/use-recipient-select-fields';
