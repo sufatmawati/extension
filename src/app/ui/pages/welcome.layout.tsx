@@ -22,30 +22,38 @@ export function WelcomeLayout({
   // On this page 'theme' is used to set specific colours and bypass automatic theming
   const { theme } = useThemeSwitcher();
 
-  const actionLinkColour = theme === 'light' ? 'darkModeInk.12' : 'lightModeInk.12';
+  const oldColours = {
+    'lightModeInk.1': '#FFFFFF',
+    'lightModeInk.12': '#12100F',
+    'darkModeInk.12': '#F5F1ED',
+  };
+
+  const actionLinkColour = 'ink.background-secondary';
+  // theme === 'light' ? oldColours['darkModeInk.12'] : oldColours['lightModeInk.12'];
 
   const primaryActionButton = {
     bg: {
-      base: theme === 'light' ? 'darkModeInk.12' : 'lightModeInk.1',
-      md: theme === 'light' ? 'lightModeInk.1' : 'lightModeInk.12',
+      base: theme === 'light' ? oldColours['darkModeInk.12'] : oldColours['lightModeInk.1'],
+      md: theme === 'light' ? oldColours['lightModeInk.1'] : oldColours['lightModeInk.12'],
     },
     color: {
-      base: theme === 'light' ? 'lightModeInk.12' : 'darkModeInk.1',
-      md: theme === 'light' ? 'darkModeInk.1' : 'lightModeInk.1',
+      base: oldColours['lightModeInk.12'],
+      md: theme === 'light' ? oldColours['lightModeInk.12'] : oldColours['lightModeInk.1'],
     },
 
     _hover: {
       bg: 'ink.action-primary-hover',
-      color: theme === 'light' ? 'lightModeInk.1' : 'darkModeInk.1',
+      color: theme === 'light' ? oldColours['lightModeInk.1'] : oldColours['lightModeInk.12'],
     },
   };
   const secondaryActionButton = {
-    color: 'darkModeInk.12',
-    borderColor: 'darkModeInk.12',
+    color: oldColours['darkModeInk.12'],
+    borderColor: oldColours['darkModeInk.12'],
     _hover: {
       /* TODO 4370 - design check hover + text color on sm */
       bg: 'ink.action-primary-hover',
-      color: theme === 'light' ? 'darkModeInk.12' : 'lightModeInk.12',
+      color: 'ink.background-secondary',
+      //theme === 'light' ? oldColours['darkModeInk.12'] : oldColours['lightModeInk.12'],
     },
   };
 
@@ -58,8 +66,8 @@ export function WelcomeLayout({
     <Flex flexDir={{ base: 'column-reverse', md: 'row' }} minW="100vw" minH="100vh">
       <Flex
         flexDir="column"
-        bg={{ base: 'darkModeInk.1', md: 'ink.12' }}
-        color={{ base: 'lightModeInk.1', md: 'ink.12' }}
+        bg={{ base: oldColours['lightModeInk.12'], md: 'ink.text-primary' }}
+        color={{ base: oldColours['lightModeInk.1'], md: 'ink.text-primary' }}
         flex={{ base: 1, md: 2 }}
         p="space.05"
       >
@@ -67,7 +75,7 @@ export function WelcomeLayout({
           flexDir="column"
           flex={{ base: 1, md: 0 }}
           justifyContent={{ base: 'end', md: 'flex-start' }}
-          color={{ base: 'lightModeInk.1', md: 'ink.2' }}
+          color="ink.background-primary"
         >
           <styled.h1 hideBelow="md" textStyle="display.01" maxWidth="880px">
             {tagline}
@@ -140,8 +148,8 @@ export function WelcomeLayout({
       </Flex>
       <Flex
         p="space.05"
-        bg={{ base: 'darkModeInk.1', md: 'ink.background-primary' }}
-        color={{ base: 'lightModeInk.1', md: 'ink.12' }}
+        bg={{ base: oldColours['lightModeInk.12'], md: 'ink.background-primary' }}
+        color={{ base: oldColours['lightModeInk.1'], md: 'ink.text-primary' }}
         flexDir="column"
         justifyContent="space-between"
         flex={{ base: 0, md: 1 }}
