@@ -8,8 +8,8 @@ interface LogoProps {
 export function Logo({ onClick }: LogoProps) {
   return (
     <styled.button
-      _hover={onClick && { color: 'accent.action-primary-hover' }}
-      color="accent.text-primary"
+      _hover={onClick && { color: 'ink.action-primary-hover' }}
+      color="ink.text-primary"
       cursor={onClick ? 'pointer' : 'unset'}
       onClick={onClick ? onClick : undefined}
     >

@@ -24,7 +24,7 @@ export function AccountCard({
   return (
     <Flex
       direction="column"
-      bgColor={{ base: 'accent.background-secondary', sm: 'unset' }}
+      bgColor={{ base: 'ink.background-secondary', sm: 'unset' }}
       rounded="sm"
       px={{ base: 'space.05', sm: '0' }}
       pt={{ base: 'space.05', md: '0' }}
@@ -32,7 +32,7 @@ export function AccountCard({
     >
       <Link
         _before={{ bg: 'transparent' }}
-        _hover={{ color: 'accent.action-primary-hover' }}
+        _hover={{ color: 'ink.action-primary-hover' }}
         data-testid={SettingsSelectors.SwitchAccountTrigger}
         onClick={toggleSwitchAccount}
         variant="text"
@@ -52,7 +52,7 @@ export function AccountCard({
         </styled.h1>
         <Divider
           position="relative"
-          color="accent.border-default"
+          color="ink.border-default"
           right="space.05"
           width="calc(100% + 48px)"
           mb="space.02"

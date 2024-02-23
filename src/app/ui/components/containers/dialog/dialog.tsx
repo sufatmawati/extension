@@ -45,7 +45,7 @@ export const Dialog = memo(
             <RadixDialog.Content
               onPointerDownOutside={onClose}
               className={css({
-                bg: 'accent.background-primary',
+                bg: 'ink.background-primary',
                 // remove borderRadius on small to give impression of full page
                 borderRadius: { base: '0', md: 'md' },
                 boxShadow:

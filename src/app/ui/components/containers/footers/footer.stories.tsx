@@ -41,7 +41,7 @@ export function SignOutConfirmFooter() {
         </Button>
         <Button
           _hover={{ opacity: 0.8 }}
-          background="error.label"
+          background="red.action-primary-default"
           color="lightModeBrown.1"
           flexGrow={1}
           onClick={() => null}

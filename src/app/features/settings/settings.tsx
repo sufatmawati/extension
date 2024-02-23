@@ -180,7 +180,7 @@ export function Settings({ triggerButton, toggleSwitchAccount }: SettingsProps) 
               )}
 
               <DropdownMenu.Item
-                color="error.label"
+                color="red.action-primary-default"
                 onClick={() => setShowSignOut(!showSignOut)}
                 data-testid={SettingsSelectors.SignOutListItem}
               >

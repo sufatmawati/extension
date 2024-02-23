@@ -19,7 +19,7 @@ export function Footer({ children, variant = 'page', flexDirection = 'column' }:
       zIndex={1}
       minHeight="footerHeight"
       // footer is always white
-      bg="accent.background-primary"
+      bg="ink.background-primary"
       borderTop={variant === 'page' ? ' default' : undefined}
       position={{ base: 'fixed', md: variant === 'card' ? ' absolute' : 'fixed' }}
       borderBottomRadius="md"

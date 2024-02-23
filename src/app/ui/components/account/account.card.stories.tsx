@@ -16,7 +16,12 @@ export default meta;
 
 export function AccountCard() {
   return (
-    <Component name="leather.btc" balance="$1,000">
+    <Component
+      name="leather.btc"
+      balance="$1,000"
+      switchAccount={<></>}
+      toggleSwitchAccount={() => null}
+    >
       <Flex justify="space-between">
         <ActionButton icon={<ArrowUpIcon />} label="Send" />
         <ActionButton icon={<ArrowDownIcon />} label="Receive" />
