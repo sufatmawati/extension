@@ -1,4 +1,3 @@
-import toast from 'react-hot-toast';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import get from 'lodash.get';
@@ -50,21 +49,6 @@ export function ReceiveDialog({ type = 'full' }: ReceiveDialogProps) {
         btcAddressTaproot={btcAddressTaproot}
         btcAddressNativeSegwit={btcAddressNativeSegwit}
         stxAddress={stxAddress}
-        onCopyStamp={() => {
-          void analytics.track('select_stamp_to_add_new_collectible');
-          toast.success('Copied to clipboard!');
-          navigator.clipboard.writeText(btcAddressNativeSegwit);
-        }}
-        onCopyStacksNft={() => {
-          void analytics.track('select_nft_to_add_new_collectible');
-          toast.success('Copied to clipboard!');
-          navigator.clipboard.writeText(stxAddress);
-        }}
-        onCopyOrdinal={() => {
-          void analytics.track('copy_address_to_clipboard');
-          toast.success('Copied to clipboard!');
-          navigator.clipboard.writeText(btcAddressNativeSegwit);
-        }}
         onClickQrOrdinal={() => {
           void analytics.track('select_inscription_to_add_new_collectible');
           navigate(`${RouteUrls.Home}${RouteUrls.ReceiveCollectibleOrdinal}`, {
@@ -109,16 +93,6 @@ export function ReceiveDialog({ type = 'full' }: ReceiveDialogProps) {
             <ReceiveTokens
               btcAddressNativeSegwit={btcAddressNativeSegwit}
               stxAddress={stxAddress}
-              onCopyBtc={() => {
-                void analytics.track('copy_address_to_clipboard');
-                toast.success('Copied to clipboard!');
-                navigator.clipboard.writeText(btcAddressNativeSegwit);
-              }}
-              onCopyStx={() => {
-                void analytics.track('copy_address_to_clipboard');
-                toast.success('Copied to clipboard!');
-                navigator.clipboard.writeText(stxAddress);
-              }}
               onClickQrBtc={() =>
                 navigate(`${RouteUrls.Home}${RouteUrls.ReceiveBtc}`, {
                   state: { backgroundLocation },
@@ -131,7 +105,9 @@ export function ReceiveDialog({ type = 'full' }: ReceiveDialogProps) {
               }
             />
           </Tabs.Content>
-          <Tabs.Content value="collectibles">{/* <Collectibles /> */}</Tabs.Content>
+          <Tabs.Content value="collectibles">
+            <Collectibles />
+          </Tabs.Content>
         </Tabs.Root>
       )}
     </Dialog>

@@ -2,6 +2,7 @@ import { HomePageSelectors } from '@tests/selectors/home.selectors';
 import { css } from 'leather-styles/css';
 import { Stack } from 'leather-styles/jsx';
 
+import { copyToClipboard } from '@app/common/utils/copy-to-clipboard';
 import { StxAvatar } from '@app/components/crypto-assets/stacks/components/stx-avatar';
 import { BtcIcon } from '@app/ui/components/avatar-icon/btc-icon';
 
@@ -11,16 +12,12 @@ import { ReceiveItem } from './receive-item';
 interface ReceiveTokensProps {
   btcAddressNativeSegwit: string;
   stxAddress: string;
-  onCopyBtc(): void;
-  onCopyStx(): void;
   onClickQrBtc(): void;
   onClickQrStx(): void;
 }
 export function ReceiveTokens({
   btcAddressNativeSegwit,
   stxAddress,
-  onCopyBtc,
-  onCopyStx,
   onClickQrBtc,
   onClickQrStx,
 }: ReceiveTokensProps) {
@@ -30,7 +27,7 @@ export function ReceiveTokens({
         address={btcAddressNativeSegwit}
         icon={<BtcIcon />}
         dataTestId={HomePageSelectors.ReceiveBtcNativeSegwitQrCodeBtn}
-        onCopyAddress={onCopyBtc}
+        onCopyAddress={() => copyToClipboard(btcAddressNativeSegwit)}
         onClickQrCode={onClickQrBtc}
         title="Bitcoin"
       />
@@ -38,7 +35,7 @@ export function ReceiveTokens({
         address={stxAddress}
         icon={<StxAvatar />}
         dataTestId={HomePageSelectors.ReceiveStxQrCodeBtn}
-        onCopyAddress={onCopyStx}
+        onCopyAddress={() => copyToClipboard(stxAddress)}
         onClickQrCode={onClickQrStx}
         title="Stacks"
       />
