@@ -24,8 +24,7 @@ export function HomeTabs({ children }: HomeTabsProps) {
             Assets
           </Tabs.Trigger>
           <Tabs.Trigger data-testid="tab-activity" value={RouteUrls.Activity}>
-            {/* TODO - do we also want to update the route to history? */}
-            History
+            Activity
           </Tabs.Trigger>
         </Tabs.List>
       </Tabs.Root>
