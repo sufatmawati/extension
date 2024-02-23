@@ -25,6 +25,10 @@ export function getPageVariant(pathname: RouteUrls) {
   return 'page';
 }
 
+function isSessionLocked(pathname: RouteUrls) {
+  return pathname === RouteUrls.Unlock;
+}
+
 export function canGoBack(pathname: RouteUrls) {
   if (isSessionLocked(pathname) || isKnownPopupRoute(pathname)) {
     return false;
@@ -38,8 +42,4 @@ export function hideLogo(pathname: RouteUrls) {
 
 export function isGetAddressesPopup(pathname: RouteUrls) {
   return pathname === RouteUrls.RpcGetAddresses;
-}
-
-export function isSessionLocked(pathname: RouteUrls) {
-  return pathname === RouteUrls.Unlock;
 }
