@@ -19,7 +19,7 @@ export function NetworkModeBadge({ isTestnetChain, name }: NetworkModeBadge) {
       position="relative"
       zIndex={999}
     >
-      <styled.span color="accent.text-subdued" textStyle="label.03">
+      <styled.span color="ink.text-subdued" textStyle="label.03">
         {name}
       </styled.span>
     </Flex>

@@ -74,10 +74,10 @@ export function Container() {
   useEffect(() => {
     // set the whole body colour based on page variant so it can update dynamically
     if (variant === 'home') {
-      document.body.style.backgroundColor = token('colors.accent.background-primary');
+      document.body.style.backgroundColor = token('colors.ink.background-primary');
     }
     if (variant === 'page' || variant === 'onboarding') {
-      document.body.style.backgroundColor = token('colors.accent.background-secondary');
+      document.body.style.backgroundColor = token('colors.ink.background-secondary');
     }
   }, [variant]);
 
@@ -145,7 +145,7 @@ export function Container() {
                     align="middle"
                     img={
                       <CurrentAccountAvatar
-                        color={token('colors.white')}
+                        color="white"
                         fontSize="16px"
                         fontWeight={500}
                         size="32px"

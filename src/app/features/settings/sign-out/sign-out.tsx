@@ -45,12 +45,12 @@ export function SignOutDialog({ isShowing, onUserDeleteWallet, onClose }: SignOu
           {/* FIXME - need to fix and style this button properly */}
           <Button
             // _hover={{ opacity: 0.8 }}
-            // background="error.label"
+            // background="red.action-primary-default"
             color="lightModeInk.1"
-            // _disabled={{ color: 'accent.non-interactive' }}
+            // _disabled={{ color: 'ink.non-interactive' }}
             _hover={{ background: 'black' }}
-            background="error.label"
-            // color={theme === 'light' ? 'accent.background-primary' : 'accent.text-primary'}
+            background="red.action-primary-default"
+            // color={theme === 'light' ? 'ink.background-primary' : 'ink.text-primary'}
             opacity={!canSignOut ? 0.8 : undefined}
             data-testid={SettingsSelectors.BtnSignOutActuallyDeleteWallet}
             flexGrow={1}

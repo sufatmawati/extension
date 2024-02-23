@@ -19,7 +19,7 @@ export function ContainerLayout({ children, header, variant }: ContainerLayoutPr
       height="100%" // ??
       className={css(radixBaseCSS)}
       // need to set this to secondary when variant is 'page'
-      bg={variant !== 'home' ? 'accent.background-secondary' : undefined}
+      bg={variant !== 'home' ? 'ink.background-secondary' : undefined}
     >
       {header}
       <Flex className="main-content" flexGrow={1} position="relative" width="100%">

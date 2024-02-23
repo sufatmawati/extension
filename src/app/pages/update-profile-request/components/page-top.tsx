@@ -37,7 +37,7 @@ function PageTopBase() {
             width: '50px',
             height: '50px',
             alignItems: 'center',
-            mt: '32px',
+            marginTop: '32px',
           }}
           src={avatarUrl}
         />

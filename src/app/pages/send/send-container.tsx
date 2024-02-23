@@ -14,7 +14,7 @@ export function SendContainer() {
         height="fit-content"
         maxWidth={['100%', 'pageWidth']}
         minWidth={['100%', 'pageWidth']}
-        background="accent.background-primary"
+        background="ink.background-primary"
       >
         <Outlet />
       </Flex>

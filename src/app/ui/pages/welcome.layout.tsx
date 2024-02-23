@@ -35,7 +35,7 @@ export function WelcomeLayout({
     },
 
     _hover: {
-      bg: 'accent.action-primary-hover',
+      bg: 'ink.action-primary-hover',
       color: theme === 'light' ? 'lightModeInk.1' : 'darkModeInk.1',
     },
   };
@@ -44,7 +44,7 @@ export function WelcomeLayout({
     borderColor: 'darkModeInk.12',
     _hover: {
       /* TODO 4370 - design check hover + text color on sm */
-      bg: 'accent.action-primary-hover',
+      bg: 'ink.action-primary-hover',
       color: theme === 'light' ? 'darkModeInk.12' : 'lightModeInk.12',
     },
   };
@@ -140,7 +140,7 @@ export function WelcomeLayout({
       </Flex>
       <Flex
         p="space.05"
-        bg={{ base: 'darkModeInk.1', md: 'accent.background-primary' }}
+        bg={{ base: 'darkModeInk.1', md: 'ink.background-primary' }}
         color={{ base: 'lightModeInk.1', md: 'ink.12' }}
         flexDir="column"
         justifyContent="space-between"

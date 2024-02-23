@@ -42,7 +42,7 @@ export function HighFeeDialog({ learnMoreUrl, isShowing = false }: HighFeeDialog
       {isShowingHighFeeConfirmation && (
         <Stack px="space.05" gap="space.05" pb="space.06">
           <HStack>
-            <ErrorIcon color="error.label" width="md" />
+            <ErrorIcon color="red.action-primary-default" width="md" />
             <Title>
               Are you sure you want to pay {values.fee} {values.feeCurrency} in fees for this
               transaction?

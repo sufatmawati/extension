@@ -20,9 +20,7 @@ export default meta;
 export function HomeLayout() {
   return (
     <Component
-      name="leather.btc"
-      balance="$1,000"
-      accountActions={
+      accountCard={
         // TODO don't repeat this, compose story
         <Flex justify="space-between">
           <ActionButton icon={<ArrowUpIcon />} label="Send" />
