@@ -27,17 +27,29 @@ import { HamburgerIcon } from '@app/ui/icons/';
 
 import { useRestoreFormState } from '../popup-send-form-restoration/use-restore-form-state';
 import { Settings } from '../settings/settings';
-import { getDisplayAddresssBalanceOf, isKnownPopup, showAccountInfo } from './get-popup-header';
-import { getTitleFromUrl } from './get-title-from-url';
 import { TotalBalance } from './total-balance';
+import {
+  getDisplayAddresssBalanceOf,
+  isKnownPopupRoute,
+  showAccountInfo,
+} from './utils/get-popup-header';
+import { getTitleFromUrl } from './utils/get-title-from-url';
+import {
+  canGoBack,
+  getPageVariant,
+  hideLogo,
+  isGetAddressesPopup,
+  isLandingPage,
+} from './utils/route-helpers';
 
 export function Container() {
   const [isShowingSwitchAccount, setIsShowingSwitchAccount] = useState(false);
   const navigate = useNavigate();
-  const { pathname } = useLocation();
+  const { pathname: locationPathname, state } = useLocation();
+  const pathname = locationPathname as RouteUrls;
+
   const analytics = useAnalytics();
   const hasStateRehydrated = useHasStateRehydrated();
-
   const { chain, name: chainName } = useCurrentNetworkState();
 
   useOnWalletLock(() => closeWindow());
@@ -47,29 +59,8 @@ export function Container() {
 
   useEffect(() => void analytics.page('view', `${pathname}`), [analytics, pathname]);
 
-  function isHomePage() {
-    return pathname === RouteUrls.Home || pathname.match(RouteUrls.Activity);
-  }
+  const variant = getPageVariant(pathname);
 
-  function isLandingPage() {
-    return pathname === RouteUrls.RequestDiagnostics || pathname.match(RouteUrls.Onboarding); // need to match get-started/ledger
-  }
-  const isOnboardingPage = () => {
-    return (
-      pathname === RouteUrls.BackUpSecretKey ||
-      pathname === RouteUrls.SetPassword ||
-      pathname === RouteUrls.SignIn ||
-      pathname === RouteUrls.ViewSecretKey
-    );
-  };
-
-  function getVariant() {
-    if (isHomePage()) return 'home';
-    if (isOnboardingPage()) return 'onboarding';
-    return 'page';
-  }
-
-  const variant = getVariant();
   useEffect(() => {
     // set the whole body colour based on page variant so it can update dynamically
     if (variant === 'home') {
@@ -78,17 +69,17 @@ export function Container() {
     if (variant === 'page' || variant === 'onboarding') {
       document.body.style.backgroundColor = token('colors.ink.background-secondary');
     }
-  }, [variant]);
+  }, [variant, pathname]);
 
-  const isGetAddressesPopup = pathname === RouteUrls.RpcGetAddresses;
-  const isSessionLocked = pathname === RouteUrls.Unlock;
-
-  function hideLogo() {
-    return pathname === RouteUrls.RpcGetAddresses || pathname === RouteUrls.Unlock;
-  }
-
-  const displayHeader = !isLandingPage() && !isGetAddressesPopup;
+  const displayHeader = !isLandingPage(pathname) && !isGetAddressesPopup(pathname);
   const [showSwitchAccount, setShowSwitchAccount] = useState(false);
+
+  function getOnGoBackLocation(pathname: RouteUrls) {
+    if (pathname === RouteUrls.Swap || RouteUrls.Fund) {
+      return navigate(RouteUrls.Home);
+    }
+    return navigate(-1);
+  }
 
   if (!hasStateRehydrated) return <LoadingSpinner />;
 
@@ -105,13 +96,9 @@ export function Container() {
               variant={variant}
               // on /fund/:currency goBack doesn't make sense as it re-opens popup.
               // Need to test everywhere and add custom logic
-              onGoBack={
-                isSessionLocked || isKnownPopup(pathname as RouteUrls)
-                  ? undefined
-                  : () => navigate(-1)
-              }
+              onGoBack={canGoBack(pathname) ? () => getOnGoBackLocation(pathname) : undefined}
               settingsMenu={
-                isKnownPopup(pathname as RouteUrls) ? null : (
+                isKnownPopupRoute(pathname) ? null : (
                   <Settings
                     triggerButton={<HamburgerIcon />}
                     toggleSwitchAccount={() => setIsShowingSwitchAccount(!isShowingSwitchAccount)}
@@ -124,9 +111,9 @@ export function Container() {
                   name={chainName}
                 />
               }
-              title={getTitleFromUrl(pathname as RouteUrls)}
+              title={getTitleFromUrl(pathname)}
               logo={
-                !hideLogo() ? (
+                !hideLogo(pathname) ? (
                   <Logo
                     data-testid={OnboardingSelectors.LogoRouteToHome}
                     onClick={variant !== 'home' ? () => navigate(RouteUrls.Home) : undefined}
@@ -138,7 +125,7 @@ export function Container() {
                 )
               }
               account={
-                showAccountInfo(pathname as RouteUrls) && (
+                showAccountInfo(pathname) && (
                   <Flag
                     align="middle"
                     img={
@@ -156,10 +143,8 @@ export function Container() {
                 )
               }
               totalBalance={
-                showAccountInfo(pathname as RouteUrls) && (
-                  <TotalBalance
-                    displayAddresssBalanceOf={getDisplayAddresssBalanceOf(pathname as RouteUrls)}
-                  />
+                showAccountInfo(pathname) && (
+                  <TotalBalance displayAddresssBalanceOf={getDisplayAddresssBalanceOf(pathname)} />
                 )
               }
             />
