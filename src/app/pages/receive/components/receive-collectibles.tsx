@@ -2,6 +2,7 @@ import { HomePageSelectors } from '@tests/selectors/home.selectors';
 import { css } from 'leather-styles/css';
 import { Stack } from 'leather-styles/jsx';
 
+import { copyToClipboard } from '@app/common/utils/copy-to-clipboard';
 import { StxAvatar } from '@app/components/crypto-assets/stacks/components/stx-avatar';
 import { StampsIcon } from '@app/ui/components/avatar-icon//stamps-icon';
 import { OrdinalIcon } from '@app/ui/components/avatar-icon/ordinal-icon';
@@ -13,9 +14,6 @@ interface ReceiveCollectiblesProps {
   btcAddressTaproot: string;
   btcAddressNativeSegwit: string;
   stxAddress: string;
-  onCopyOrdinal(): void;
-  onCopyStamp(): void;
-  onCopyStacksNft(): void;
   onClickQrOrdinal(): void;
   onClickQrStacksNft(): void;
   onClickQrStamp(): void;
@@ -24,9 +22,6 @@ export function ReceiveCollectibles({
   btcAddressTaproot,
   btcAddressNativeSegwit,
   stxAddress,
-  onCopyOrdinal,
-  onCopyStamp,
-  onCopyStacksNft,
   onClickQrOrdinal,
   onClickQrStacksNft,
   onClickQrStamp,
@@ -37,7 +32,7 @@ export function ReceiveCollectibles({
         address={btcAddressTaproot}
         icon={<OrdinalIcon />}
         dataTestId={HomePageSelectors.ReceiveBtcTaprootQrCodeBtn}
-        onCopyAddress={onCopyOrdinal}
+        onCopyAddress={() => copyToClipboard(btcAddressTaproot)}
         onClickQrCode={onClickQrOrdinal}
         title="Ordinal inscription"
       />
@@ -45,13 +40,13 @@ export function ReceiveCollectibles({
         address={btcAddressNativeSegwit}
         icon={<StampsIcon />}
         onClickQrCode={onClickQrStamp}
-        onCopyAddress={onCopyStamp}
+        onCopyAddress={() => copyToClipboard(btcAddressNativeSegwit)}
         title="Bitcoin Stamp"
       />
       <ReceiveItem
         address={stxAddress}
         icon={<StxAvatar />}
-        onCopyAddress={onCopyStacksNft}
+        onCopyAddress={() => copyToClipboard(stxAddress)}
         onClickQrCode={onClickQrStacksNft}
         title="Stacks NFT"
       />
