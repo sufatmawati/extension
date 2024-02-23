@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { Toaster } from 'react-hot-toast';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
 import { ChainID } from '@stacks/transactions';
@@ -99,7 +98,6 @@ export function Container() {
         isShowing={isShowingSwitchAccount}
         onClose={() => setIsShowingSwitchAccount(false)}
       />
-      <Toaster position="bottom-center" toastOptions={{ style: { fontSize: '14px' } }} />
       <ContainerLayout
         header={
           displayHeader ? (
