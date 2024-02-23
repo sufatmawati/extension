@@ -45,7 +45,7 @@ import {
 export function Container() {
   const [isShowingSwitchAccount, setIsShowingSwitchAccount] = useState(false);
   const navigate = useNavigate();
-  const { pathname: locationPathname, state } = useLocation();
+  const { pathname: locationPathname } = useLocation();
   const pathname = locationPathname as RouteUrls;
 
   const analytics = useAnalytics();
@@ -63,6 +63,7 @@ export function Container() {
 
   useEffect(() => {
     // set the whole body colour based on page variant so it can update dynamically
+    // TODO replace this with data-attributes to improve and fix modal BG colours
     if (variant === 'home') {
       document.body.style.backgroundColor = token('colors.ink.background-primary');
     }
