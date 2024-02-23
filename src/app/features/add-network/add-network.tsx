@@ -269,7 +269,7 @@ export function AddNetwork() {
               <Input.Root>
                 <Input.Label>Name</Input.Label>
                 <Input.Field
-                  height="64px"
+                  height="inputHeight"
                   onChange={formikProps.handleChange}
                   name="stacksUrl"
                   value={formikProps.values.stacksUrl}

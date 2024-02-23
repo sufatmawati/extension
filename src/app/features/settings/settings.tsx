@@ -103,10 +103,7 @@ export function Settings({ triggerButton, toggleSwitchAccount }: SettingsProps) 
                   }}
                 >
                   <Flag img={<ExpandIcon />} textStyle="label.02">
-                    <Flex justifyContent="space-between">
-                      Maximize
-                      <ExternalLinkIcon />
-                    </Flex>
+                    Maximize
                   </Flag>
                 </DropdownMenu.Item>
               </styled.div>
@@ -151,7 +148,7 @@ export function Settings({ triggerButton, toggleSwitchAccount }: SettingsProps) 
                 <Flag img={<SupportIcon />} textStyle="label.02">
                   <Flex justifyContent="space-between">
                     Get support
-                    <ExternalLinkIcon />
+                    <ExternalLinkIcon variant="small" />
                   </Flex>
                 </Flag>
               </DropdownMenu.Item>

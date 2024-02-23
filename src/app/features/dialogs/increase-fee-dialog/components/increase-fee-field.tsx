@@ -53,7 +53,7 @@ export function IncreaseFeeField(props: IncreaseFeeFieldProps): React.JSX.Elemen
           bg="transparent"
           border="default"
           borderRadius="sm"
-          height="64px"
+          height="inputHeight"
           display="block"
           p="space.04"
           placeholder="Enter a custom fee"

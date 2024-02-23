@@ -37,8 +37,6 @@ export function Home() {
     if (decodedAuthRequest) navigate(RouteUrls.ChooseAccount);
   });
 
-  // > fix the copy of BTC before doing more small stuff
-
   return (
     <HomeLayout
       accountCard={
