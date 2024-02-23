@@ -62,7 +62,7 @@ export function Home() {
       <HomeTabs>
         <ModalBackgroundWrapper>
           <Route index element={<AssetsList />} />
-          <Route path="/activity" element={<ActivityList />}>
+          <Route path={`${RouteUrls.Home}/${RouteUrls.Activity}`} element={<ActivityList />}>
             {homePageModalRoutes}
           </Route>
           {homePageModalRoutes}
