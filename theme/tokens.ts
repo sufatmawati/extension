@@ -20,8 +20,11 @@ const tempTokens = {
     popupHeaderHeight: { value: '68px' },
     bigTitleHeight: { value: '70px' },
     bigTitleWidth: { value: '270px' },
+    logoContainerHeight: { value: '40px' },
     logoHeight: { value: '32px' },
     logoWidth: { value: '86px' },
+    inputHeight: { value: '64px' },
+    actionButtonWidth: { value: '64px' },
   },
 };
 

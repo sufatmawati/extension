@@ -28,7 +28,6 @@ export function AccountCard({
       rounded="sm"
       px={{ base: 'space.05', sm: '0' }}
       pt={{ base: 'space.05', md: '0' }}
-      pb={{ base: 'space.02', md: '0' }}
     >
       <Link
         _before={{ bg: 'transparent' }}

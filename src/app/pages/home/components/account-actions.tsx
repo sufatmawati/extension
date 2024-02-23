@@ -16,7 +16,7 @@ import { CreditCardIcon, InboxIcon, SwapIcon } from '@app/ui/icons';
 
 import { SendButton } from './send-button';
 
-export function AccountActions(props: FlexProps) {
+export function AccountActions() {
   const navigate = useNavigate();
   const location = useLocation();
   const isBitcoinEnabled = useConfigBitcoinEnabled();
@@ -30,7 +30,7 @@ export function AccountActions(props: FlexProps) {
     : `${RouteUrls.Home}${RouteUrls.ReceiveStx}`;
 
   return (
-    <Flex justify="space-between" {...props}>
+    <Flex gap={{ base: 'space.01', md: 'space.04' }} py="space.04" justifyContent="space-between">
       <SendButton />
       <ActionButton
         data-testid={HomePageSelectors.ReceiveCryptoAssetBtn}

@@ -63,7 +63,7 @@ export function RequestPassword({ onSuccess }: RequestPasswordProps) {
           border="active"
           borderRadius="sm"
           data-testid={SettingsSelectors.EnterPasswordInput}
-          height="64px"
+          height="inputHeight"
           onChange={(e: FormEvent<HTMLInputElement>) => {
             setError('');
             setPassword(e.currentTarget.value);
