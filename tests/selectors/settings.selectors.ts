@@ -20,7 +20,7 @@ export enum SettingsSelectors {
   BtnAddNetwork = 'btn-add-network',
   ShowSecretKeyBtn = 'show-secret-key-btn',
   GetSupportMenuItem = 'get-support-menu-item',
-  SettingsMenuBtn = 'settings-menu-btn',
+  SettingsMenuBtn = 'settings-menu--trigger',
   SwitchAccountTrigger = 'switch-account-trigger',
   SwitchAccountMenuItem = 'switch-account-menu-item',
   SwitchAccountItemIndex = 'switch-account-item-[index]',

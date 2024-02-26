@@ -3,6 +3,7 @@ import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
 import { ChainID } from '@stacks/transactions';
 import { OnboardingSelectors } from '@tests/selectors/onboarding.selectors';
+import { SettingsSelectors } from '@tests/selectors/settings.selectors';
 import { Box } from 'leather-styles/jsx';
 import { token } from 'leather-styles/tokens';
 
@@ -101,7 +102,9 @@ export function Container() {
               settingsMenu={
                 isKnownPopupRoute(pathname) ? null : (
                   <Settings
-                    triggerButton={<HamburgerIcon />}
+                    triggerButton={
+                      <HamburgerIcon data-testid={SettingsSelectors.SettingsMenuBtn} />
+                    }
                     toggleSwitchAccount={() => setIsShowingSwitchAccount(!isShowingSwitchAccount)}
                   />
                 )
