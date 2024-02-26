@@ -15,6 +15,7 @@ const AppVersionLabel = forwardRef<HTMLSpanElement, AppVersionLabelProps>(
   ({ children, isLatestVersion, ...props }: AppVersionLabelProps, ref) => (
     <Box bg="ink.background-secondary" px="20px" py="space.01">
       <styled.span
+        textStyle="label.03"
         ref={ref}
         color="ink.text-subdued"
         textDecoration={isLatestVersion ? 'none' : 'line-through'}
