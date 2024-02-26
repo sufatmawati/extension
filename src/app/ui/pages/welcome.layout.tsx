@@ -128,7 +128,6 @@ export function WelcomeLayout({
               hideFrom="md"
               variant="outline"
               flex={1}
-              data-testid={OnboardingSelectors.SignInLink}
               onClick={onRestoreWallet}
               css={secondaryActionButton}
             >
