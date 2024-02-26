@@ -91,36 +91,6 @@ const Separator: typeof RadixDropdownMenu.Separator = forwardRef((props, ref) =>
   <RadixDropdownMenu.Separator className={dropdownMenuSeparatorStyles} ref={ref} {...props} />
 ));
 
-// #4313 settings menu has sub-menu items but - not using right now as they are buggy
-// on the radix site it says latest version of DropDown is 2.0.5 but we have 2.0.6?
-
-const Sub = RadixDropdownMenu.Sub;
-
-const SubTrigger: typeof RadixDropdownMenu.SubTrigger = forwardRef((props, ref) => (
-  <RadixDropdownMenu.SubTrigger ref={ref} {...props} />
-));
-
-const dropdownSubContentStyles = css({
-  animationDuration: '400ms',
-  animationTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)',
-  '--base-menu-padding': '0px',
-  bg: 'ink.background-primary',
-  borderRadius: 'xs',
-  boxShadow:
-    '0px 12px 24px 0px rgba(18, 16, 15, 0.08), 0px 4px 8px 0px rgba(18, 16, 15, 0.08), 0px 0px 2px 0px rgba(18, 16, 15, 0.08)',
-  minWidth: '350px',
-  p: 'space.02',
-  willChange: 'transform, opacity',
-  zIndex: 999,
-
-  '&[data-side=bottom]': {
-    animationName: 'slideUpAndFade',
-  },
-});
-const SubContent: typeof RadixDropdownMenu.SubContent = forwardRef((props, ref) => (
-  <RadixDropdownMenu.SubContent className={dropdownSubContentStyles} ref={ref} {...props} />
-));
-
 export const DropdownMenu = {
   Root: RadixDropdownMenu.Root,
   Group: RadixDropdownMenu.Group,
@@ -131,7 +101,4 @@ export const DropdownMenu = {
   Label,
   Item,
   Separator,
-  Sub,
-  SubTrigger,
-  SubContent,
 };

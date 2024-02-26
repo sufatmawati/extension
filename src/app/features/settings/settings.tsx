@@ -11,6 +11,7 @@ import { useKeyActions } from '@app/common/hooks/use-key-actions';
 import { useModifierKey } from '@app/common/hooks/use-modifier-key';
 import { useWalletType } from '@app/common/use-wallet-type';
 import { openInNewTab, openIndexPageInNewTab } from '@app/common/utils/open-in-new-tab';
+import { AppVersion } from '@app/components/app-version';
 import { Divider } from '@app/components/layout/divider';
 import { NetworkDialog } from '@app/features/settings/network/network';
 import { SignOut } from '@app/features/settings/sign-out/sign-out-confirm';
@@ -138,7 +139,9 @@ export function Settings({ triggerButton, toggleSwitchAccount }: SettingsProps) 
                   </Flex>
                 </Flag>
               </DropdownMenu.Item>
-              <Divider />
+            </DropdownMenu.Group>
+            <Divider />
+            <DropdownMenu.Group>
               <DropdownMenu.Item
                 data-testid={SettingsSelectors.GetSupportMenuItem}
                 onClick={() => {
@@ -157,9 +160,10 @@ export function Settings({ triggerButton, toggleSwitchAccount }: SettingsProps) 
                   Give feedback
                 </Flag>
               </DropdownMenu.Item>
+            </DropdownMenu.Group>
 
-              <Divider />
-
+            <Divider />
+            <DropdownMenu.Group>
               {showAdvancedMenuOptions && <AdvancedMenuItems />}
               {hasGeneratedWallet && walletType === 'software' && (
                 <DropdownMenu.Item
@@ -186,6 +190,7 @@ export function Settings({ triggerButton, toggleSwitchAccount }: SettingsProps) 
                 </Flag>
               </DropdownMenu.Item>
             </DropdownMenu.Group>
+            <AppVersion />
           </DropdownMenu.Content>
         </DropdownMenu.Portal>
       </DropdownMenu.Root>
