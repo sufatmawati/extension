@@ -14,6 +14,7 @@ export interface DropdownMenuItem {
   iconRight?: ReactNode;
   label: string;
 }
+
 const dropdownButtonStyles = css({
   bg: 'ink.background-primary',
   borderRadius: 'xs',
@@ -36,10 +37,20 @@ function Button({ children, ...props }: HTMLStyledProps<'div'>) {
   );
 }
 
+const dropdownIconButtonStyles = css({
+  _hover: { bg: 'ink.component-background-hover' },
+  _focus: { outline: 'none' },
+  p: 'space.02',
+
+  '&[data-state=open]': { bg: 'ink.component-background-pressed' },
+});
+const IconButton: typeof RadixDropdownMenu.Trigger = forwardRef((props, ref) => (
+  <RadixDropdownMenu.Trigger className={dropdownIconButtonStyles} ref={ref} {...props} />
+));
+
 const dropdownTriggerStyles = css({
   _focus: { outline: 'none' },
 });
-
 const Trigger: typeof RadixDropdownMenu.Trigger = forwardRef((props, ref) => (
   <RadixDropdownMenu.Trigger className={dropdownTriggerStyles} ref={ref} {...props} />
 ));
@@ -97,6 +108,7 @@ export const DropdownMenu = {
   Portal: RadixDropdownMenu.Portal,
   Trigger,
   Button,
+  IconButton,
   Content,
   Label,
   Item,

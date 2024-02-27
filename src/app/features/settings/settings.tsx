@@ -44,7 +44,6 @@ interface SettingsProps {
   triggerButton: React.ReactNode;
   toggleSwitchAccount(): void;
 }
-
 export function Settings({ triggerButton, toggleSwitchAccount }: SettingsProps) {
   const [showSignOut, setShowSignOut] = useState(false);
   const [showChangeTheme, setShowChangeTheme] = useState(false);
@@ -66,9 +65,9 @@ export function Settings({ triggerButton, toggleSwitchAccount }: SettingsProps) 
   return (
     <>
       <DropdownMenu.Root>
-        <DropdownMenu.Trigger>{triggerButton}</DropdownMenu.Trigger>
+        <DropdownMenu.IconButton>{triggerButton}</DropdownMenu.IconButton>
         <DropdownMenu.Portal>
-          <DropdownMenu.Content side="left">
+          <DropdownMenu.Content align="end" side="bottom" sideOffset={8}>
             <DropdownMenu.Group>
               {isLedger && targetId && (
                 <DropdownMenu.Item>
@@ -181,11 +180,10 @@ export function Settings({ triggerButton, toggleSwitchAccount }: SettingsProps) 
               )}
 
               <DropdownMenu.Item
-                color="red.action-primary-default"
                 onClick={() => setShowSignOut(!showSignOut)}
                 data-testid={SettingsSelectors.SignOutListItem}
               >
-                <Flag img={<ExitIcon />} textStyle="label.02">
+                <Flag color="red.action-primary-default" img={<ExitIcon />} textStyle="label.02">
                   Sign out
                 </Flag>
               </DropdownMenu.Item>
