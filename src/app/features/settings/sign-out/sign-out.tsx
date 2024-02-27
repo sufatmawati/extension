@@ -42,15 +42,9 @@ export function SignOutDialog({ isShowing, onUserDeleteWallet, onClose }: SignOu
           >
             Cancel
           </Button>
-          {/* FIXME - need to fix and style this button properly */}
           <Button
-            // _hover={{ opacity: 0.8 }}
-            // background="red.action-primary-default"
             color="lightModeInk.1"
-            // _disabled={{ color: 'ink.non-interactive' }}
             _hover={{ background: 'black' }}
-            background="red.action-primary-default"
-            // color={theme === 'light' ? 'ink.background-primary' : 'ink.text-primary'}
             opacity={!canSignOut ? 0.8 : undefined}
             data-testid={SettingsSelectors.BtnSignOutActuallyDeleteWallet}
             flexGrow={1}
