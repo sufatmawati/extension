@@ -120,9 +120,9 @@ export function Container() {
               }
               title={getTitleFromUrl(pathname)}
               logo={
-                !hideLogo(pathname) ? (
+                !hideLogo(pathname) && (
                   <Box
-                    height="logoContainerHeight"
+                    margin="auto"
                     px="space.02"
                     hideBelow={variant === 'home' ? undefined : 'sm'}
                   >
@@ -131,10 +131,6 @@ export function Container() {
                       onClick={variant !== 'home' ? () => navigate(RouteUrls.Home) : undefined}
                     />
                   </Box>
-                ) : (
-                  // FIXME get rid of this Box used to position when no logo
-                  // Revisit this whole Header and use a grid to keep things well posistioned
-                  <Box width="102px" height="32px" />
                 )
               }
               account={

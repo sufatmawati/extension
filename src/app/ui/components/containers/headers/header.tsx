@@ -59,7 +59,7 @@ export function Header({
   return (
     <styled.header p="space.04" bg={{ base: 'ink.background-primary', sm: 'transparent' }}>
       <Grid
-        gridTemplateColumns="1fr 4fr 1fr"
+        gridTemplateColumns="auto 4fr 1fr"
         width="100%"
         maxWidth={{ base: '100vw', md: 'fullPageMaxWidth' }}
         margin={{ base: 0, md: 'auto' }}

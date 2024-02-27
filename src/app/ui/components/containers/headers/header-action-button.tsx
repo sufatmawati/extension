@@ -20,7 +20,7 @@ export function HeaderActionButton({
       data-testid={HomePageSelectors.HeaderActionBtn}
       borderRadius="xs"
       color="ink.action-primary-default"
-      height="36px"
+      height="headerContainerHeight"
       onClick={isWaitingOnPerformedAction ? undefined : onAction}
       opacity={isWaitingOnPerformedAction ? '0.3' : 'unset'}
       placeItems="center"
