@@ -21,39 +21,36 @@ export function WelcomeLayout({
 }: WelcomeLayoutProps): React.JSX.Element {
   // On this page 'theme' is used to set specific colours and bypass automatic theming
   const { theme } = useThemeSwitcher();
-
-  const oldColours = {
-    'lightModeInk.1': '#FFFFFF',
-    'lightModeInk.12': '#12100F',
-    'darkModeInk.12': '#F5F1ED',
-  };
-
-  const actionLinkColour = 'ink.background-secondary';
-  // theme === 'light' ? oldColours['darkModeInk.12'] : oldColours['lightModeInk.12'];
+  // hardcoded specific instances of colour variables needed to bypass theme
+  const inkBgSecondary = '#F5F1ED';
+  const inkTextPrimary = '#12100F';
 
   const primaryActionButton = {
+    p: 'space.03',
+    minWidth: '148px',
     bg: {
-      base: theme === 'light' ? oldColours['darkModeInk.12'] : oldColours['lightModeInk.1'],
-      md: theme === 'light' ? oldColours['lightModeInk.1'] : oldColours['lightModeInk.12'],
+      base: inkBgSecondary,
+      md: theme === 'light' ? inkBgSecondary : inkTextPrimary,
     },
     color: {
-      base: oldColours['lightModeInk.12'],
-      md: theme === 'light' ? oldColours['lightModeInk.12'] : oldColours['lightModeInk.1'],
+      base: inkTextPrimary,
+      md: theme === 'light' ? inkTextPrimary : inkBgSecondary,
     },
 
     _hover: {
       bg: 'ink.action-primary-hover',
-      color: theme === 'light' ? oldColours['lightModeInk.1'] : oldColours['lightModeInk.12'],
+      color: theme === 'light' ? inkBgSecondary : inkTextPrimary,
     },
   };
   const secondaryActionButton = {
-    color: oldColours['darkModeInk.12'],
-    borderColor: oldColours['darkModeInk.12'],
+    p: 'space.03',
+    minWidth: '148px',
+    color: { base: inkBgSecondary, md: theme === 'light' ? inkBgSecondary : inkTextPrimary },
+    border: `1px solid ${inkBgSecondary}`,
+    borderColor: { base: inkBgSecondary, md: theme === 'light' ? inkBgSecondary : inkTextPrimary },
     _hover: {
-      /* TODO 4370 - design check hover + text color on sm */
       bg: 'ink.action-primary-hover',
       color: 'ink.background-secondary',
-      //theme === 'light' ? oldColours['darkModeInk.12'] : oldColours['lightModeInk.12'],
     },
   };
 
@@ -66,8 +63,7 @@ export function WelcomeLayout({
     <Flex flexDir={{ base: 'column-reverse', md: 'row' }} minW="100vw" minH="100vh">
       <Flex
         flexDir="column"
-        bg={{ base: oldColours['lightModeInk.12'], md: 'ink.text-primary' }}
-        color={{ base: oldColours['lightModeInk.1'], md: 'ink.text-primary' }}
+        bg={{ base: inkTextPrimary, md: 'ink.text-primary' }}
         flex={{ base: 1, md: 2 }}
         p="space.05"
       >
@@ -75,7 +71,7 @@ export function WelcomeLayout({
           flexDir="column"
           flex={{ base: 1, md: 0 }}
           justifyContent={{ base: 'end', md: 'flex-start' }}
-          color="ink.background-primary"
+          color={{ base: inkBgSecondary, md: 'ink.background-primary' }}
         >
           <styled.h1 hideBelow="md" textStyle="display.01" maxWidth="880px">
             {tagline}
@@ -92,7 +88,7 @@ export function WelcomeLayout({
             {subheader}
           </styled.h2>
         </Flex>
-        <Flex flexDir={{ base: 'column', md: 'row' }} gap="space.05" mt="space.07">
+        <Flex flexDir={{ base: 'column', md: 'row' }} gap="space.04" mt="space.07" width="100%">
           <Button
             onClick={onStartOnboarding}
             data-testid={OnboardingSelectors.SignUpBtn}
@@ -102,43 +98,24 @@ export function WelcomeLayout({
             Create new wallet
           </Button>
 
-          <Flex gap="space.05" alignItems="flex-start">
-            {/* Links for size 'md' and up */}
-            <Link
-              pt="space.02"
-              hideBelow="md"
-              color={actionLinkColour}
-              data-testid={OnboardingSelectors.SignInLink}
-              onClick={onRestoreWallet}
-              size="lg"
-            >
-              Use existing key
-            </Link>
-            <Link
-              pt="space.02"
-              hideBelow="md"
-              color={actionLinkColour}
-              onClick={onSelectConnectLedger}
-              size="lg"
-            >
-              Use Ledger
-            </Link>
-            {/* Buttons for size 'sm' and up */}
+          <Flex gap="space.04">
             <Button
-              hideFrom="md"
+              pt="space.02"
               variant="outline"
               flex={1}
               onClick={onRestoreWallet}
               css={secondaryActionButton}
+              fullWidth
             >
               Use existing key
             </Button>
             <Button
-              hideFrom="md"
+              pt="space.02"
               variant="outline"
               flex={1}
               onClick={onSelectConnectLedger}
               css={secondaryActionButton}
+              fullWidth
             >
               Use Ledger
             </Button>
@@ -147,8 +124,8 @@ export function WelcomeLayout({
       </Flex>
       <Flex
         p="space.05"
-        bg={{ base: oldColours['lightModeInk.12'], md: 'ink.background-primary' }}
-        color={{ base: oldColours['lightModeInk.1'], md: 'ink.text-primary' }}
+        bg={{ base: inkTextPrimary, md: 'ink.background-secondary' }}
+        color={{ base: inkBgSecondary, md: 'ink.text-primary' }}
         flexDir="column"
         justifyContent="space-between"
         flex={{ base: 0, md: 1 }}
