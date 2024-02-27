@@ -15,7 +15,6 @@ export function SendCryptoAssetFormLayout({ children }: SendCryptoAssetFormLayou
         flexDirection="column"
         p="space.05"
         pt="space.06"
-        marginTop="68px"
       >
         {children}
       </Flex>
