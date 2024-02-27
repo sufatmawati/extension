@@ -62,12 +62,14 @@ export const Dialog = memo(
                 animation: 'contentShow 150ms cubic-bezier(0.16, 1, 0.3, 1)',
               })}
             >
-              <Header
-                variant="page"
-                isWaitingOnPerformedAction={isWaitingOnPerformedAction}
-                onClose={canClose ? onClose : undefined}
-                title={title}
-              />
+              {canClose && (
+                <Header
+                  variant="page"
+                  isWaitingOnPerformedAction={isWaitingOnPerformedAction}
+                  onClose={canClose ? onClose : undefined}
+                  title={title}
+                />
+              )}
 
               <CardContent>{children}</CardContent>
               {footer}
