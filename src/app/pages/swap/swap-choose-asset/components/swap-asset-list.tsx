@@ -1,9 +1,8 @@
 import { useNavigate } from 'react-router-dom';
-import { Virtuoso } from 'react-virtuoso';
 
 import BigNumber from 'bignumber.js';
 import { useFormikContext } from 'formik';
-import { css } from 'leather-styles/css';
+import { Stack } from 'leather-styles/jsx';
 
 import { createMoney } from '@shared/models/money.model';
 import { isUndefined } from '@shared/utils';
@@ -66,21 +65,14 @@ export function SwapAssetList({ assets }: SwapAssetList) {
   }
 
   return (
-    <Virtuoso
-      className={css({
-        marginX: 'space.01',
-      })}
-      useWindowScroll
-      totalCount={10}
-      itemContent={() =>
-        selectableAssets.map(asset => (
-          <SwapAssetItem
-            asset={asset}
-            key={asset.balance.symbol}
-            onClick={() => onChooseAsset(asset)}
-          />
-        ))
-      }
-    />
+    <Stack pb="space.05" width="100%">
+      {selectableAssets.map(asset => (
+        <SwapAssetItem
+          asset={asset}
+          key={asset.balance.symbol}
+          onClick={() => onChooseAsset(asset)}
+        />
+      ))}
+    </Stack>
   );
 }
