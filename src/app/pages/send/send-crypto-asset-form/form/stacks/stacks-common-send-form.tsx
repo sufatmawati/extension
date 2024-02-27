@@ -22,7 +22,6 @@ import { AvailableBalance } from '@app/ui/components/containers/footers/availabl
 import { Footer } from '@app/ui/components/containers/footers/footer';
 import { Link } from '@app/ui/components/link/link';
 import { Card } from '@app/ui/layout/card/card';
-import { Page } from '@app/ui/layout/page/page.layout';
 
 import { MemoField } from '../../components/memo-field';
 import { SendCryptoAssetFormLayout } from '../../components/send-crypto-asset-form.layout';
@@ -69,39 +68,37 @@ export function StacksCommonSendForm({
             <>
               <NonceSetter />
               <Form>
-                <Page>
-                  <Card
-                    action={
-                      <Footer variant="card">
-                        <Button
-                          data-testid={SendCryptoAssetSelectors.PreviewSendTxBtn}
-                          onClick={() => props.handleSubmit()}
-                          type="submit"
-                        >
-                          Continue
-                        </Button>
-                        <AvailableBalance balance={formatMoney(availableTokenBalance)} />
-                      </Footer>
-                    }
-                  >
-                    <SendCryptoAssetFormLayout>
-                      {amountField}
-                      {selectedAssetField}
-                      <StacksRecipientField />
-                      <MemoField />
-                      <Box mt="space.04" width="100%">
-                        <FeesRow fees={fees} isSponsored={false} />
-                      </Box>
-                      <Link
-                        alignSelf="flex-end"
-                        mt="space.04"
-                        onClick={() => navigate(RouteUrls.EditNonce)}
+                <Card
+                  action={
+                    <Footer variant="card">
+                      <Button
+                        data-testid={SendCryptoAssetSelectors.PreviewSendTxBtn}
+                        onClick={() => props.handleSubmit()}
+                        type="submit"
                       >
-                        Edit nonce
-                      </Link>
-                    </SendCryptoAssetFormLayout>
-                  </Card>
-                </Page>
+                        Continue
+                      </Button>
+                      <AvailableBalance balance={formatMoney(availableTokenBalance)} />
+                    </Footer>
+                  }
+                >
+                  <SendCryptoAssetFormLayout>
+                    {amountField}
+                    {selectedAssetField}
+                    <StacksRecipientField />
+                    <MemoField />
+                    <Box mt="space.04" width="100%">
+                      <FeesRow fees={fees} isSponsored={false} />
+                    </Box>
+                    <Link
+                      alignSelf="flex-end"
+                      mt="space.04"
+                      onClick={() => navigate(RouteUrls.EditNonce)}
+                    >
+                      Edit nonce
+                    </Link>
+                  </SendCryptoAssetFormLayout>
+                </Card>
 
                 <HighFeeDialog
                   isShowing={new BigNumber(fee as BigNumber.Value).isGreaterThan(

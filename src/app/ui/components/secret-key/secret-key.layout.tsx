@@ -38,10 +38,10 @@ export function SecretKeyLayout({
           />
         ))}
       </SecretKeyGrid>
-      <Flex gap="space.02" direction={{ base: 'column', md: 'row' }}>
+      <Flex gap="space.04" direction={{ base: 'column', md: 'row' }}>
         <Button
           fullWidth
-          // variant="outline"
+          variant="outline"
           flex="1"
           display="flex"
           p="space.03"
@@ -59,7 +59,7 @@ export function SecretKeyLayout({
         </Button>
         <Button
           fullWidth
-          // variant="outline"
+          variant="outline"
           flex="1"
           display="flex"
           p="space.03"
