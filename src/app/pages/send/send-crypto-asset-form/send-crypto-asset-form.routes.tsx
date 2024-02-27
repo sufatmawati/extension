@@ -1,5 +1,6 @@
 import { Suspense } from 'react';
 import { Route } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 
 import { RouteUrls } from '@shared/route-urls';
 
@@ -10,10 +11,10 @@ import { EditNonceDialog } from '@app/features/dialogs/edit-nonce-dialog/edit-no
 import { ledgerBitcoinTxSigningRoutes } from '@app/features/ledger/flows/bitcoin-tx-signing/ledger-bitcoin-sign-tx-container';
 import { ledgerStacksTxSigningRoutes } from '@app/features/ledger/flows/stacks-tx-signing/ledger-sign-stacks-tx-container';
 import { AccountGate } from '@app/routes/account-gate';
+import { Page } from '@app/ui/layout/page/page.layout';
 
 import { BroadcastError } from '../broadcast-error/broadcast-error';
 import { ChooseCryptoAsset } from '../choose-crypto-asset/choose-crypto-asset';
-import { SendContainer } from '../send-container';
 import { Brc20SentSummary } from '../sent-summary/brc20-sent-summary';
 import { BtcSentSummary } from '../sent-summary/btc-sent-summary';
 import { StxSentSummary } from '../sent-summary/stx-sent-summary';
@@ -42,7 +43,13 @@ const broadcastErrorDialogRoute = (
 );
 
 export const sendCryptoAssetFormRoutes = (
-  <Route element={<SendContainer />}>
+  <Route
+    element={
+      <Page>
+        <Outlet />
+      </Page>
+    }
+  >
     <Route
       path={RouteUrls.SendCryptoAsset}
       element={
@@ -61,11 +68,10 @@ export const sendCryptoAssetFormRoutes = (
         {ledgerBitcoinTxSigningRoutes}
         {recipientAccountsDialogRoute}
       </Route>
-      {/* FIXME - these routes need to be in RouteUrls */}
-      <Route path="/send/btc/disabled" element={<SendBtcDisabled />} />
-      <Route path="/send/btc/error" element={<BroadcastError />} />
+      <Route path={RouteUrls.SendBtcDisabled} element={<SendBtcDisabled />} />
+      <Route path={RouteUrls.SendBtcError} element={<BroadcastError />} />
 
-      <Route path="/send/btc/confirm" element={<BtcSendFormConfirmation />} />
+      <Route path={RouteUrls.SendBtcConfirmation} element={<BtcSendFormConfirmation />} />
       <Route path={RouteUrls.SendBtcChooseFee} element={<BtcChooseFee />}>
         {ledgerBitcoinTxSigningRoutes}
       </Route>
@@ -82,8 +88,7 @@ export const sendCryptoAssetFormRoutes = (
       {broadcastErrorDialogRoute}
       {editNonceDialogRoute}
       {recipientAccountsDialogRoute}
-    </Route>{' '}
-    {/* FIXME - check this */}
+    </Route>
     <Route
       path={`${RouteUrls.SendCryptoAssetForm.replace(':symbol', 'stx')}/confirm`}
       element={<StacksSendFormConfirmation />}
@@ -95,7 +100,6 @@ export const sendCryptoAssetFormRoutes = (
       {editNonceDialogRoute}
       {recipientAccountsDialogRoute}
     </Route>
-    {/* FIXME - refactor this to use a proper route- is this even correct??? on send I hit sent/stx/0xa217094dca655f54385fd9cc57abb7429addf4ef5f2b84cf85a66d731d5b9cc2 */}
     <Route path="/send/:symbol/:contractId/confirm" element={<StacksSendFormConfirmation />}>
       {ledgerStacksTxSigningRoutes}
     </Route>

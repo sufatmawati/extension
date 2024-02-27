@@ -14,9 +14,11 @@ export function Page({ children, showLogo = false }: PageProps) {
   return (
     <Box
       bg="ink.background-primary"
-      borderRadius="xs"
+      // TODO ask design RE borderRadius as not consistent
+      // Send / Swap have 'lg'
+      borderRadius={{ base: 'unset', md: 'lg' }}
       width="pageWidth"
-      height={{ base: '100vh', md: 'auto' }}
+      height={{ base: '100%', md: 'fit-content' }}
       minHeight="435px"
     >
       {showLogo && <Header logo={<Logo />} variant="card" />}

@@ -2,9 +2,9 @@ import { ReactNode, memo } from 'react';
 
 import * as RadixDialog from '@radix-ui/react-dialog';
 import { css } from 'leather-styles/css';
-import { Box } from 'leather-styles/jsx';
 
 import { Header } from '@app/ui/components/containers/headers/header';
+import { CardContent } from '@app/ui/layout/card/card-content';
 
 export interface DialogProps {
   children?: ReactNode;
@@ -69,18 +69,7 @@ export const Dialog = memo(
                 title={title}
               />
 
-              <Box
-                className={css({
-                  height: '100%',
-                  // TODO - make this smarter to compute height based on if footer / header for more precision
-                  maxHeight: { base: 'calc(100vh - 160px)', md: 'calc(90vh - 160px)' },
-                  // 175px = headerHeight + footerHeight
-                  mb: '175px',
-                  overflowY: 'auto',
-                })}
-              >
-                {children}
-              </Box>
+              <CardContent>{children}</CardContent>
               {footer}
             </RadixDialog.Content>
           </RadixDialog.Overlay>
