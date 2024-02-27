@@ -15,6 +15,7 @@ import { LoadingSpinner } from '@app/components/loading-spinner';
 import { CurrentAccountAvatar } from '@app/features/current-account/current-account-avatar';
 import { CurrentAccountName } from '@app/features/current-account/current-account-name';
 import { SwitchAccountDialog } from '@app/features/dialogs/switch-account-dialog/switch-account-dialog';
+import { InAppMessages } from '@app/features/hiro-messages/in-app-messages';
 import { useOnSignOut } from '@app/routes/hooks/use-on-sign-out';
 import { useOnWalletLock } from '@app/routes/hooks/use-on-wallet-lock';
 import { useHasStateRehydrated } from '@app/store';
@@ -91,6 +92,8 @@ export function Container() {
         isShowing={isShowingSwitchAccount}
         onClose={() => setIsShowingSwitchAccount(false)}
       />
+
+      <InAppMessages />
       <ContainerLayout
         header={
           displayHeader ? (

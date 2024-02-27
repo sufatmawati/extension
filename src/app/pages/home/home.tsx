@@ -11,7 +11,6 @@ import { ActivityList } from '@app/features/activity-list/activity-list';
 import { AssetsList } from '@app/features/asset-list/asset-list';
 import { SwitchAccountDialog } from '@app/features/dialogs/switch-account-dialog/switch-account-dialog';
 import { FeedbackButton } from '@app/features/feedback-button/feedback-button';
-import { InAppMessages } from '@app/features/hiro-messages/in-app-messages';
 import { homePageModalRoutes } from '@app/routes/app-routes';
 import { ModalBackgroundWrapper } from '@app/routes/components/modal-background-wrapper';
 import { useCurrentAccountNativeSegwitAddressIndexZero } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
@@ -55,7 +54,6 @@ export function Home() {
         </AccountCard>
       }
     >
-      <InAppMessages />
       <FeedbackButton />
       <HomeTabs>
         <ModalBackgroundWrapper>
