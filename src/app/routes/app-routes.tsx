@@ -13,6 +13,7 @@ import { LoadingSpinner } from '@app/components/loading-spinner';
 import { AddNetwork } from '@app/features/add-network/add-network';
 import { Container } from '@app/features/container/container';
 import { EditNonceDrawer } from '@app/features/edit-nonce-drawer/edit-nonce-drawer';
+import { RouterErrorBoundary } from '@app/features/errors/app-error-boundary';
 import { IncreaseBtcFeeDrawer } from '@app/features/increase-fee-drawer/increase-btc-fee-drawer';
 import { IncreaseFeeSentDrawer } from '@app/features/increase-fee-drawer/increase-fee-sent-drawer';
 import { IncreaseStxFeeDrawer } from '@app/features/increase-fee-drawer/increase-stx-fee-drawer';
@@ -79,7 +80,7 @@ export const homePageModalRoutes = (
 function useAppRoutes() {
   return createHashRouter(
     createRoutesFromElements(
-      <Route element={<Container />}>
+      <Route element={<Container />} errorElement={<RouterErrorBoundary />}>
         <Route
           path="/*"
           element={
