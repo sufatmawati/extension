@@ -1,7 +1,11 @@
 import { RouteUrls } from '@shared/route-urls';
 
 export function getTitleFromUrl(pathname: RouteUrls) {
-  if (pathname.match(RouteUrls.SendCryptoAsset)) return 'Send';
+  if (pathname.match(RouteUrls.SendCryptoAsset)) {
+    // don't show send on first step of send flow
+    if (pathname === RouteUrls.SendCryptoAsset) return undefined;
+    return 'Send';
+  }
 
   switch (pathname) {
     case RouteUrls.AddNetwork:

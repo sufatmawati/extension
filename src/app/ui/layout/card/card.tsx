@@ -3,7 +3,7 @@ import type { ReactNode } from 'react';
 import { Flex, Stack, styled } from 'leather-styles/jsx';
 
 interface CardProps {
-  action: ReactNode;
+  action?: ReactNode;
   children: ReactNode;
   title?: ReactNode;
   text?: string;

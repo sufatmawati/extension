@@ -11,6 +11,7 @@ import { useWalletType } from '@app/common/use-wallet-type';
 import { CryptoAssetList } from '@app/components/crypto-assets/choose-crypto-asset/crypto-asset-list';
 import { useConfigBitcoinSendEnabled } from '@app/query/common/remote-config/remote-config.query';
 import { useCheckLedgerBlockchainAvailable } from '@app/store/accounts/blockchain/utils';
+import { Card } from '@app/ui/layout/card/card';
 
 export function ChooseCryptoAsset() {
   const allTransferableCryptoAssetBalances = useAllTransferableCryptoAssetBalances();
@@ -41,17 +42,13 @@ export function ChooseCryptoAsset() {
   }
 
   return (
-    <Flex
-      alignItems="left"
-      flexGrow={1}
-      flexDirection="column"
-      justifyContent="start"
-      overflowY="auto"
-      pb="space.04"
+    <Card
+      title={
+        <styled.h1 textStyle="heading.03" p="space.04">
+          choose asset <br /> to send
+        </styled.h1>
+      }
     >
-      <styled.h1 width="250px" textStyle="heading.03" p="space.04">
-        choose asset to send
-      </styled.h1>
       <CryptoAssetList
         onItemClick={cryptoAssetBalance => navigateToSendForm(cryptoAssetBalance)}
         cryptoAssetBalances={allTransferableCryptoAssetBalances.filter(asset =>
@@ -61,6 +58,6 @@ export function ChooseCryptoAsset() {
           })
         )}
       />
-    </Flex>
+    </Card>
   );
 }
