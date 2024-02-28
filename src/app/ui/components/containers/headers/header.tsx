@@ -57,9 +57,14 @@ export function Header({
     >
       <Grid
         gridTemplateColumns="auto 4fr 1fr"
+        // auto-fit seems good!
+        // gridTemplateColumns="repeat(auto-fit, minmax(100px, 1fr))"
+        gridAutoFlow="column"
         width="100%"
         maxWidth={{ base: '100vw', md: 'fullPageMaxWidth' }}
         margin={{ base: 0, md: 'auto' }}
+        // alignItems="start"
+        // justifyItems="start"
       >
         <GridItem justifySelf="start">
           {logoItem && (
@@ -75,7 +80,7 @@ export function Header({
             </Flex>
           )}
         </GridItem>
-        <GridItem>{isString(title) ? <Title title={title} /> : title}</GridItem>
+        <GridItem margin="auto">{isString(title) ? <Title title={title} /> : title}</GridItem>
         <GridItem>
           <HStack alignItems="center" justifyContent="flex-end">
             {networkBadge}
