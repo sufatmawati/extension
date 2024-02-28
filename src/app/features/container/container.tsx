@@ -99,8 +99,6 @@ export function Container() {
           displayHeader ? (
             <Header
               variant={variant}
-              // on /fund/:currency goBack doesn't make sense as it re-opens popup.
-              // Need to test everywhere and add custom logic
               onGoBack={canGoBack(pathname) ? () => getOnGoBackLocation(pathname) : undefined}
               settingsMenu={
                 isKnownPopupRoute(pathname) ? null : (
@@ -122,7 +120,7 @@ export function Container() {
               logo={
                 !hideLogo(pathname) && (
                   <Box
-                    height="32px"
+                    height="headerContainerHeight"
                     margin="auto"
                     px="space.02"
                     hideBelow={variant === 'home' ? undefined : 'sm'}

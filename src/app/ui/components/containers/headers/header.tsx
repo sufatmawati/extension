@@ -18,13 +18,7 @@ function Title({ title }: { title: string }) {
 
 export function BigTitle({ title }: { title: string }) {
   return (
-    <styled.h1
-      textStyle="heading.03"
-      maxWidth="bigTitleWidth"
-      height="bigTitleHeight"
-      // padding applied here to avoid specific header variant
-      padding="space.01"
-    >
+    <styled.h1 textStyle="heading.03" maxWidth="bigTitleWidth" height="bigTitleHeight">
       {title}
     </styled.h1>
   );
@@ -57,15 +51,17 @@ export function Header({
 }: HeaderProps) {
   const logoItem = onGoBack || logo || account;
   return (
-    <styled.header p="space.04" bg={{ base: 'ink.background-primary', sm: 'transparent' }}>
+    <styled.header
+      p={isString(title) ? 'space.04' : 'space.05'}
+      bg={{ base: 'ink.background-primary', sm: 'transparent' }}
+    >
       <Grid
-        alignItems="center"
         gridTemplateColumns="auto 4fr 1fr"
         width="100%"
         maxWidth={{ base: '100vw', md: 'fullPageMaxWidth' }}
         margin={{ base: 0, md: 'auto' }}
       >
-        <GridItem>
+        <GridItem justifySelf="start">
           {logoItem && (
             <Flex py={{ base: 0, md: 'space.01' }}>
               {variant !== 'home' && onGoBack ? (
@@ -79,21 +75,21 @@ export function Header({
             </Flex>
           )}
         </GridItem>
-        <GridItem margin="auto">{isString(title) ? <Title title={title} /> : title}</GridItem>
+        <GridItem>{isString(title) ? <Title title={title} /> : title}</GridItem>
         <GridItem>
           <HStack alignItems="center" justifyContent="flex-end">
             {networkBadge}
             {totalBalance}
             {variant !== 'onboarding' && settingsMenu}
-          </HStack>
 
-          {onClose && (
-            <HeaderActionButton
-              icon={<CloseIcon />}
-              isWaitingOnPerformedAction={isWaitingOnPerformedAction}
-              onAction={onClose}
-            />
-          )}
+            {onClose && (
+              <HeaderActionButton
+                icon={<CloseIcon variant="small" />}
+                isWaitingOnPerformedAction={isWaitingOnPerformedAction}
+                onAction={onClose}
+              />
+            )}
+          </HStack>
         </GridItem>
       </Grid>
     </styled.header>
