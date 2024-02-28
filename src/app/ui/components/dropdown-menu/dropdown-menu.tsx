@@ -63,6 +63,7 @@ const dropdownContentStyles = css({
   boxShadow:
     '0px 12px 24px 0px rgba(18, 16, 15, 0.08), 0px 4px 8px 0px rgba(18, 16, 15, 0.08), 0px 0px 2px 0px rgba(18, 16, 15, 0.08)',
   p: '0',
+  width: '240px',
   willChange: 'transform, opacity',
   zIndex: 999,
   _closed: { animation: 'slideDownAndOut 140ms ease-in-out' },
