@@ -27,7 +27,7 @@ export function HeaderActionButton({
       position="relative"
       transition="transition"
       userSelect="none"
-      width="36px"
+      p="space.02"
       zIndex={999}
     >
       {icon}

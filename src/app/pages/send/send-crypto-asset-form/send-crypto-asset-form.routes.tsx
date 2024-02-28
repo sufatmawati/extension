@@ -1,6 +1,5 @@
 import { Suspense } from 'react';
-import { Route } from 'react-router-dom';
-import { Outlet } from 'react-router-dom';
+import { Outlet, Route } from 'react-router-dom';
 
 import { RouteUrls } from '@shared/route-urls';
 

@@ -100,7 +100,6 @@ export function WelcomeLayout({
 
           <Flex gap="space.04">
             <Button
-              pt="space.02"
               variant="outline"
               flex={1}
               onClick={onRestoreWallet}
@@ -110,7 +109,6 @@ export function WelcomeLayout({
               Use existing key
             </Button>
             <Button
-              pt="space.02"
               variant="outline"
               flex={1}
               onClick={onSelectConnectLedger}

@@ -67,7 +67,7 @@ export function Header({
       >
         <GridItem>
           {logoItem && (
-            <Flex py={{ base: 0, md: 'space.01' }} px={{ base: 0, md: 'space.02' }}>
+            <Flex py={{ base: 0, md: 'space.01' }}>
               {variant !== 'home' && onGoBack ? (
                 <HeaderActionButton
                   icon={<ArrowLeftIcon />}

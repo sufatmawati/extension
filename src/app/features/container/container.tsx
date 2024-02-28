@@ -122,6 +122,7 @@ export function Container() {
               logo={
                 !hideLogo(pathname) && (
                   <Box
+                    height="32px"
                     margin="auto"
                     px="space.02"
                     hideBelow={variant === 'home' ? undefined : 'sm'}
