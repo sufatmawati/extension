@@ -62,7 +62,7 @@ const dropdownContentStyles = css({
   borderRadius: 'xs',
   boxShadow:
     '0px 12px 24px 0px rgba(18, 16, 15, 0.08), 0px 4px 8px 0px rgba(18, 16, 15, 0.08), 0px 0px 2px 0px rgba(18, 16, 15, 0.08)',
-  p: 'space.02',
+  p: '0',
   willChange: 'transform, opacity',
   zIndex: 999,
   _closed: { animation: 'slideDownAndOut 140ms ease-in-out' },
@@ -101,11 +101,17 @@ const dropdownMenuSeparatorStyles = css({
 const Separator: typeof RadixDropdownMenu.Separator = forwardRef((props, ref) => (
   <RadixDropdownMenu.Separator className={dropdownMenuSeparatorStyles} ref={ref} {...props} />
 ));
+const dropdownMenuGroupStyles = css({
+  p: 'space.02',
+});
+const Group: typeof RadixDropdownMenu.Group = forwardRef((props, ref) => (
+  <RadixDropdownMenu.Separator className={dropdownMenuGroupStyles} ref={ref} {...props} />
+));
 
 export const DropdownMenu = {
   Root: RadixDropdownMenu.Root,
-  Group: RadixDropdownMenu.Group,
   Portal: RadixDropdownMenu.Portal,
+  Group,
   Trigger,
   Button,
   IconButton,
