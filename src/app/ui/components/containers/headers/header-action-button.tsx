@@ -1,5 +1,5 @@
 import { HomePageSelectors } from '@tests/selectors/home.selectors';
-import { Grid } from 'leather-styles/jsx';
+import { Flex } from 'leather-styles/jsx';
 
 interface HeaderActionButtonProps {
   icon?: React.JSX.Element;
@@ -12,7 +12,7 @@ export function HeaderActionButton({
   onAction,
 }: HeaderActionButtonProps) {
   return (
-    <Grid
+    <Flex
       _hover={{
         bg: isWaitingOnPerformedAction ? 'unset' : 'ink.component-background-hover',
         cursor: isWaitingOnPerformedAction ? 'unset' : 'pointer',
@@ -23,14 +23,12 @@ export function HeaderActionButton({
       height="headerContainerHeight"
       onClick={isWaitingOnPerformedAction ? undefined : onAction}
       opacity={isWaitingOnPerformedAction ? '0.3' : 'unset'}
-      placeItems="center"
-      position="relative"
       transition="transition"
       userSelect="none"
       p="space.02"
       zIndex={999}
     >
       {icon}
-    </Grid>
+    </Flex>
   );
 }

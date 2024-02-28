@@ -1,7 +1,7 @@
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 
-import { Flex, styled } from 'leather-styles/jsx';
+import { styled } from 'leather-styles/jsx';
 
 import { AllTransferableCryptoAssetBalances } from '@shared/models/crypto-asset-balance.model';
 import { RouteUrls } from '@shared/route-urls';
