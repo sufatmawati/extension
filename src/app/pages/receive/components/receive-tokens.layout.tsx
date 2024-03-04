@@ -40,7 +40,7 @@ export function ReceiveTokensLayout(props: ReceiveTokensLayoutProps) {
       onClose={() => navigate(backgroundLocation ?? '..')}
       footer={
         <Footer>
-          <Button fullWidth mt="space.05" onClick={() => onCopyAddressToClipboard(address)}>
+          <Button fullWidth onClick={() => onCopyAddressToClipboard(address)}>
             Copy address
           </Button>
         </Footer>
