@@ -8,11 +8,13 @@ import { BtcFeeType } from '@shared/models/fees/bitcoin-fees.model';
 
 import { test } from '../../fixtures/fixtures';
 
+// now this isn;t working??? - can't seem to select testnet in these tests?
+
 test.describe('send btc', () => {
   test.beforeEach(async ({ extensionId, globalPage, homePage, onboardingPage, sendPage }) => {
     await globalPage.setupAndUseApiCalls(extensionId);
     await onboardingPage.signInWithTestAccount(extensionId);
-    await homePage.enableTestMode();
+    await homePage.selectTestNet();
     await homePage.sendButton.click();
     await sendPage.selectBtcAndGoToSendForm();
     await sendPage.waitForSendPageReady();
@@ -40,7 +42,7 @@ test.describe('send btc', () => {
       const displayerAddress = await getDisplayerAddress(sendPage.confirmationDetailsRecipient);
       test.expect(displayerAddress).toEqual(TEST_TESTNET_ACCOUNT_2_BTC_ADDRESS);
     });
-
+    // broke
     test('that asset value and recipient on preview match input', async ({ sendPage }) => {
       const amount = '0.00006';
       const amountSymbol = 'BTC';

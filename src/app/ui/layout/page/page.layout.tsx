@@ -14,7 +14,9 @@ export function Page({ children }: PageProps) {
       borderRadius={{ base: 'unset', md: 'lg' }}
       width="pageWidth"
       height={{ base: '100%', md: 'fit-content' }}
-      minHeight="435px"
+      // minHeight="435px" PETE check this on Send flow - make sure it doesn't break everything else
+
+      // Make the send flow bhave the same as FUND!
     >
       {children}
     </Box>

@@ -1,4 +1,5 @@
 export enum NetworkSelectors {
+  NetworkListActiveNetwork = 'network-active-network',
   NetworkPageReady = 'network-page-ready',
   NetworkName = 'network-name',
   NetworkStacksAddress = 'network-stacks-address',

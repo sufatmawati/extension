@@ -38,8 +38,11 @@ export function Header({
       p={variant === 'receive' ? 'space.05' : 'space.04'}
       bg={{ base: 'ink.background-primary', sm: 'transparent' }}
     >
+      {/* // last issue to fix is getting this title to consistently align properly */}
+      {/* // maybe just flex to simplify????????? */}
       <Grid
-        gridTemplateColumns="auto 4fr 1fr"
+        // gridTemplateColumns="142px auto 142px"
+        gridTemplateColumns="1fr 4fr 1fr"
         // auto-fit seems good!
         // gridTemplateColumns="repeat(auto-fit, minmax(100px, 1fr))"
         gridAutoFlow="column"
@@ -54,10 +57,11 @@ export function Header({
             <Flex py={{ base: 0, md: 'space.01' }}>
               {variant !== 'home' && onGoBack ? (
                 <HeaderActionButton
-                  icon={<ArrowLeftIcon data-testid={SharedComponentsSelectors.HeaderBackBtn} />}
+                  icon={<ArrowLeftIcon />}
                   isWaitingOnPerformedAction={isWaitingOnPerformedAction}
                   onAction={onGoBack}
                   hideFrom={variant === 'receive' ? 'md' : undefined}
+                  dataTestId={SharedComponentsSelectors.HeaderBackBtn}
                 />
               ) : undefined}
               {account ? account : logo}
@@ -76,6 +80,7 @@ export function Header({
             {onClose && (
               <HeaderActionButton
                 icon={<CloseIcon />}
+                dataTestId={SharedComponentsSelectors.HeaderCloseBtn}
                 isWaitingOnPerformedAction={isWaitingOnPerformedAction}
                 onAction={onClose}
                 hideBelow={variant === 'receive' ? 'md' : undefined}

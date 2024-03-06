@@ -1,4 +1,3 @@
-import { HomePageSelectors } from '@tests/selectors/home.selectors';
 import { Flex, FlexProps } from 'leather-styles/jsx';
 
 import { IconButton } from '../../icon-button/icon-button';
@@ -7,11 +6,13 @@ interface HeaderActionButtonProps extends FlexProps {
   icon: React.JSX.Element;
   isWaitingOnPerformedAction?: boolean;
   onAction?(): void;
+  dataTestId: string;
 }
 export function HeaderActionButton({
   icon,
   isWaitingOnPerformedAction,
   onAction,
+  dataTestId,
 }: HeaderActionButtonProps) {
   return (
     <Flex height="headerContainerHeight">
@@ -21,7 +22,7 @@ export function HeaderActionButton({
           cursor: isWaitingOnPerformedAction ? 'unset' : 'pointer',
         }}
         color="ink.action-primary-default"
-        data-testid={HomePageSelectors.HeaderActionBtn}
+        data-testid={dataTestId}
         icon={icon}
         onClick={isWaitingOnPerformedAction ? undefined : onAction}
         opacity={isWaitingOnPerformedAction ? '0.3' : 'unset'}

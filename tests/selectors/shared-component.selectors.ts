@@ -22,4 +22,5 @@ export enum SharedComponentsSelectors {
   // Error
   BroadcastErrorTitle = 'broadcast-error-title',
   HeaderBackBtn = 'header-back-button',
+  HeaderCloseBtn = 'header-close-button',
 }

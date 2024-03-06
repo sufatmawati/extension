@@ -19,7 +19,7 @@ export function HomeLayout({ children, accountCard }: HomeLayoutProps) {
       width="100%"
       bg="ink.1"
       borderRadius="lg"
-      animation="fadein"
+      animation="fadein" // look into doing this more
       animationDuration="500ms"
     >
       <Box px={{ base: 'space.05', md: 0 }} pb={{ base: 'space.05', md: 0 }}>

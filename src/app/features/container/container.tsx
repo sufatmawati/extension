@@ -82,6 +82,12 @@ export function Container() {
     if (pathname === RouteUrls.Swap || pathname === RouteUrls.Fund) {
       return navigate(RouteUrls.Home);
     }
+    if (pathname === RouteUrls.SendStxConfirmation) {
+      return navigate(RouteUrls.SendCryptoAssetForm.replace(':symbol', 'stx'));
+    }
+    if (pathname === RouteUrls.SendBtcConfirmation) {
+      return navigate(RouteUrls.SendCryptoAssetForm.replace(':symbol', 'btc'));
+    }
     return navigate(-1);
   }
 

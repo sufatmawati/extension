@@ -1,5 +1,6 @@
 import { Locator, Page } from '@playwright/test';
 import { HomePageSelectors } from '@tests/selectors/home.selectors';
+import { NetworkSelectors } from '@tests/selectors/network.selectors';
 import { SettingsSelectors } from '@tests/selectors/settings.selectors';
 import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
 import { createTestSelector } from '@tests/utils';
@@ -8,7 +9,7 @@ import { WalletDefaultNetworkConfigurationIds } from '@shared/constants';
 
 export class HomePage {
   readonly page: Page;
-  readonly drawerActionButton: Locator;
+  readonly headerActionButton: Locator;
   readonly receiveButton: Locator;
   readonly sendButton: Locator;
   readonly swapButton: Locator;
@@ -21,9 +22,9 @@ export class HomePage {
   readonly lockSettingsListItem: Locator;
   readonly fundAccountBtn: Locator;
 
-  readonly testNetworkSelector: string = createTestSelector(
-    WalletDefaultNetworkConfigurationIds.testnet
-  );
+  // readonly testNetworkSelector: string = createTestSelector(
+  //   WalletDefaultNetworkConfigurationIds.testnet
+  // );
 
   $signOutConfirmHasBackupCheckbox = createTestSelector(
     SettingsSelectors.SignOutConfirmHasBackupCheckbox
@@ -35,7 +36,7 @@ export class HomePage {
 
   constructor(page: Page) {
     this.page = page;
-    this.drawerActionButton = page.getByTestId(HomePageSelectors.HeaderActionBtn);
+    this.headerActionButton = page.getByTestId(SharedComponentsSelectors.HeaderBackBtn);
     this.receiveButton = page.getByTestId(HomePageSelectors.ReceiveCryptoAssetBtn);
     this.sendButton = page.getByTestId(HomePageSelectors.SendCryptoAssetBtn);
     this.swapButton = page.getByTestId(HomePageSelectors.SwapBtn);
@@ -102,14 +103,23 @@ export class HomePage {
     return displayerAddress.replaceAll('\n', '');
   }
 
-  async enableTestMode() {
+  async selectTestNet() {
     await this.page.getByTestId(SettingsSelectors.SettingsMenuBtn).click();
     await this.page.getByTestId(SettingsSelectors.ChangeNetworkAction).click();
+    // await this.page.waitForTimeout(30000);
+    await this.page
+      .getByTestId(WalletDefaultNetworkConfigurationIds.testnet)
+      .click({ force: true });
+    await this.page.getByTestId(NetworkSelectors.NetworkListActiveNetwork).isVisible();
+    // await (
+    //   await this.page.waitForSelector(NetworkSelectors.NetworkListActiveNetwork, { timeout: 30000 })
+    // ).isVisible();
     await this.page.waitForTimeout(1000);
-    await (
-      await this.page.waitForSelector(this.testNetworkSelector, { timeout: 30000 })
-    ).isVisible();
     await this.page.getByTestId(WalletDefaultNetworkConfigurationIds.testnet).click();
+    // it should close dialog after selecting testnet
+
+    // sometimes this does close and sometimes not!
+    // await this.page.getByTestId(SharedComponentsSelectors.HeaderCloseBtn).click();
   }
 
   async clickActivityTab() {

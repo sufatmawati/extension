@@ -1,3 +1,4 @@
+import { NetworkSelectors } from '@tests/selectors/network.selectors';
 import { SettingsSelectors } from '@tests/selectors/settings.selectors';
 import { Box, Flex, Stack, styled } from 'leather-styles/jsx';
 
@@ -54,7 +55,11 @@ export function NetworkListItemLayout({
               {getUrlHostname(network.chain.stacks.url)}
             </styled.span>
           </Stack>
-          {!isOnline ? <CloudOffIcon /> : isActive ? <CheckmarkIcon /> : null}
+          {!isOnline ? (
+            <CloudOffIcon />
+          ) : isActive ? (
+            <CheckmarkIcon data-testid={NetworkSelectors.NetworkListActiveNetwork} />
+          ) : null}
         </Flex>
         {isCustom && (
           <Button

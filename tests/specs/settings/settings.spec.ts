@@ -42,6 +42,7 @@ test.describe('Settings menu', () => {
     test.expect(displayName).toEqual('Account 1');
   });
 
+  // This doesn't actually test copy of the value
   test('that menu item allows viewing and saving secret key to clipboard', async ({
     page,
     homePage,
@@ -58,6 +59,7 @@ test.describe('Settings menu', () => {
     test.expect(copySuccessMessage).toContain('Copied!');
   });
 
+  // this doesn't actually change networks
   test('that menu item allows changing networks', async ({ homePage, page }) => {
     await homePage.clickSettingsButton();
     const currentNetwork = await page.getByTestId(SettingsSelectors.CurrentNetwork).innerText();

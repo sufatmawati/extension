@@ -22,6 +22,12 @@ const AppVersionLabel = forwardRef<HTMLSpanElement, AppVersionLabelProps>(
         textWrap="nowrap"
         {...props}
       >
+        {/* TODO handle large version numbers
+        
+        Test padding of select account when there is only one account
+        Make account selector more dynamic to grow / retract if there is a Create Account button or not
+        
+        */}
         {children}
       </styled.span>
     </Box>

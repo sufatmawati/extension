@@ -77,7 +77,7 @@ export class SendPage {
     await this.page.waitForURL('**' + `${RouteUrls.SendCryptoAsset}/btc`);
     await this.page.getByTestId(SendCryptoAssetSelectors.SendForm).waitFor();
   }
-
+  //
   async selectStxAndGoToSendForm() {
     await this.page.waitForURL('**' + RouteUrls.SendCryptoAsset);
     await this.page
@@ -94,7 +94,7 @@ export class SendPage {
   }
 
   async goBack() {
-    await this.page.getByTestId(SharedComponentsSelectors.HeaderBackBtn).click();
+    await this.page.getByTestId(SharedComponentsSelectors.HeaderBackBtn).click({ force: true });
   }
 
   async goBackSelectStx() {
