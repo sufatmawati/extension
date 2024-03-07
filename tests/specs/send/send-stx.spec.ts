@@ -4,7 +4,6 @@ import {
   TEST_BNS_RESOLVED_ADDRESS,
   TEST_TESTNET_ACCOUNT_2_STX_ADDRESS,
 } from '@tests/mocks/constants';
-import { SendPage } from '@tests/page-object-models/send.page';
 import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
 import { getDisplayerAddress } from '@tests/utils';
 
@@ -13,49 +12,22 @@ import { FormErrorMessages } from '@app/common/error-messages';
 import { test } from '../../fixtures/fixtures';
 
 const amount = '0.000001';
-// this is unable to select testnet now? so weird like it needs a delay?
 
-// Or dialog not closing?
-
-// Fails on step 6 this time
-
-// select network modal behaves differently in 'send stx'  than BTC but samne flow???
-
-test.describe('send stx', () => {
+test.describe('send stx: tests on testnet', () => {
   test.beforeEach(async ({ extensionId, globalPage, homePage, onboardingPage, sendPage }) => {
     await globalPage.setupAndUseApiCalls(extensionId);
     await onboardingPage.signInWithTestAccount(extensionId);
     await homePage.selectTestNet();
     await homePage.sendButton.click();
-    // PETe close network here if its still open
-    // I guess it hangs with a 429 not being able to load the networks and not letting them be clickable
     await sendPage.selectStxAndGoToSendForm();
-    // await sendPage.waitForSendPageReady();
   });
-  // test.describe.serial('tests on testnet', () => {
-  // test.beforeAll(async ({ extensionId, globalPage, onboardingPage, homePage, sendPage }) => {
-  //   await globalPage.setupAndUseApiCalls(extensionId);
-  //   await onboardingPage.signInWithTestAccount(extensionId);
-  //   await homePage.selectTestNet();
-  //   await homePage.sendButton.click();
-  //   await sendPage.selectStxAndGoToSendForm();
 
-  // });
-  // test.afterEach(async () => {
-  //   await sendPage.goBack();
-  //   await sendPage.goBackSelectStx();
-  // });
-
-  // now it fails her for sendPage.amountInput.inputValue()
-  // checks its truthy but it's ''
   test('that send max button sets available balance minus fee', async ({ sendPage }) => {
     await sendPage.amountInput.fill('.0001');
     await sendPage.amountInput.clear();
     await sendPage.amountInput.blur();
     await sendPage.sendMaxButton.click();
     await sendPage.amountInput.blur();
-    // test.expect(await sendPage.amountInput.inputValue()).toBeTruthy();
-    // await sendPage.goBackSelectStx();
   });
 
   test('that empty memo on preview matches default empty value', async ({ sendPage }) => {
@@ -67,20 +39,14 @@ test.describe('send stx', () => {
     await sendPage.recipientInput.fill(TEST_TESTNET_ACCOUNT_2_STX_ADDRESS);
     await sendPage.recipientInput.blur();
     await sendPage.page.waitForTimeout(2000);
-    // await sendPage.page.waitForTimeout(20000);
     await sendPage.previewSendTxButton.focus();
     await sendPage.previewSendTxButton.click();
-
-    // const confirmationMemo = await sendPage.memoRow.innerText();
 
     const confirmationMemo = await sendPage.memoRow
       .getByTestId(SharedComponentsSelectors.InfoCardRowValue)
       .innerText();
 
     test.expect(confirmationMemo).toEqual(emptyMemoPreviewValue);
-    // await sendPage.goBack();
-
-    // await sendPage.goBackSelectStx();
   });
 
   test('that asset value, recipient, memo and fees on preview match input', async ({
@@ -115,14 +81,9 @@ test.describe('send stx', () => {
       .getByTestId(SharedComponentsSelectors.InfoCardRowValue)
       .innerText();
     test.expect(confirmationMemo2).toEqual(memo);
-    // await sendPage.goBack();
-    // await sendPage.goBackSelectStx();
   });
 
   test.describe('send form validation', () => {
-    // test.afterEach(async () => {
-    //   await sendPage.goBackSelectStx();
-    // });
     test('that the amount must be a number', async ({ sendPage }) => {
       await sendPage.amountInput.fill('aaaaaa');
       await sendPage.amountInput.blur();
@@ -176,17 +137,11 @@ test.describe('send stx', () => {
   });
 
   test.describe('send form preview', () => {
-    // test.afterEach(async () => {
-    //   await sendPage.goBack();
-    //   await sendPage.goBackSelectStx();
-    // });
     test('send form preview: that it shows preview of tx details to be confirmed', async ({
       sendPage,
     }) => {
       await sendPage.amountInput.fill('0.000001');
-      // make same change here to focus, wait etc.
       await sendPage.recipientInput.fill(TEST_TESTNET_ACCOUNT_2_STX_ADDRESS);
-
       await sendPage.previewSendTxButton.click();
       const details = await sendPage.confirmationDetails.allInnerTexts();
       test.expect(details).toBeTruthy();
@@ -207,66 +162,54 @@ test.describe('send stx', () => {
       test.expect(details).toBeTruthy();
     });
   });
-  // });
 
   // Those that can should be migrated to testnet tests
-  test.describe.serial('tests on mainnet', () => {
-    let sendPage: SendPage;
-    test.beforeAll(async ({ extensionId, globalPage, onboardingPage, homePage, sendPage }) => {
-      await globalPage.setupAndUseApiCalls(extensionId);
-      await onboardingPage.signInWithTestAccount(extensionId);
+});
 
-      // hangs here
-      // its like it takjes time for network dialog to load and allow click of option
-      //  but should it even open here on mainnet?
-      await homePage.sendButton.click({ force: true });
-      await sendPage.selectStxAndGoToSendForm();
+test.describe('send stx: tests on mainnet', () => {
+  test.beforeEach(async ({ extensionId, globalPage, onboardingPage, homePage, sendPage }) => {
+    await globalPage.setupAndUseApiCalls(extensionId);
+    await onboardingPage.signInWithTestAccount(extensionId);
+    await homePage.sendButton.click();
+    await sendPage.selectStxAndGoToSendForm();
+  });
 
-      sendPage = sendPage;
+  test.describe('send form input fields', () => {
+    test('that recipient address matches bns name', async ({ sendPage }) => {
+      await sendPage.amountInput.fill('.0001');
+      await sendPage.amountInput.blur();
+      await sendPage.recipientSelectRecipientTypeDropdown.click();
+      await sendPage.recipientSelectFieldBnsName.click();
+      await sendPage.recipientInput.fill(TEST_BNS_NAME);
+      await sendPage.recipientInput.blur();
+      await sendPage.recipientBnsAddressLabel.waitFor();
+      const bnsResolvedAddress = await sendPage.page
+        .getByText(TEST_BNS_RESOLVED_ADDRESS)
+        .innerText();
+
+      test.expect(bnsResolvedAddress).toBeTruthy();
     });
 
-    test.afterEach(async () => {
-      await sendPage.goBack();
-      await sendPage.selectStxAndGoToSendForm();
+    test('that fee row defaults to middle fee estimation', async ({ sendPage }) => {
+      const feeToBePaid = await sendPage.page
+        .getByTestId(SharedComponentsSelectors.FeeToBePaidLabel)
+        .innerText();
+      const fee = Number(feeToBePaid.split(' ')[0]);
+      // Using min/max fee caps
+      const isMiddleFee = fee >= 0.003 && fee <= 0.75;
+      test.expect(isMiddleFee).toBeTruthy();
     });
 
-    test.describe('send form input fields', () => {
-      test('that recipient address matches bns name', async () => {
-        await sendPage.amountInput.fill('.0001');
-        await sendPage.amountInput.blur();
-        await sendPage.recipientSelectRecipientTypeDropdown.click();
-        await sendPage.recipientSelectFieldBnsName.click();
-        await sendPage.recipientInput.fill(TEST_BNS_NAME);
-        await sendPage.recipientInput.blur();
-        await sendPage.recipientBnsAddressLabel.waitFor();
-        const bnsResolvedAddress = await sendPage.page
-          .getByText(TEST_BNS_RESOLVED_ADDRESS)
-          .innerText();
-
-        test.expect(bnsResolvedAddress).toBeTruthy();
-      });
-
-      test('that fee row defaults to middle fee estimation', async () => {
-        const feeToBePaid = await sendPage.page
-          .getByTestId(SharedComponentsSelectors.FeeToBePaidLabel)
-          .innerText();
-        const fee = Number(feeToBePaid.split(' ')[0]);
-        // Using min/max fee caps
-        const isMiddleFee = fee >= 0.003 && fee <= 0.75;
-        test.expect(isMiddleFee).toBeTruthy();
-      });
-
-      test('that low fee estimate can be selected', async () => {
-        await sendPage.page.getByTestId(SharedComponentsSelectors.MiddleFeeEstimateItem).click();
-        await sendPage.page.getByTestId(SharedComponentsSelectors.LowFeeEstimateItem).click();
-        const feeToBePaid = await sendPage.page
-          .getByTestId(SharedComponentsSelectors.FeeToBePaidLabel)
-          .innerText();
-        const fee = Number(feeToBePaid.split(' ')[0]);
-        // Using min/max fee caps
-        const isLowFee = fee >= 0.0025 && fee <= 0.5;
-        test.expect(isLowFee).toBeTruthy();
-      });
+    test('that low fee estimate can be selected', async ({ sendPage }) => {
+      await sendPage.page.getByTestId(SharedComponentsSelectors.MiddleFeeEstimateItem).click();
+      await sendPage.page.getByTestId(SharedComponentsSelectors.LowFeeEstimateItem).click();
+      const feeToBePaid = await sendPage.page
+        .getByTestId(SharedComponentsSelectors.FeeToBePaidLabel)
+        .innerText();
+      const fee = Number(feeToBePaid.split(' ')[0]);
+      // Using min/max fee caps
+      const isLowFee = fee >= 0.0025 && fee <= 0.5;
+      test.expect(isLowFee).toBeTruthy();
     });
   });
 });
