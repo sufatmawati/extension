@@ -45,8 +45,8 @@ export function hideLogo(pathname: RouteUrls) {
   return pathname === RouteUrls.RpcGetAddresses;
 }
 
-export function isGetAddressesPopup(pathname: RouteUrls) {
-  return pathname === RouteUrls.RpcGetAddresses;
+export function isNoHeaderPopup(pathname: RouteUrls) {
+  return pathname === RouteUrls.RpcGetAddresses || pathname === RouteUrls.ChooseAccount;
 }
 
 export function hideSettingsOnSm(pathname: RouteUrls) {

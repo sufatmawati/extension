@@ -25,7 +25,6 @@ export enum RouteUrls {
   // Active wallet routes
   Home = '/',
   AddNetwork = '/add-network',
-  ChooseAccount = '/choose-account',
   Fund = '/fund/:currency',
   FundChooseCurrency = '/fund-choose-currency',
   IncreaseStxFee = '/increase-fee/stx',
@@ -33,6 +32,9 @@ export enum RouteUrls {
   IncreaseFeeSent = '/increase-fee/sent',
   Send = '/send-transaction',
   ViewSecretKey = '/view-secret-key',
+
+  // Popup routes
+  ChooseAccount = '/choose-account',
 
   // nested routes must have relative paths
   Activity = 'activity',

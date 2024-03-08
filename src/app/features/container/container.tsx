@@ -42,8 +42,8 @@ import {
   getPageVariant,
   hideLogo,
   hideSettingsOnSm,
-  isGetAddressesPopup,
   isLandingPage,
+  isNoHeaderPopup,
 } from './utils/route-helpers';
 
 export function Container() {
@@ -75,7 +75,7 @@ export function Container() {
     }
   }, [variant, pathname]);
 
-  const displayHeader = !isLandingPage(pathname) && !isGetAddressesPopup(pathname);
+  const displayHeader = !isLandingPage(pathname) && !isNoHeaderPopup(pathname);
   const isSessionLocked = getIsSessionLocked(pathname);
 
   function getOnGoBackLocation(pathname: RouteUrls) {
@@ -88,10 +88,13 @@ export function Container() {
     if (pathname === RouteUrls.SendBtcConfirmation) {
       return navigate(RouteUrls.SendCryptoAssetForm.replace(':symbol', 'btc'));
     }
+
     return navigate(-1);
   }
 
   if (!hasStateRehydrated) return <LoadingSpinner />;
+
+  console.log(pathname);
 
   return (
     <>

@@ -43,33 +43,28 @@ const ChooseAccountItem = memo(
     const accountSlug = useMemo(() => slugify(`Account ${account?.index + 1}`), [account?.index]);
 
     return (
-      // Padding required on outer element to prevent jumpy virtualized list
-      <Box pb="space.05">
-        <AccountListItemLayout
-          accountAddresses={<AcccountAddresses index={account.index} />}
-          accountName={
-            <Suspense fallback={<AccountTitlePlaceholder account={account} />}>
-              <styled.span textStyle="label.01">{name}</styled.span>
-            </Suspense>
-          }
-          avatar={
-            <AccountAvatar
-              index={account.index}
-              publicKey={account.stxPublicKey}
-              name={name}
-              flexGrow={0}
-            />
-          }
-          balanceLabel={
-            <AccountTotalBalance stxAddress={account.address} btcAddress={btcAddress} />
-          }
-          data-testid={`account-${accountSlug}-${account.index}`}
-          index={account.index}
-          isLoading={isLoading}
-          isSelected={false}
-          onSelectAccount={() => onSelectAccount(account.index)}
-        />
-      </Box>
+      <AccountListItemLayout
+        accountAddresses={<AcccountAddresses index={account.index} />}
+        accountName={
+          <Suspense fallback={<AccountTitlePlaceholder account={account} />}>
+            <styled.span textStyle="label.01">{name}</styled.span>
+          </Suspense>
+        }
+        avatar={
+          <AccountAvatar
+            index={account.index}
+            publicKey={account.stxPublicKey}
+            name={name}
+            flexGrow={0}
+          />
+        }
+        balanceLabel={<AccountTotalBalance stxAddress={account.address} btcAddress={btcAddress} />}
+        data-testid={`account-${accountSlug}-${account.index}`}
+        index={account.index}
+        isLoading={isLoading}
+        isSelected={false}
+        onSelectAccount={() => onSelectAccount(account.index)}
+      />
     );
   }
 );
