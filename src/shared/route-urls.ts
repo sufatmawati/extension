@@ -33,9 +33,6 @@ export enum RouteUrls {
   Send = '/send-transaction',
   ViewSecretKey = '/view-secret-key',
 
-  // Popup routes
-  ChooseAccount = '/choose-account',
-
   // nested routes must have relative paths
   Activity = 'activity',
   Receive = 'receive',
@@ -108,6 +105,9 @@ export enum RouteUrls {
   RpcReceiveBitcoinContractOffer = '/bitcoin-contract-offer/:bitcoinContractOffer/:counterpartyWalletURL',
   RpcSignBip322Message = '/sign-bip322-message',
   RpcStacksSignature = '/sign-stacks-message',
+
+  // Popup routes
+  ChooseAccount = '/choose-account',
 
   // Shared legacy and rpc request routes
   RequestError = '/request-error',

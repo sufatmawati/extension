@@ -1,15 +1,7 @@
 import { pxStringToNumber } from '@shared/utils/px-string-to-number';
 
-// FIXME import from '@leather-wallet/tokens'
-// import { tokens } from '@leather-wallet/tokens';
-/**
- * importing from tokens gives TS error about 
- * 
- * You may need an appropriate loader to handle this file type, currently no loaders are configured to process this file. See https://webpack.js.org/concepts#loaders
-|     value: { fontFamily: firaCode, fontSize: '0.6rem', lineHeight: '1rem' },
-|   },
-> } as const;
- */
+// FIXME import from '@leather-wallet/tokens' when bundling working
+// https://github.com/leather-wallet/mono/pull/76
 
 const tokens = {
   sizes: {

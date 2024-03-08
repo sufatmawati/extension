@@ -2,7 +2,6 @@ import { memo, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Virtuoso } from 'react-virtuoso';
 
-import { css } from 'leather-styles/css';
 import { Box } from 'leather-styles/jsx';
 
 import { useFilteredBitcoinAccounts } from '@app/store/accounts/blockchain/bitcoin/bitcoin.ledger';

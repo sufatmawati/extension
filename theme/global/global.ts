@@ -45,14 +45,6 @@ export const globalCss = defineGlobalStyles({
       // the extension doesn't actually open to POPUP_HEIGHT and if minHeight higher than 600px we can scroll on unlock screen
       minHeight: tokens.sizes.dialogHeight.value,
       width: tokens.sizes.popupWidth.value,
-      // scrollbarWidth: 'none',
-
-      // TODO  4882 - make sure this shows properly on windows also
-      // TODO 4370 - his was showing scrollbar on chrome connect wallet auth
-      // // Only add overflow scroll on non-firefox browsers
-      // '@supports not (-moz-appearance: none)': {
-      //   overflowY: 'scroll', // TODO 4370 look into disabling this and having it only on page container
-      // },
 
       '::-webkit-scrollbar': {
         display: 'none',

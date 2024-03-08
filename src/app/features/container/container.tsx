@@ -94,7 +94,7 @@ export function Container() {
 
   if (!hasStateRehydrated) return <LoadingSpinner />;
 
-  console.log(pathname);
+  const showLogoSm = variant === 'home' || isSessionLocked || isKnownPopupRoute(pathname);
 
   return (
     <>
@@ -137,7 +137,7 @@ export function Container() {
                     height="headerContainerHeight"
                     margin="auto"
                     px="space.02"
-                    hideBelow={variant === 'home' || isSessionLocked ? undefined : 'sm'}
+                    hideBelow={showLogoSm ? undefined : 'sm'}
                     hideFrom={isSessionLocked ? 'sm' : undefined}
                   >
                     <Logo
