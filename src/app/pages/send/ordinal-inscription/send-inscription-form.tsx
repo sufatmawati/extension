@@ -11,6 +11,7 @@ import { InscriptionPreviewCard } from '@app/components/inscription-preview-card
 import { OrdinalAvatarIcon } from '@app/ui/components/avatar/ordinal-avatar-icon';
 import { Button } from '@app/ui/components/button/button';
 import { Dialog } from '@app/ui/components/containers/dialog/dialog';
+import { Footer } from '@app/ui/components/containers/footers/footer';
 import { Header } from '@app/ui/components/containers/headers/header';
 
 import { RecipientAddressTypeField } from '../send-crypto-asset-form/components/recipient-address-type-field';
@@ -43,6 +44,11 @@ export function SendInscriptionForm() {
           onGoBack={() => navigate(-1)}
           isShowing
           onClose={() => navigate(RouteUrls.Home)}
+          footer={
+            <Footer>
+              <Button type="submit">Continue</Button>
+            </Footer>
+          }
         >
           <SendInscriptionFormLoader isLoading={isCheckingFees}>
             <Box display="flex" flexDirection="column" px="space.06" pb="space.04">
@@ -62,7 +68,6 @@ export function SendInscriptionForm() {
                 </Flex>
               </Box>
               {currentError && <ErrorLabel>{currentError}</ErrorLabel>}
-              <Button type="submit">Continue</Button>
             </Box>
           </SendInscriptionFormLoader>
         </Dialog>
