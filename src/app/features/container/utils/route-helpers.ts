@@ -6,7 +6,8 @@ function isHomePage(pathname: RouteUrls) {
   return (
     pathname === RouteUrls.Home ||
     pathname.match(RouteUrls.Activity) ||
-    pathname.match(RouteUrls.Receive)
+    pathname.match(RouteUrls.Receive) ||
+    pathname.match(RouteUrls.SendOrdinalInscription)
   );
 }
 
