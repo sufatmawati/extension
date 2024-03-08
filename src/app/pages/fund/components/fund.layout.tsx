@@ -34,7 +34,7 @@ export function FundLayout({ symbol, children }: FundLayoutProps) {
         color="ink.text-primary"
         textStyle={{ base: 'heading.03', md: 'display.02' }}
       >
-        Let's get BTC <br />
+        Let's get {symbol} <br />
         into your wallet
       </styled.h1>
 
