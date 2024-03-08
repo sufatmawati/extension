@@ -24,12 +24,8 @@ export const RecipientAccountsDialog = memo(() => {
   if (stacksAddressesNum === 0 && btcAddressesNum === 0) return null;
   return (
     <Dialog header={<Header variant="dialog" title="My accounts" />} isShowing onClose={onGoBack}>
-      {/* // TODO check Kyrans margin needed */}
       <Box mb="space.05" mx="space.03">
         <Virtuoso
-          className={css({
-            marginX: 'space.05',
-          })}
           useWindowScroll
           itemContent={index => (
             <AccountListItem

@@ -1,7 +1,6 @@
 import { ReactNode, memo } from 'react';
 import { Virtuoso } from 'react-virtuoso';
 
-import { css } from 'leather-styles/css';
 import { Box } from 'leather-styles/jsx';
 
 import { useWalletType } from '@app/common/use-wallet-type';
@@ -18,14 +17,8 @@ export const SwitchAccountList = memo(
   ({ currentAccountIndex, handleClose, addressesNum }: SwitchAccountListProps) => {
     const { whenWallet } = useWalletType();
 
-    {
-      /* // TODO check Kyrans margin needed */
-    }
     return (
       <Virtuoso
-        className={css({
-          marginX: 'space.05',
-        })}
         useWindowScroll
         initialTopMostItemIndex={whenWallet({ ledger: 0, software: currentAccountIndex })}
         totalCount={addressesNum}

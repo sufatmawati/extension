@@ -65,7 +65,7 @@ export function SwapAssetList({ assets }: SwapAssetList) {
   }
 
   return (
-    <Stack pb="space.05" width="100%">
+    <Stack p="space.05" width="100%">
       {selectableAssets.map(asset => (
         <SwapAssetItem
           asset={asset}
