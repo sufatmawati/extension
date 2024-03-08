@@ -3,6 +3,7 @@ import { ReactNode } from 'react';
 import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
 import { Flex, Grid, GridItem, HStack, styled } from 'leather-styles/jsx';
 
+import { IconButton } from '@app/ui/components/icon-button/icon-button';
 import { ArrowLeftIcon, CloseIcon } from '@app/ui/icons';
 
 import { HeaderActionButton } from './header-action-button';
@@ -57,10 +58,9 @@ export function Header({
             <Flex py={{ base: 0, md: 'space.01' }}>
               {variant !== 'home' && onGoBack ? (
                 <HeaderActionButton
-                  icon={<ArrowLeftIcon />}
+                  icon={<ArrowLeftIcon hideFrom={variant === 'receive' ? 'md' : undefined} />}
                   isWaitingOnPerformedAction={isWaitingOnPerformedAction}
                   onAction={onGoBack}
-                  hideFrom={variant === 'receive' ? 'md' : undefined}
                   dataTestId={SharedComponentsSelectors.HeaderBackBtn}
                 />
               ) : undefined}
@@ -79,11 +79,10 @@ export function Header({
 
             {onClose && (
               <HeaderActionButton
-                icon={<CloseIcon />}
+                icon={<CloseIcon hideBelow={variant === 'receive' ? 'md' : undefined} />}
                 dataTestId={SharedComponentsSelectors.HeaderCloseBtn}
                 isWaitingOnPerformedAction={isWaitingOnPerformedAction}
                 onAction={onClose}
-                hideBelow={variant === 'receive' ? 'md' : undefined}
               />
             )}
           </HStack>
