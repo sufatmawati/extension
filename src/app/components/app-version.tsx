@@ -13,22 +13,16 @@ interface AppVersionLabelProps extends HTMLStyledProps<'span'> {
 }
 const AppVersionLabel = forwardRef<HTMLSpanElement, AppVersionLabelProps>(
   ({ children, isLatestVersion, ...props }: AppVersionLabelProps, ref) => (
-    <Box bg="ink.background-secondary" px="20px" py="space.01">
+    <Box bg="ink.background-secondary" px="space.04" py="space.01">
       <styled.span
         textStyle="label.03"
         ref={ref}
         color="ink.text-subdued"
         textDecoration={isLatestVersion ? 'none' : 'line-through'}
-        textWrap="nowrap"
+        overflowWrap="break-word"
         {...props}
       >
-        {/* TODO handle large version numbers
-        
-        Test padding of select account when there is only one account
-        Make account selector more dynamic to grow / retract if there is a Create Account button or not
-        
-        */}
-        {children}
+        {children}v6.30.0.351v6.30.0.351v6.30.0.351
       </styled.span>
     </Box>
   )
