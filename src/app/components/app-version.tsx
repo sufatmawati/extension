@@ -22,7 +22,7 @@ const AppVersionLabel = forwardRef<HTMLSpanElement, AppVersionLabelProps>(
         overflowWrap="break-word"
         {...props}
       >
-        {children}v6.30.0.351v6.30.0.351v6.30.0.351
+        {children}
       </styled.span>
     </Box>
   )
