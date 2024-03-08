@@ -3,7 +3,6 @@ import { ReactNode } from 'react';
 import { SharedComponentsSelectors } from '@tests/selectors/shared-component.selectors';
 import { Flex, Grid, GridItem, HStack, styled } from 'leather-styles/jsx';
 
-import { IconButton } from '@app/ui/components/icon-button/icon-button';
 import { ArrowLeftIcon, CloseIcon } from '@app/ui/icons';
 
 import { HeaderActionButton } from './header-action-button';

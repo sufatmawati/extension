@@ -3,12 +3,12 @@ import { Outlet } from 'react-router-dom';
 import { SwapSelectors } from '@tests/selectors/swap.selectors';
 
 import { LoadingKeys, useLoading } from '@app/common/hooks/use-loading';
+import { InfoCardFooter } from '@app/components/info-card/info-card';
 import { Button } from '@app/ui/components/button/button';
 
 import { SwapAssetsPair } from '../components/swap-assets-pair/swap-assets-pair';
 import { SwapContentLayout } from '../components/swap-content.layout';
 import { SwapDetails } from '../components/swap-details/swap-details';
-import { SwapFooterLayout } from '../components/swap-footer.layout';
 import { useSwapContext } from '../swap.context';
 import { SwapReviewLayout } from './swap-review.layout';
 
@@ -23,7 +23,7 @@ export function SwapReview() {
           <SwapAssetsPair />
           <SwapDetails />
         </SwapContentLayout>
-        <SwapFooterLayout>
+        <InfoCardFooter>
           <Button
             aria-busy={isLoading}
             data-testid={SwapSelectors.SwapBtn}
@@ -33,7 +33,7 @@ export function SwapReview() {
           >
             Swap
           </Button>
-        </SwapFooterLayout>
+        </InfoCardFooter>
       </SwapReviewLayout>
       <Outlet />
     </>

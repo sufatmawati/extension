@@ -6,7 +6,6 @@ import { HStack, Stack } from 'leather-styles/jsx';
 import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useClipboard } from '@app/common/hooks/use-copy-to-clipboard';
 import { useStacksExplorerLink } from '@app/common/hooks/use-stacks-explorer-link';
-import { whenPageMode } from '@app/common/utils';
 import { FormAddressDisplayer } from '@app/components/address-displayer/form-address-displayer';
 import {
   InfoCard,
@@ -53,12 +52,7 @@ export function StxSentSummary() {
   }
 
   return (
-    <InfoCard
-      pb={whenPageMode({
-        full: '0px',
-        popup: '120px',
-      })}
-    >
+    <InfoCard pb={{ base: '120px', md: '0' }}>
       <TxDone />
 
       <InfoCardAssetValue

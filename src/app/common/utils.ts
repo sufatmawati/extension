@@ -257,6 +257,7 @@ type PageMode = 'popup' | 'full';
 
 type WhenPageModeMap<T> = Record<PageMode, T>;
 
+// don't use whenPageMode for styling - use panda responsive object
 export function whenPageMode<T>(pageModeMap: WhenPageModeMap<T>) {
   return pageModeMap[pageMode];
 }

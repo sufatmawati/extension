@@ -6,11 +6,11 @@ import { useFormikContext } from 'formik';
 
 import { isUndefined } from '@shared/utils';
 
+import { InfoCardFooter } from '@app/components/info-card/info-card';
 import { LoadingSpinner } from '@app/components/loading-spinner';
 import { Button } from '@app/ui/components/button/button';
 
 import { SwapContentLayout } from './components/swap-content.layout';
-import { SwapFooterLayout } from './components/swap-footer.layout';
 import { SwapSelectedAssets } from './components/swap-selected-assets';
 import { SwapFormValues } from './hooks/use-swap-form';
 import { useSwapContext } from './swap.context';
@@ -32,7 +32,7 @@ export function Swap() {
       <SwapContentLayout>
         <SwapSelectedAssets />
       </SwapContentLayout>
-      <SwapFooterLayout>
+      <InfoCardFooter>
         <Button
           data-testid={SwapSelectors.SwapReviewBtn}
           disabled={!(dirty && isValid) || isFetchingExchangeRate}
@@ -41,7 +41,7 @@ export function Swap() {
         >
           Review and swap
         </Button>
-      </SwapFooterLayout>
+      </InfoCardFooter>
       <Outlet />
     </>
   );

@@ -1,4 +1,4 @@
-import { Flex, FlexProps } from 'leather-styles/jsx';
+import { FlexProps } from 'leather-styles/jsx';
 
 import { IconButton } from '../../icon-button/icon-button';
 
