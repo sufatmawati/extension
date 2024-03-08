@@ -29,7 +29,6 @@ export function SwapChooseAsset() {
 
   return (
     <Dialog
-      data-testid={SwapSelectors.ChooseAssetList}
       isShowing
       onClose={() => navigate(RouteUrls.Swap)}
       header={
@@ -40,7 +39,10 @@ export function SwapChooseAsset() {
         />
       }
     >
-      <SwapAssetList assets={isFromList ? swappableAssetsFrom : swappableAssetsTo} />
+      <SwapAssetList
+        data-testid={SwapSelectors.ChooseAssetList}
+        assets={isFromList ? swappableAssetsFrom : swappableAssetsTo}
+      />
     </Dialog>
   );
 }
