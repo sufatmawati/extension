@@ -54,7 +54,6 @@ export function AccountCard({
           color="ink.border-default"
           right="space.05"
           width="calc(100% + 48px)"
-          mb="space.02"
           hideFrom="sm"
         />
         {switchAccount}
