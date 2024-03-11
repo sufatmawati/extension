@@ -1,6 +1,5 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { SwapSelectors } from '@tests/selectors/swap.selectors';
 import { styled } from 'leather-styles/jsx';
 import get from 'lodash.get';
 
@@ -39,10 +38,7 @@ export function SwapChooseAsset() {
         />
       }
     >
-      <SwapAssetList
-        data-testid={SwapSelectors.ChooseAssetList}
-        assets={isFromList ? swappableAssetsFrom : swappableAssetsTo}
-      />
+      <SwapAssetList assets={isFromList ? swappableAssetsFrom : swappableAssetsTo} />
     </Dialog>
   );
 }

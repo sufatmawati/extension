@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 
+import { SwapSelectors } from '@tests/selectors/swap.selectors';
 import BigNumber from 'bignumber.js';
 import { useFormikContext } from 'formik';
 import { Stack } from 'leather-styles/jsx';
@@ -65,7 +66,7 @@ export function SwapAssetList({ assets }: SwapAssetList) {
   }
 
   return (
-    <Stack p="space.05" width="100%">
+    <Stack p="space.05" width="100%" data-testid={SwapSelectors.ChooseAssetList}>
       {selectableAssets.map(asset => (
         <SwapAssetItem
           asset={asset}
