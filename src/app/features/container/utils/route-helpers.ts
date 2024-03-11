@@ -15,14 +15,14 @@ export function isLandingPage(pathname: RouteUrls) {
   return pathname === RouteUrls.RequestDiagnostics || pathname.match(RouteUrls.Onboarding); // need to match get-started/ledger
 }
 
-const isOnboardingPage = (pathname: RouteUrls) => {
+function isOnboardingPage(pathname: RouteUrls) {
   return (
     pathname === RouteUrls.BackUpSecretKey ||
     pathname === RouteUrls.SetPassword ||
     pathname === RouteUrls.SignIn ||
     pathname === RouteUrls.ViewSecretKey
   );
-};
+}
 
 export function getPageVariant(pathname: RouteUrls) {
   if (isHomePage(pathname)) return 'home';

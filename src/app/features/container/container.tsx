@@ -79,17 +79,19 @@ export function Container() {
   const isSessionLocked = getIsSessionLocked(pathname);
 
   function getOnGoBackLocation(pathname: RouteUrls) {
-    if (pathname === RouteUrls.Swap || pathname === RouteUrls.Fund) {
-      return navigate(RouteUrls.Home);
+    switch (pathname) {
+      case RouteUrls.Swap:
+      case RouteUrls.Fund:
+      case RouteUrls.SendCryptoAssetForm.replace(':symbol', 'stx'):
+      case RouteUrls.SendCryptoAssetForm.replace(':symbol', 'btc'):
+        return navigate(RouteUrls.Home);
+      case RouteUrls.SendStxConfirmation:
+        return navigate(RouteUrls.SendCryptoAssetForm.replace(':symbol', 'stx'));
+      case RouteUrls.SendBtcConfirmation:
+        return navigate(RouteUrls.SendCryptoAssetForm.replace(':symbol', 'btc'));
+      default:
+        return navigate(-1);
     }
-    if (pathname === RouteUrls.SendStxConfirmation) {
-      return navigate(RouteUrls.SendCryptoAssetForm.replace(':symbol', 'stx'));
-    }
-    if (pathname === RouteUrls.SendBtcConfirmation) {
-      return navigate(RouteUrls.SendCryptoAssetForm.replace(':symbol', 'btc'));
-    }
-
-    return navigate(-1);
   }
 
   if (!hasStateRehydrated) return <LoadingSpinner />;
