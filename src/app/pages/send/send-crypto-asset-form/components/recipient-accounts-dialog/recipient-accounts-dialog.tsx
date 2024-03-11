@@ -22,17 +22,27 @@ export const RecipientAccountsDialog = memo(() => {
 
   if (stacksAddressesNum === 0 && btcAddressesNum === 0) return null;
   return (
-    <Dialog header={<Header variant="dialog" title="My accounts" />} isShowing onClose={onGoBack}>
-      <Box mb="space.05" mx="space.03">
+    <Dialog
+      header={<Header variant="dialog" title="My accounts" />}
+      isShowing
+      onClose={onGoBack}
+      wrapChildren={false}
+    >
+      <Box
+        height="100%"
+        maxHeight={{ base: 'calc(100vh - 75px)', md: 'calc(90vh - 75px)' }}
+        overflowY="auto"
+      >
         <Virtuoso
           useWindowScroll
           itemContent={index => (
-            <AccountListItem
-              key={index}
-              stacksAccount={stacksAccounts[index]}
-              onClose={onGoBack}
-              index={index}
-            />
+            <Box key={index} my="space.05" px="space.05">
+              <AccountListItem
+                stacksAccount={stacksAccounts[index]}
+                onClose={onGoBack}
+                index={index}
+              />
+            </Box>
           )}
           totalCount={stacksAddressesNum || btcAddressesNum}
         />
