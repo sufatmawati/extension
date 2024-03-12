@@ -78,14 +78,13 @@ export function ReceiveDialog({ type = 'full' }: ReceiveDialogProps) {
     <Dialog
       header={
         <Header
-          variant="receive" // make this like dialog for header?
+          variant="receive"
           onGoBack={() => navigate(backgroundLocation ?? '..')}
           title={<styled.h1 textStyle="heading.03">{title}</styled.h1>}
         />
       }
       onClose={() => navigate(backgroundLocation ?? '..')}
       isShowing
-      wrapChildren={false}
     >
       {type === 'collectible' && <Collectibles />}
       {type === 'full' && (

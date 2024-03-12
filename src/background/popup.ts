@@ -1,14 +1,6 @@
 import { pxStringToNumber } from '@shared/utils/px-string-to-number';
 
-// FIXME import from '@leather-wallet/tokens' when bundling working
-// https://github.com/leather-wallet/mono/pull/76
-
-const tokens = {
-  sizes: {
-    popupWidth: { value: '390px' },
-    popupHeight: { value: '756px' },
-  },
-};
+import { popupTokens } from '@app/ui/shared/tokens';
 
 interface PopupOptions {
   url?: string;
@@ -19,8 +11,8 @@ interface PopupOptions {
 export function popup(options: PopupOptions): Promise<any> {
   const { url } = options;
 
-  const popupWidth = pxStringToNumber(tokens.sizes.popupWidth.value);
-  const popupHeight = pxStringToNumber(tokens.sizes.popupHeight.value);
+  const popupWidth = pxStringToNumber(popupTokens.popupWidth.value);
+  const popupHeight = pxStringToNumber(popupTokens.popupHeight.value);
 
   return new Promise(resolve => {
     // @see https://developer.chrome.com/docs/extensions/reference/windows/#method-getCurrent

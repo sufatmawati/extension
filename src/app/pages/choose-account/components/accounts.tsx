@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Virtuoso } from 'react-virtuoso';
 
 import { Box, FlexProps, HStack, styled } from 'leather-styles/jsx';
+import { token } from 'leather-styles/tokens';
 
 import { RouteUrls } from '@shared/route-urls';
 
@@ -20,6 +21,7 @@ import { useStacksAccounts } from '@app/store/accounts/blockchain/stacks/stacks-
 import { StacksAccount } from '@app/store/accounts/blockchain/stacks/stacks-account.models';
 import { AccountAvatar } from '@app/ui/components/account/account-avatar/account-avatar';
 import { PlusIcon } from '@app/ui/icons/plus-icon';
+import { virtuosoHeight, virtuosoStyles } from '@app/ui/shared/virtuoso';
 
 interface AccountTitlePlaceholderProps {
   account: StacksAccount;
@@ -108,19 +110,27 @@ export const ChooseAccountsList = memo(() => {
   };
 
   if (!accounts) return null;
+  const accountNum = accounts.length;
 
   return (
-    <Box mt="space.05" width="100%">
+    <Box mt="space.05" mb="space.06" width="100%">
       {whenWallet({ software: <AddAccountAction />, ledger: <></> })}
       <Virtuoso
-        useWindowScroll
+        height={virtuosoHeight}
+        style={{
+          ...virtuosoStyles,
+          height: `calc(${virtuosoHeight * accountNum}px + 50px)`,
+          background: token('colors.ink.background-primary'),
+        }}
         data={accounts}
         itemContent={(index, account) => (
-          <ChooseAccountItem
-            account={account}
-            isLoading={whenWallet({ software: selectedAccount === index, ledger: false })}
-            onSelectAccount={signIntoAccount}
-          />
+          <Box key={index} my="space.05" px="space.05">
+            <ChooseAccountItem
+              account={account}
+              isLoading={whenWallet({ software: selectedAccount === index, ledger: false })}
+              onSelectAccount={signIntoAccount}
+            />
+          </Box>
         )}
       />
     </Box>

@@ -2,8 +2,10 @@ import { JSXElementConstructor, ReactElement, ReactNode, cloneElement } from 're
 
 import * as RadixDialog from '@radix-ui/react-dialog';
 import { css } from 'leather-styles/css';
+import { Box } from 'leather-styles/jsx';
+import { token } from 'leather-styles/tokens';
 
-import { CardContent } from '@app/ui/layout/card/card-content';
+import { pxStringToNumber } from '@shared/utils/px-string-to-number';
 
 export interface DialogProps {
   isShowing: boolean;
@@ -14,18 +16,25 @@ interface RadixDialogProps extends DialogProps {
   footer?: ReactNode;
   header?: ReactElement<any, string | JSXElementConstructor<any>>;
   onGoBack?(): void;
-  wrapChildren?: boolean;
 }
 
-export function Dialog({
-  children,
-  footer,
-  header,
-  onClose,
-  isShowing,
-  wrapChildren = true,
-}: RadixDialogProps) {
+export function getHeightOffset(header: ReactNode, footer: ReactNode) {
+  const headerHeight = header ? pxStringToNumber(token('sizes.headerHeight')) : 0;
+  const footerHeight = footer ? pxStringToNumber(token('sizes.footerHeight')) : 0;
+  return headerHeight + footerHeight;
+}
+
+function getContentMaxHeight(maxHeightOffset: number) {
+  const virtualHeight = window.innerWidth <= pxStringToNumber(token('sizes.popupWidth')) ? 100 : 70;
+
+  return `calc(${virtualHeight}vh - ${maxHeightOffset}px)`;
+}
+
+export function Dialog({ children, footer, header, onClose, isShowing }: RadixDialogProps) {
   if (!isShowing) return null;
+
+  const maxHeightOffset = getHeightOffset(header, footer);
+  const contentMaxHeight = getContentMaxHeight(maxHeightOffset);
 
   return (
     <RadixDialog.Root open>
@@ -59,7 +68,16 @@ export function Dialog({
           >
             {header && cloneElement(header, { onClose })}
 
-            {wrapChildren ? <CardContent>{children}</CardContent> : children}
+            <Box
+              style={{
+                height: '100%',
+                maxHeight: contentMaxHeight,
+                marginBottom: footer ? token('sizes.footerHeight') : undefined,
+                overflowY: 'auto',
+              }}
+            >
+              {children}
+            </Box>
             {footer}
           </RadixDialog.Content>
         </RadixDialog.Overlay>
