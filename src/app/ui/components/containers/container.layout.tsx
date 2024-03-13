@@ -14,7 +14,7 @@ export function ContainerLayout({ children, header, variant }: ContainerLayoutPr
       flexDirection="column"
       flexGrow={1}
       width="100%"
-      height="100%"
+      height={{ base: '100vh', sm: '100%' }}
       className={css(radixBaseCSS)}
       bg={variant !== 'home' ? 'ink.background-secondary' : undefined}
     >

@@ -1,16 +1,18 @@
 import { useCallback, useMemo } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 
+import { styled } from 'leather-styles/jsx';
+
 import { AllTransferableCryptoAssetBalances } from '@shared/models/crypto-asset-balance.model';
 import { RouteUrls } from '@shared/route-urls';
 import { isDefined } from '@shared/utils';
 
 import { useStxCryptoCurrencyAssetBalance } from '@app/common/hooks/balance/stx/use-stx-crypto-currency-asset-balance';
 import { useWalletType } from '@app/common/use-wallet-type';
-import { ChooseAssetContainer } from '@app/components/crypto-assets/choose-crypto-asset/choose-asset-container';
-import { ChooseCryptoAssetLayout } from '@app/components/crypto-assets/choose-crypto-asset/choose-crypto-asset.layout';
 import { CryptoAssetList } from '@app/components/crypto-assets/choose-crypto-asset/crypto-asset-list';
 import { useCheckLedgerBlockchainAvailable } from '@app/store/accounts/blockchain/utils';
+import { Card } from '@app/ui/layout/card/card';
+import { Page } from '@app/ui/layout/page/page.layout';
 
 export function ChooseCryptoAssetToFund() {
   const stxCryptoCurrencyAssetBalance = useStxCryptoCurrencyAssetBalance();
@@ -43,14 +45,20 @@ export function ChooseCryptoAssetToFund() {
 
   return (
     <>
-      <ChooseAssetContainer>
-        <ChooseCryptoAssetLayout title="choose asset to fund">
+      <Page>
+        <Card
+          header={
+            <styled.h1 textStyle="heading.03" p="space.05">
+              choose asset to fund
+            </styled.h1>
+          }
+        >
           <CryptoAssetList
             onItemClick={navigateToSendForm}
             cryptoAssetBalances={filteredCryptoAssetBalances}
           />
-        </ChooseCryptoAssetLayout>
-      </ChooseAssetContainer>
+        </Card>
+      </Page>
       <Outlet />
     </>
   );

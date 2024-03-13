@@ -63,7 +63,7 @@ export function isNoHeaderPopup(pathname: RouteUrls) {
 
 export function hideSettingsOnSm(pathname: RouteUrls) {
   switch (pathname) {
-    case RouteUrls.Send:
+    case RouteUrls.SendCryptoAsset:
     case RouteUrls.FundChooseCurrency:
       return true;
     default:
