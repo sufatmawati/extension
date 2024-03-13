@@ -43,6 +43,7 @@ export function AllowDiagnosticsLayout({
               Deny
             </Button>
             <Button
+              autoFocus
               flexGrow={1}
               data-testid={OnboardingSelectors.AllowAnalyticsBtn}
               onClick={onUserAllowDiagnostics}
