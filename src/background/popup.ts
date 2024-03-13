@@ -1,12 +1,16 @@
 import { pxStringToNumber } from '@shared/utils/px-string-to-number';
 
-import { popupTokens } from '@app/ui/shared/tokens';
-
 interface PopupOptions {
   url?: string;
   title?: string;
   skipPopupFallback?: boolean;
 }
+// FIXME import popupTokens from '@leather-wallet/tokens' when bundling working
+// https://github.com/leather-wallet/mono/pull/76
+const popupTokens = {
+  popupWidth: { value: '390px' },
+  popupHeight: { value: '756px' },
+};
 
 export function popup(options: PopupOptions): Promise<any> {
   const { url } = options;
