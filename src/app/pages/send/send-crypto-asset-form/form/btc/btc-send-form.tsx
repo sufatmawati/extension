@@ -16,12 +16,13 @@ import { BtcAvatarIcon } from '@app/ui/components/avatar/btc-avatar-icon';
 import { Button } from '@app/ui/components/button/button';
 import { Callout } from '@app/ui/components/callout/callout';
 import { AvailableBalance } from '@app/ui/components/containers/footers/available-balance';
+import { Footer } from '@app/ui/components/containers/footers/footer';
 import { Link } from '@app/ui/components/link/link';
 import { Card } from '@app/ui/layout/card/card';
+import { CardContent } from '@app/ui/layout/card/card-content';
 
 import { AmountField } from '../../components/amount-field';
 import { SelectedAssetField } from '../../components/selected-asset-field';
-import { SendCryptoAssetFormLayout } from '../../components/send-crypto-asset-form.layout';
 import { SendFiatValue } from '../../components/send-fiat-value';
 import { BitcoinRecipientField } from '../../family/bitcoin/components/bitcoin-recipient-field';
 import { BitcoinSendMaxButton } from '../../family/bitcoin/components/bitcoin-send-max-button';
@@ -71,7 +72,7 @@ export function BtcSendForm() {
             <Form>
               <Card
                 footer={
-                  <>
+                  <Footer variant="card">
                     <Button
                       data-testid={SendCryptoAssetSelectors.PreviewSendTxBtn}
                       onClick={() => props.handleSubmit()}
@@ -80,10 +81,10 @@ export function BtcSendForm() {
                       Continue
                     </Button>
                     <AvailableBalance balance={formatMoney(btcBalance.balance)} />
-                  </>
+                  </Footer>
                 }
               >
-                <SendCryptoAssetFormLayout>
+                <CardContent dataTestId={SendCryptoAssetSelectors.SendForm}>
                   <AmountField
                     autoComplete="off"
                     balance={btcBalance.balance}
@@ -120,7 +121,7 @@ export function BtcSendForm() {
                       </Link>
                     </Callout>
                   )}
-                </SendCryptoAssetFormLayout>
+                </CardContent>
               </Card>
               <HighFeeDialog learnMoreUrl={HIGH_FEE_WARNING_LEARN_MORE_URL_BTC} />
               <Outlet />

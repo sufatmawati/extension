@@ -1,14 +1,18 @@
-import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
-import { Flex } from 'leather-styles/jsx';
+import type { ReactNode } from 'react';
+
+import { Flex, FlexProps } from 'leather-styles/jsx';
 import { token } from 'leather-styles/tokens';
 
-import { HasChildren } from '@app/common/has-children';
+interface CardContentProps extends FlexProps {
+  children: ReactNode;
+  dataTestId: string;
+}
 
-export function SendCryptoAssetFormLayout({ children }: HasChildren) {
+export function CardContent({ children, dataTestId, ...props }: CardContentProps) {
   return (
     <Flex
       alignItems="center"
-      data-testid={SendCryptoAssetSelectors.SendForm}
+      data-testid={dataTestId}
       flexDirection="column"
       p="space.05"
       pt="space.06"
@@ -16,6 +20,7 @@ export function SendCryptoAssetFormLayout({ children }: HasChildren) {
       overflowY="auto"
       style={{ marginBottom: token('sizes.footerHeight') }}
       maxHeight={{ base: '70vh', md: '80vh' }}
+      {...props}
     >
       {children}
     </Flex>

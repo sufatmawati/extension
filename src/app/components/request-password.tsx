@@ -7,6 +7,7 @@ import { useAnalytics } from '@app/common/hooks/analytics/use-analytics';
 import { useKeyActions } from '@app/common/hooks/use-key-actions';
 import { buildEnterKeyEvent } from '@app/common/hooks/use-modifier-key';
 import { Button } from '@app/ui/components/button/button';
+import { Footer } from '@app/ui/components/containers/footers/footer';
 import { Logo } from '@app/ui/components/logo';
 import { Card } from '@app/ui/layout/card/card';
 import { Page } from '@app/ui/layout/page/page.layout';
@@ -48,14 +49,16 @@ export function RequestPassword({ onSuccess }: RequestPasswordProps) {
           </styled.h1>
         }
         footer={
-          <Button
-            data-testid={SettingsSelectors.UnlockWalletBtn}
-            disabled={!!error}
-            onClick={submit}
-            variant="solid"
-          >
-            Continue
-          </Button>
+          <Footer variant="card">
+            <Button
+              data-testid={SettingsSelectors.UnlockWalletBtn}
+              disabled={!!error}
+              onClick={submit}
+              variant="solid"
+            >
+              Continue
+            </Button>
+          </Footer>
         }
       >
         <Stack gap="space.05" px="space.05" minHeight="300px">

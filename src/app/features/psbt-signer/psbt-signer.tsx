@@ -1,6 +1,8 @@
 import { useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { PsbtSelectors } from '@tests/selectors/requests.selectors';
+
 import { getPsbtTxInputs, getPsbtTxOutputs } from '@shared/crypto/bitcoin/bitcoin.utils';
 import { RouteUrls } from '@shared/route-urls';
 import { closeWindow, isError } from '@shared/utils';
@@ -9,7 +11,10 @@ import { SignPsbtArgs } from '@app/common/psbt/requests';
 import { useOnOriginTabClose } from '@app/routes/hooks/use-on-tab-closed';
 import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
 import { useCurrentAccountTaprootIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/taproot-account.hooks';
-import { PopupCard } from '@app/ui/components/containers/popup/popup-card';
+import { Button } from '@app/ui/components/button/button';
+import { Footer } from '@app/ui/components/containers/footers/footer';
+import { Card } from '@app/ui/layout/card/card';
+import { CardContent } from '@app/ui/layout/card/card-content';
 
 import * as Psbt from './components';
 import { useParsedPsbt } from './hooks/use-parsed-psbt';
@@ -83,24 +88,41 @@ export function PsbtSigner(props: PsbtSignerProps) {
 
   return (
     <PsbtSignerProvider value={psbtSignerContext}>
-      <PopupCard>
-        <Psbt.PsbtRequestHeader name={name} origin={origin} />
-        <Psbt.PsbtRequestDetailsLayout>
-          {isPsbtMutable ? <Psbt.PsbtRequestSighashWarningLabel origin={origin} /> : null}
-          <Psbt.PsbtRequestDetailsHeader />
-          <Psbt.PsbtInputsOutputsTotals />
-          <Psbt.PsbtInputsAndOutputs />
-          {psbtRaw ? <Psbt.PsbtRequestRaw psbt={psbtRaw} /> : null}
-          <Psbt.PsbtRequestFee fee={fee} />
-        </Psbt.PsbtRequestDetailsLayout>
-      </PopupCard>
-      <Psbt.PsbtRequestActions
-        isLoading={isBroadcasting}
-        onCancel={onCancel}
-        onSignPsbt={() =>
-          onSignPsbt({ addressNativeSegwitTotal, addressTaprootTotal, fee, inputs: psbtTxInputs })
+      <Card
+        footer={
+          <Footer flexDirection="row">
+            <Button flexGrow={1} onClick={onCancel} variant="outline">
+              Cancel
+            </Button>
+            <Button
+              flexGrow={1}
+              aria-busy={isBroadcasting}
+              onClick={() =>
+                onSignPsbt({
+                  addressNativeSegwitTotal,
+                  addressTaprootTotal,
+                  fee,
+                  inputs: psbtTxInputs,
+                })
+              }
+            >
+              Confirm
+            </Button>
+          </Footer>
         }
-      />
+      >
+        <CardContent dataTestId={PsbtSelectors.PsbtSignerCard} maxWidth="popupWidth">
+          <Psbt.PsbtRequestHeader name={name} origin={origin} />
+          <Psbt.PsbtRequestDetailsLayout>
+            {isPsbtMutable ? <Psbt.PsbtRequestSighashWarningLabel origin={origin} /> : null}
+            <Psbt.PsbtRequestDetailsHeader />
+            <Psbt.PsbtInputsOutputsTotals />
+            <Psbt.PsbtInputsAndOutputs />
+            {psbtRaw ? <Psbt.PsbtRequestRaw psbt={psbtRaw} /> : null}
+            <Psbt.PsbtRequestFee fee={fee} />
+          </Psbt.PsbtRequestDetailsLayout>
+        </CardContent>
+      </Card>
     </PsbtSignerProvider>
   );
 }

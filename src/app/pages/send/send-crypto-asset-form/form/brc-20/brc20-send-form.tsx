@@ -11,12 +11,13 @@ import { Brc20AvatarIcon } from '@app/ui/components/avatar/brc20-avatar-icon';
 import { Button } from '@app/ui/components/button/button';
 import { Callout } from '@app/ui/components/callout/callout';
 import { AvailableBalance } from '@app/ui/components/containers/footers/available-balance';
+import { Footer } from '@app/ui/components/containers/footers/footer';
 import { Link } from '@app/ui/components/link/link';
 import { Card } from '@app/ui/layout/card/card';
+import { CardContent } from '@app/ui/layout/card/card-content';
 
 import { AmountField } from '../../components/amount-field';
 import { SelectedAssetField } from '../../components/selected-asset-field';
-import { SendCryptoAssetFormLayout } from '../../components/send-crypto-asset-form.layout';
 import { SendMaxButton } from '../../components/send-max-button';
 import { defaultSendFormFormikProps } from '../../send-form.utils';
 import { useBrc20SendForm } from './use-brc20-send-form';
@@ -57,7 +58,7 @@ export function Brc20SendForm() {
             <Form>
               <Card
                 footer={
-                  <>
+                  <Footer variant="card">
                     <Button
                       data-testid={SendCryptoAssetSelectors.PreviewSendTxBtn}
                       onClick={() => props.handleSubmit()}
@@ -69,10 +70,10 @@ export function Brc20SendForm() {
                       balance={formatMoney(moneyBalance)}
                       balanceTooltipLabel="Total balance minus any amounts already represented by transfer inscriptions in your wallet."
                     />
-                  </>
+                  </Footer>
                 }
               >
-                <SendCryptoAssetFormLayout>
+                <CardContent dataTestId={SendCryptoAssetSelectors.SendForm}>
                   <AmountField
                     balance={moneyBalance}
                     bottomInputOverlay={
@@ -100,7 +101,7 @@ export function Brc20SendForm() {
                       Learn more
                     </Link>
                   </Callout>
-                </SendCryptoAssetFormLayout>
+                </CardContent>
               </Card>
 
               <Outlet />

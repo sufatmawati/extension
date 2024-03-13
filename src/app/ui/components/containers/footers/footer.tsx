@@ -18,7 +18,6 @@ export function Footer({ children, variant = 'page', flexDirection = 'column' }:
       maxWidth={variant === 'card' ? 'pageWidth' : '100%'}
       zIndex={1}
       minHeight="footerHeight"
-      // footer is always white
       bg="ink.background-primary"
       borderTop={variant === 'page' ? ' default' : undefined}
       position={variant === 'card' ? ' absolute' : 'fixed'}

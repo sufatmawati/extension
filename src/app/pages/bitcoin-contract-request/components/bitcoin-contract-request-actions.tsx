@@ -2,7 +2,6 @@ import { BitcoinContractRequestSelectors } from '@tests/selectors/bitcoin-contra
 
 import { useBtcAssetBalance } from '@app/common/hooks/balance/btc/use-btc-balance';
 import { Button } from '@app/ui/components/button/button';
-import { Footer } from '@app/ui/components/containers/footers/footer';
 
 interface BitcoinContractRequestActionsProps {
   isLoading: boolean;
@@ -22,7 +21,7 @@ export function BitcoinContractRequestActions({
   const canAccept = btcAvailableAssetBalance.balance.amount.isGreaterThan(requiredAmount);
 
   return (
-    <Footer flexDirection="row">
+    <>
       <Button
         data-testid={BitcoinContractRequestSelectors.BitcoinContractRejectButton}
         flexGrow={1}
@@ -40,6 +39,6 @@ export function BitcoinContractRequestActions({
       >
         Accept
       </Button>
-    </Footer>
+    </>
   );
 }

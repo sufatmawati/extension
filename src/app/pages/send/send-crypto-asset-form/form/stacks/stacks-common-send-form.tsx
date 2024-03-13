@@ -19,11 +19,12 @@ import { HighFeeDialog } from '@app/features/dialogs/high-fee-dialog/high-fee-di
 import { useUpdatePersistedSendFormValues } from '@app/features/popup-send-form-restoration/use-update-persisted-send-form-values';
 import { Button } from '@app/ui/components/button/button';
 import { AvailableBalance } from '@app/ui/components/containers/footers/available-balance';
+import { Footer } from '@app/ui/components/containers/footers/footer';
 import { Link } from '@app/ui/components/link/link';
 import { Card } from '@app/ui/layout/card/card';
+import { CardContent } from '@app/ui/layout/card/card-content';
 
 import { MemoField } from '../../components/memo-field';
-import { SendCryptoAssetFormLayout } from '../../components/send-crypto-asset-form.layout';
 import { StacksRecipientField } from '../../family/stacks/components/stacks-recipient-field';
 import { defaultSendFormFormikProps } from '../../send-form.utils';
 
@@ -69,7 +70,7 @@ export function StacksCommonSendForm({
               <Form>
                 <Card
                   footer={
-                    <>
+                    <Footer variant="card">
                       <Button
                         data-testid={SendCryptoAssetSelectors.PreviewSendTxBtn}
                         onClick={() => props.handleSubmit()}
@@ -78,10 +79,10 @@ export function StacksCommonSendForm({
                         Continue
                       </Button>
                       <AvailableBalance balance={formatMoney(availableTokenBalance)} />
-                    </>
+                    </Footer>
                   }
                 >
-                  <SendCryptoAssetFormLayout>
+                  <CardContent dataTestId={SendCryptoAssetSelectors.SendForm}>
                     {amountField}
                     {selectedAssetField}
                     <StacksRecipientField />
@@ -96,7 +97,7 @@ export function StacksCommonSendForm({
                     >
                       Edit nonce
                     </Link>
-                  </SendCryptoAssetFormLayout>
+                  </CardContent>
                 </Card>
 
                 <HighFeeDialog

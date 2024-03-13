@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { DlcSelectors } from '@tests/selectors/requests.selectors';
 import { Stack } from 'leather-styles/jsx';
 
 import { RouteUrls } from '@shared/route-urls';
@@ -13,7 +14,9 @@ import {
 import { useOnMount } from '@app/common/hooks/use-on-mount';
 import { initialSearchParams } from '@app/common/initial-search-params';
 import { useCurrentAccountNativeSegwitSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
-import { PopupCard } from '@app/ui/components/containers/popup/popup-card';
+import { Footer } from '@app/ui/components/containers/footers/footer';
+import { Card } from '@app/ui/layout/card/card';
+import { CardContent } from '@app/ui/layout/card/card-content';
 
 import { BitcoinContractOfferDetailsSimple } from './components/bitcoin-contract-offer/bitcoin-contract-offer-details';
 import { BitcoinContractRequestActions } from './components/bitcoin-contract-request-actions';
@@ -102,35 +105,47 @@ export function BitcoinContractRequest() {
 
   return (
     <>
+      {/* TODO - need to test this properly.. Tried using steps from test.describe('Bitcoin Contract Request Test' */}
       {!isLoading && bitcoinAddress && bitcoinContractOfferDetails && (
-        <PopupCard>
-          <BitcoinContractRequestHeader
-            counterpartyWalletName={
-              bitcoinContractOfferDetails.counterpartyWalletDetails.counterpartyWalletName
-            }
-            counterpartyWalletIcon={
-              bitcoinContractOfferDetails.counterpartyWalletDetails.counterpartyWalletIcon
-            }
-          />
-          <Stack gap="space.04" bg="white" borderRadius="lg">
-            <BitcoinContractRequestWarningLabel
-              appName={bitcoinContractOfferDetails.counterpartyWalletDetails.counterpartyWalletName}
+        <Card
+          footer={
+            <Footer flexDirection="row">
+              <BitcoinContractRequestActions
+                isLoading={isProcessing}
+                bitcoinAddress={bitcoinAddress}
+                requiredAmount={
+                  bitcoinContractOfferDetails.simplifiedBitcoinContract
+                    .bitcoinContractCollateralAmount
+                }
+                onRejectBitcoinContractOffer={handleRejectClick}
+                onAcceptBitcoinContractOffer={handleAcceptClick}
+              />
+            </Footer>
+          }
+        >
+          <CardContent dataTestId={DlcSelectors.DlcSelectorsCard} maxWidth="popupWidth">
+            <BitcoinContractRequestHeader
+              counterpartyWalletName={
+                bitcoinContractOfferDetails.counterpartyWalletDetails.counterpartyWalletName
+              }
+              counterpartyWalletIcon={
+                bitcoinContractOfferDetails.counterpartyWalletDetails.counterpartyWalletIcon
+              }
             />
-          </Stack>
-          <BitcoinContractRequestActions
-            isLoading={isProcessing}
-            bitcoinAddress={bitcoinAddress}
-            requiredAmount={
-              bitcoinContractOfferDetails.simplifiedBitcoinContract.bitcoinContractCollateralAmount
-            }
-            onRejectBitcoinContractOffer={handleRejectClick}
-            onAcceptBitcoinContractOffer={handleAcceptClick}
-          />
-          <BitcoinContractOfferDetailsSimple
-            bitcoinAddress={bitcoinAddress}
-            bitcoinContractOffer={bitcoinContractOfferDetails.simplifiedBitcoinContract}
-          />
-        </PopupCard>
+            <Stack gap="space.04" bg="white" borderRadius="lg">
+              <BitcoinContractRequestWarningLabel
+                appName={
+                  bitcoinContractOfferDetails.counterpartyWalletDetails.counterpartyWalletName
+                }
+              />
+            </Stack>
+            {/* TODO test this as it was placed after action buttons */}
+            <BitcoinContractOfferDetailsSimple
+              bitcoinAddress={bitcoinAddress}
+              bitcoinContractOffer={bitcoinContractOfferDetails.simplifiedBitcoinContract}
+            />
+          </CardContent>
+        </Card>
       )}
     </>
   );
