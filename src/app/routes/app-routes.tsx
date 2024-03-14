@@ -97,6 +97,10 @@ function useAppRoutes() {
         <Route path={RouteUrls.IncreaseStxFee} element={<IncreaseStxFeeDialog />}>
           {ledgerStacksTxSigningRoutes}
         </Route>
+        <Route
+          path={`${RouteUrls.IncreaseStxFee}/${RouteUrls.TransactionBroadcastError}`}
+          element={<BroadcastError />}
+        />
         <Route path={RouteUrls.IncreaseBtcFee} element={<IncreaseBtcFeeDialog />}>
           {ledgerBitcoinTxSigningRoutes}
         </Route>
