@@ -1,3 +1,5 @@
+import { Route } from 'react-router';
+
 import { RouteUrls } from '@shared/route-urls';
 
 import { isKnownPopupRoute } from './get-popup-header';
@@ -54,7 +56,7 @@ export function canGoBack(pathname: RouteUrls) {
 }
 
 export function hideLogo(pathname: RouteUrls) {
-  return pathname === RouteUrls.RpcGetAddresses;
+  return pathname === RouteUrls.RpcGetAddresses || pathname === RouteUrls.ViewSecretKey;
 }
 
 export function isNoHeaderPopup(pathname: RouteUrls) {
