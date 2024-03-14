@@ -20,11 +20,8 @@ function isSmallEnoughToBeConsiderdEmptyCache(logSizeInBytes?: number) {
   return logSizeInBytes < isAnEmptyLogsArrayByteThreshold;
 }
 
-interface AdvancedMenuItemsProps {
-  settingsShown: boolean;
-}
-export function AdvancedMenuItems({ settingsShown }: AdvancedMenuItemsProps) {
-  const { result: logSizeInBytes } = useAsync(async () => getLogSizeInBytes(), [settingsShown]);
+export function AdvancedMenuItems() {
+  const { result: logSizeInBytes } = useAsync(async () => getLogSizeInBytes(), []);
   const toast = useToast();
 
   const diagnosticLogText = useMemo(() => {
