@@ -1,6 +1,5 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { styled } from 'leather-styles/jsx';
 import get from 'lodash.get';
 
 import { RouteUrls } from '@shared/route-urls';
@@ -30,13 +29,7 @@ export function SwapChooseAsset() {
     <Dialog
       isShowing
       onClose={() => navigate(RouteUrls.Swap)}
-      header={
-        <Header
-          variant="receive"
-          onGoBack={() => navigate(RouteUrls.Swap)}
-          title={<styled.h1 textStyle="heading.03">{title}</styled.h1>}
-        />
-      }
+      header={<Header title={title} variant="bigTitle" onGoBack={() => navigate(RouteUrls.Swap)} />}
     >
       <SwapAssetList assets={isFromList ? swappableAssetsFrom : swappableAssetsTo} />
     </Dialog>

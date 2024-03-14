@@ -1,5 +1,3 @@
-import { Route } from 'react-router';
-
 import { RouteUrls } from '@shared/route-urls';
 
 import { isKnownPopupRoute } from './get-popup-header';

@@ -31,8 +31,8 @@ export function ReceiveTokensLayout(props: ReceiveTokensLayoutProps) {
     <Dialog
       header={
         <Header
-          variant="receive"
-          title="Receive"
+          variant="bigTitle"
+          title={`Receive ${title}`}
           onGoBack={() => navigate(backgroundLocation ?? '..')}
         />
       }
@@ -48,9 +48,6 @@ export function ReceiveTokensLayout(props: ReceiveTokensLayoutProps) {
     >
       {warning && warning}
       <Flex alignItems="center" flexDirection="column" pb={['space.05', 'space.08']} px="space.05">
-        <styled.h2 mt="space.05" textStyle="heading.03">
-          {title}
-        </styled.h2>
         <Box mt="space.06" mx="auto">
           <QrCode principal={address} />
         </Box>

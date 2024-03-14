@@ -1,7 +1,6 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { HomePageSelectors } from '@tests/selectors/home.selectors';
-import { styled } from 'leather-styles/jsx';
 import get from 'lodash.get';
 
 import { RouteUrls } from '@shared/route-urls';
@@ -43,7 +42,16 @@ export function ReceiveDialog({ type = 'full' }: ReceiveDialogProps) {
   const accountIndex = get(location.state, 'accountIndex', undefined);
   const btcAddressTaproot = useZeroIndexTaprootAddress(accountIndex);
 
-  const title = type === 'full' ? 'Choose asset to receive' : 'Receive collectible';
+  const title =
+    type === 'full' ? (
+      <>
+        Choose asset <br /> to receive
+      </>
+    ) : (
+      <>
+        Receive <br /> collectible
+      </>
+    );
 
   function Collectibles() {
     return (
@@ -78,9 +86,9 @@ export function ReceiveDialog({ type = 'full' }: ReceiveDialogProps) {
     <Dialog
       header={
         <Header
-          variant="receive"
+          title={title}
+          variant="bigTitle"
           onGoBack={() => navigate(backgroundLocation ?? '..')}
-          title={<styled.h1 textStyle="heading.03">{title}</styled.h1>}
         />
       }
       onClose={() => navigate(backgroundLocation ?? '..')}

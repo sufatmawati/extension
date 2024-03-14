@@ -5,10 +5,13 @@ import { Flex, Grid, GridItem, HStack, styled } from 'leather-styles/jsx';
 
 import { ArrowLeftIcon, CloseIcon } from '@app/ui/icons';
 
-import { HeaderActionButton } from './header-action-button';
+import { BigTitleHeader } from './components/big-title-header';
+import { HeaderActionButton } from './components/header-action-button';
+
+type HeaderVariants = 'page' | 'home' | 'onboarding' | 'dialog' | 'bigTitle';
 
 export interface HeaderProps {
-  variant: 'page' | 'home' | 'onboarding' | 'dialog' | 'receive';
+  variant: HeaderVariants;
   isWaitingOnPerformedAction?: boolean;
   onClose?(): void;
   onGoBack?(): void;
@@ -35,7 +38,7 @@ export function Header({
   const logoItem = onGoBack || logo || account;
   return (
     <styled.header
-      p={variant === 'receive' ? 'space.05' : 'space.04'}
+      p={variant === 'bigTitle' ? 'space.05' : 'space.04'}
       bg={{ base: 'ink.background-primary', sm: 'transparent' }}
     >
       <Grid
@@ -44,13 +47,14 @@ export function Header({
         width="100%"
         maxWidth={{ base: '100vw', md: 'fullPageMaxWidth' }}
         margin={{ base: 0, md: 'auto' }}
+        hideFrom={variant === 'bigTitle' ? 'md' : undefined}
       >
         <GridItem justifySelf="start">
           {logoItem && (
             <Flex py={{ base: 0, md: 'space.01' }}>
               {variant !== 'home' && onGoBack ? (
                 <HeaderActionButton
-                  icon={<ArrowLeftIcon hideFrom={variant === 'receive' ? 'md' : undefined} />}
+                  icon={<ArrowLeftIcon />}
                   isWaitingOnPerformedAction={isWaitingOnPerformedAction}
                   onAction={onGoBack}
                   dataTestId={SharedComponentsSelectors.HeaderBackBtn}
@@ -60,18 +64,17 @@ export function Header({
             </Flex>
           )}
         </GridItem>
-        <GridItem margin="auto">
+        <GridItem margin="auto" hideBelow={variant === 'bigTitle' ? 'md' : undefined}>
           {title && <styled.span textStyle="heading.05">{title}</styled.span>}
         </GridItem>
-        <GridItem>
+        <GridItem hideBelow={variant === 'bigTitle' ? 'md' : undefined}>
           <HStack alignItems="center" justifyContent="flex-end">
             {networkBadge}
             {totalBalance}
             {variant !== 'onboarding' && settingsMenu}
-
             {onClose && (
               <HeaderActionButton
-                icon={<CloseIcon hideBelow={variant === 'receive' ? 'md' : undefined} />}
+                icon={<CloseIcon />}
                 dataTestId={SharedComponentsSelectors.HeaderCloseBtn}
                 isWaitingOnPerformedAction={isWaitingOnPerformedAction}
                 onAction={onClose}
@@ -80,6 +83,7 @@ export function Header({
           </HStack>
         </GridItem>
       </Grid>
+      {variant === 'bigTitle' && <BigTitleHeader title={title} onClose={onClose} />}
     </styled.header>
   );
 }
