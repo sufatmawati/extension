@@ -32,7 +32,11 @@ export function ReceiveTokensLayout(props: ReceiveTokensLayoutProps) {
       header={
         <Header
           variant="bigTitle"
-          title={`Receive ${title}`}
+          title={
+            <>
+              Receive <br /> {title}
+            </>
+          }
           onGoBack={() => navigate(backgroundLocation ?? '..')}
         />
       }
