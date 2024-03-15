@@ -3,6 +3,7 @@ import { css } from 'leather-styles/css';
 import { Stack } from 'leather-styles/jsx';
 
 import { copyToClipboard } from '@app/common/utils/copy-to-clipboard';
+import { useToast } from '@app/features/toasts/use-toast';
 import { BtcAvatarIcon } from '@app/ui/components/avatar/btc-avatar-icon';
 import { StxAvatarIcon } from '@app/ui/components/avatar/stx-avatar-icon';
 
@@ -21,13 +22,17 @@ export function ReceiveTokens({
   onClickQrBtc,
   onClickQrStx,
 }: ReceiveTokensProps) {
+  const toast = useToast();
   return (
     <Stack className={css(receiveTabStyle)}>
       <ReceiveItem
         address={btcAddressNativeSegwit}
         icon={<BtcAvatarIcon />}
         dataTestId={HomePageSelectors.ReceiveBtcNativeSegwitQrCodeBtn}
-        onCopyAddress={() => copyToClipboard(btcAddressNativeSegwit)}
+        onCopyAddress={async () => {
+          await copyToClipboard(btcAddressNativeSegwit);
+          toast.success('Copied to clipboard!');
+        }}
         onClickQrCode={onClickQrBtc}
         title="Bitcoin"
       />
@@ -35,7 +40,10 @@ export function ReceiveTokens({
         address={stxAddress}
         icon={<StxAvatarIcon />}
         dataTestId={HomePageSelectors.ReceiveStxQrCodeBtn}
-        onCopyAddress={() => copyToClipboard(stxAddress)}
+        onCopyAddress={async () => {
+          await copyToClipboard(stxAddress);
+          toast.success('Copied to clipboard!');
+        }}
         onClickQrCode={onClickQrStx}
         title="Stacks"
       />

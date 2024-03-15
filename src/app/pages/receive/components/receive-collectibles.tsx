@@ -3,6 +3,7 @@ import { css } from 'leather-styles/css';
 import { Stack } from 'leather-styles/jsx';
 
 import { copyToClipboard } from '@app/common/utils/copy-to-clipboard';
+import { useToast } from '@app/features/toasts/use-toast';
 import { OrdinalAvatarIcon } from '@app/ui/components/avatar/ordinal-avatar-icon';
 import { StampsAvatarIcon } from '@app/ui/components/avatar/stamps-avatar-icon';
 import { StxAvatarIcon } from '@app/ui/components/avatar/stx-avatar-icon';
@@ -26,13 +27,17 @@ export function ReceiveCollectibles({
   onClickQrStacksNft,
   onClickQrStamp,
 }: ReceiveCollectiblesProps) {
+  const toast = useToast();
   return (
     <Stack className={css(receiveTabStyle)}>
       <ReceiveItem
         address={btcAddressTaproot}
         icon={<OrdinalAvatarIcon />}
         dataTestId={HomePageSelectors.ReceiveBtcTaprootQrCodeBtn}
-        onCopyAddress={() => copyToClipboard(btcAddressTaproot)}
+        onCopyAddress={async () => {
+          await copyToClipboard(btcAddressTaproot);
+          toast.success('Copied to clipboard!');
+        }}
         onClickQrCode={onClickQrOrdinal}
         title="Ordinal inscription"
       />
@@ -40,13 +45,19 @@ export function ReceiveCollectibles({
         address={btcAddressNativeSegwit}
         icon={<StampsAvatarIcon />}
         onClickQrCode={onClickQrStamp}
-        onCopyAddress={() => copyToClipboard(btcAddressNativeSegwit)}
+        onCopyAddress={async () => {
+          await copyToClipboard(btcAddressNativeSegwit);
+          toast.success('Copied to clipboard!');
+        }}
         title="Bitcoin Stamp"
       />
       <ReceiveItem
         address={stxAddress}
         icon={<StxAvatarIcon />}
-        onCopyAddress={() => copyToClipboard(stxAddress)}
+        onCopyAddress={async () => {
+          await copyToClipboard(stxAddress);
+          toast.success('Copied to clipboard!');
+        }}
         onClickQrCode={onClickQrStacksNft}
         title="Stacks NFT"
       />

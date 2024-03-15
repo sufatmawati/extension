@@ -23,8 +23,8 @@ export function App() {
     <ReduxProvider store={store}>
       <PersistGate loading={<FullPageLoadingSpinner />} persistor={persistor}>
         <HeadProvider />
-        <ThemeSwitcherProvider>
-          <ToastsProvider>
+        <ToastsProvider>
+          <ThemeSwitcherProvider>
             <QueryClientProvider client={queryClient}>
               <Suspense fallback={<FullPageLoadingSpinner />}>
                 <AppErrorBoundary>
@@ -33,8 +33,8 @@ export function App() {
                 {reactQueryDevToolsEnabled && <Devtools />}
               </Suspense>
             </QueryClientProvider>
-          </ToastsProvider>
-        </ThemeSwitcherProvider>
+          </ThemeSwitcherProvider>
+        </ToastsProvider>
       </PersistGate>
     </ReduxProvider>
   );
