@@ -1,5 +1,8 @@
+import { useLocation } from 'react-router-dom';
+
 import type { AllTransferableCryptoAssetBalances } from '@shared/models/crypto-asset-balance.model';
 import { StacksFungibleTokenAsset } from '@shared/models/crypto-asset.model';
+import { RouteUrls } from '@shared/route-urls';
 
 import { useWalletType } from '@app/common/use-wallet-type';
 import { BitcoinNativeSegwitAccountLoader } from '@app/components/account/bitcoin-account-loader';
@@ -17,6 +20,7 @@ interface CryptoAssetListProps {
   onItemClick(cryptoAssetBalance: AllTransferableCryptoAssetBalances): void;
 }
 export function CryptoAssetList({ cryptoAssetBalances, onItemClick }: CryptoAssetListProps) {
+  const { pathname } = useLocation();
   const { whenWallet } = useWalletType();
 
   return (
@@ -45,15 +49,16 @@ export function CryptoAssetList({ cryptoAssetBalances, onItemClick }: CryptoAsse
         />
       ))}
       {whenWallet({
-        software: (
-          <BitcoinNativeSegwitAccountLoader current>
-            {() => (
-              <Brc20TokensLoader>
-                {brc20Tokens => <Brc20TokenAssetList brc20Tokens={brc20Tokens} />}
-              </Brc20TokensLoader>
-            )}
-          </BitcoinNativeSegwitAccountLoader>
-        ),
+        software:
+          pathname !== RouteUrls.FundChooseCurrency ? (
+            <BitcoinNativeSegwitAccountLoader current>
+              {() => (
+                <Brc20TokensLoader>
+                  {brc20Tokens => <Brc20TokenAssetList brc20Tokens={brc20Tokens} />}
+                </Brc20TokensLoader>
+              )}
+            </BitcoinNativeSegwitAccountLoader>
+          ) : null,
         ledger: null,
       })}
     </CryptoAssetListLayout>
