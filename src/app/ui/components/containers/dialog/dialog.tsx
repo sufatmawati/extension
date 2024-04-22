@@ -15,6 +15,7 @@ interface RadixDialogProps extends DialogProps {
   children: ReactNode;
   footer?: ReactNode;
   header?: ReactElement<any, string | JSXElementConstructor<any>>;
+  id?: string;
   onGoBack?(): void;
   wrapChildren?: boolean;
 }
@@ -35,6 +36,7 @@ export function Dialog({
   children,
   footer,
   header,
+  id,
   onClose,
   isShowing,
   wrapChildren = true,
@@ -56,6 +58,7 @@ export function Dialog({
           })}
         >
           <RadixDialog.Content
+            id={id}
             onPointerDownOutside={onClose}
             className={css({
               bg: 'ink.background-primary',

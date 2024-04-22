@@ -1,9 +1,10 @@
-import { memo } from 'react';
+import { memo, useState } from 'react';
 import { Virtuoso } from 'react-virtuoso';
 
 import { Box } from 'leather-styles/jsx';
 
 import { useCreateAccount } from '@app/common/hooks/account/use-create-account';
+import { useOnResizeListener } from '@app/common/hooks/use-on-resize-listener';
 import { useWalletType } from '@app/common/use-wallet-type';
 import { useCurrentAccountIndex } from '@app/store/accounts/account';
 import { useFilteredBitcoinAccounts } from '@app/store/accounts/blockchain/bitcoin/bitcoin.ledger';
@@ -19,6 +20,7 @@ import { SwitchAccountListItem } from './components/switch-account-list-item';
 
 export const SwitchAccountDialog = memo(({ isShowing, onClose }: DialogProps) => {
   const currentAccountIndex = useCurrentAccountIndex();
+  const [dynamicHeight, setDynamicHeight] = useState(0);
   const createAccount = useCreateAccount();
   const { whenWallet } = useWalletType();
   const stacksAccounts = useStacksAccounts();
@@ -31,6 +33,14 @@ export const SwitchAccountDialog = memo(({ isShowing, onClose }: DialogProps) =>
     onClose();
   };
 
+  const dialogHeight = document?.getElementById('switch-account-dialog')?.clientHeight;
+  const onResize = () => {
+    const parentHeight = document?.getElementById('switch-account-dialog')?.clientHeight;
+
+    setDynamicHeight(parentHeight ? parentHeight : dialogHeight);
+  };
+
+  useOnResizeListener(onResize);
   if (isShowing && stacksAddressesNum === 0 && btcAddressesNum === 0) {
     return <AccountListUnavailable />;
   }
@@ -43,6 +53,7 @@ export const SwitchAccountDialog = memo(({ isShowing, onClose }: DialogProps) =>
 
   return (
     <Dialog
+      id="switch-account-dialog"
       header={<Header variant="dialog" title="Select account" />}
       isShowing={isShowing}
       onClose={onClose}
@@ -58,7 +69,10 @@ export const SwitchAccountDialog = memo(({ isShowing, onClose }: DialogProps) =>
         ledger: null,
       })}
     >
-      <VirtuosoWrapper hasFooter={whenWallet({ ledger: false, software: true })}>
+      <VirtuosoWrapper
+        hasFooter={whenWallet({ ledger: false, software: true })}
+        parentHeight={dynamicHeight}
+      >
         <Virtuoso
           style={{
             height: '100%',

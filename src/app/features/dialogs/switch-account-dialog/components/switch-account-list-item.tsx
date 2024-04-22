@@ -39,7 +39,7 @@ export const SwitchAccountListItem = memo(
         setIsIdle();
       }, 80);
     };
-
+    console.log('switchAccount');
     return (
       <AccountListItemLayout
         accountAddresses={<AcccountAddresses index={index} />}
