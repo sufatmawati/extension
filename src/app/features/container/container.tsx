@@ -95,12 +95,15 @@ export function Container() {
     isKnownPopupRoute(pathname) || isSummaryPage(pathname) || variant === 'onboarding';
 
   const isLogoClickable = variant !== 'home' && !isRpcRoute(pathname);
+  console.log('dynamic isShowingSwitchAccount', isShowingSwitchAccount);
   return (
     <>
-      <SwitchAccountDialog
-        isShowing={isShowingSwitchAccount}
-        onClose={() => setIsShowingSwitchAccount(false)}
-      />
+      {isShowingSwitchAccount && (
+        <SwitchAccountDialog
+          isShowing={isShowingSwitchAccount}
+          onClose={() => setIsShowingSwitchAccount(false)}
+        />
+      )}
 
       <InAppMessages />
       <ContainerLayout
@@ -171,7 +174,7 @@ export function Container() {
           ) : null
         }
       >
-        <Outlet />
+        <Outlet context={{ isShowingSwitchAccount, setIsShowingSwitchAccount }} />
       </ContainerLayout>
     </>
   );

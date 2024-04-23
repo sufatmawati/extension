@@ -1,5 +1,4 @@
-import { useState } from 'react';
-import { Route, useNavigate } from 'react-router-dom';
+import { Route, useNavigate, useOutletContext } from 'react-router-dom';
 
 import { RouteUrls } from '@shared/route-urls';
 
@@ -9,7 +8,6 @@ import { useTotalBalance } from '@app/common/hooks/balance/use-total-balance';
 import { useOnMount } from '@app/common/hooks/use-on-mount';
 import { ActivityList } from '@app/features/activity-list/activity-list';
 import { AssetsList } from '@app/features/asset-list/asset-list';
-import { SwitchAccountDialog } from '@app/features/dialogs/switch-account-dialog/switch-account-dialog';
 import { FeedbackButton } from '@app/features/feedback-button/feedback-button';
 import { homePageModalRoutes } from '@app/routes/app-routes';
 import { ModalBackgroundWrapper } from '@app/routes/components/modal-background-wrapper';
@@ -21,10 +19,15 @@ import { HomeLayout } from '@app/ui/pages/home.layout';
 import { AccountActions } from './components/account-actions';
 import { HomeTabs } from './components/home-tabs';
 
-export function Home() {
-  const [isShowingSwitchAccount, setIsShowingSwitchAccount] = useState(false);
-  const { decodedAuthRequest } = useOnboardingState();
+interface SwitchAccountOutletContext {
+  isShowingSwitchAccount: boolean;
+  setIsShowingSwitchAccount(isShowing: boolean): void;
+}
 
+export function Home() {
+  const { decodedAuthRequest } = useOnboardingState();
+  const { isShowingSwitchAccount, setIsShowingSwitchAccount } =
+    useOutletContext<SwitchAccountOutletContext>();
   const navigate = useNavigate();
   const account = useCurrentStacksAccount();
 
@@ -49,12 +52,6 @@ export function Home() {
         <AccountCard
           name={name}
           balance={totalUsdBalance}
-          switchAccount={
-            <SwitchAccountDialog
-              isShowing={isShowingSwitchAccount}
-              onClose={() => setIsShowingSwitchAccount(false)}
-            />
-          }
           toggleSwitchAccount={() => setIsShowingSwitchAccount(!isShowingSwitchAccount)}
           isLoadingBnsName={isLoadingBnsName}
           isLoadingBalance={isInitialLoading}
