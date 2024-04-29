@@ -44,6 +44,22 @@ export function SendInscriptionReview() {
   const { broadcastTx, isBroadcasting } = useBitcoinBroadcastTransaction();
 
   async function sendInscription() {
+    // debugger;
+    console.log(
+      // 'psbt:',
+      // signedTx.toPSBT(),
+      'inscription:',
+      inscription,
+      'signedTx:',
+      signedTx,
+      'bytesToHex',
+      bytesToHex(signedTx),
+      'broadcastTx',
+      broadcastTx,
+      'recipient',
+      recipient
+    );
+    return null;
     await broadcastTx({
       skipSpendableCheckUtxoIds: [inscription.tx_id],
       tx: bytesToHex(signedTx),

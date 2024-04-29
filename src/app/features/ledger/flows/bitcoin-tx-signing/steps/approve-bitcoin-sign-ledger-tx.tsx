@@ -21,6 +21,15 @@ export function ApproveSignLedgerBitcoinTx() {
   //   - - try create a Psbt here
   // - do what Dani said to learn this
 
+  /// danis hex has a `nonWitnessUtxo` here
+  console.log(
+    'getPsbtTxInputs',
+    getPsbtTxInputs(context.transaction as unknown as btc.Transaction)
+  );
+
+  // Kyran nonWitness should work. Better solution is to lookup the amount using the API
+
+  // does nonWitness even work?? https://github.com/bitcoinjs/bitcoinjs-lib/issues/1894
   return (
     <ApproveLedgerOperationLayout
       description="Verify the transaction details on your Ledger"
@@ -28,7 +37,7 @@ export function ApproveSignLedgerBitcoinTx() {
         [
           ...getPsbtTxInputs(context.transaction as unknown as btc.Transaction).map((input, i) => [
             `Input ${i + 1}`,
-            input.witnessUtxo?.amount?.toString() + ' sats',
+            input.witnessUtxo?.amount?.toString() + ' sats', // here dani is getting undefined 'sats'
           ]),
           ...getPsbtTxOutputs(context.transaction as unknown as btc.Transaction).map(
             (output, i) => [`Output ${i + 1}`, output.amount?.toString() + ' sats']

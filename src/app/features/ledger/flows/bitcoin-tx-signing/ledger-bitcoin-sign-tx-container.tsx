@@ -63,6 +63,31 @@ function LedgerSignBitcoinTxContainer() {
 
   const chain = 'bitcoin' as const;
 
+  async function createExampleFundingTransaction(): Promise<void> {
+    // const bitcoinAddresses = await getBitcoinAddresses();
+    // const userNativeSegwitAddress = bitcoinAddresses[0] as BitcoinNativeSegwitAddress;
+    // const recipientAddress = bitcoinAddresses[1] as BitcoinNativeSegwitAddress;
+    const outputs = [{ address: recipientAddress.address, amount: BigInt(1000000) }];
+
+    const utxos = await getUTXOs(userNativeSegwitAddress);
+
+    const selected = btc.selectUTXO(utxos, outputs, 'default', {
+      changeAddress: userNativeSegwitAddress.address,
+      feePerByte: 47n,
+      bip69: false,
+      createTx: true,
+      network: testnet,
+    });
+
+    const fundingTX = selected?.tx;
+
+    if (!fundingTX) throw new Error('Could not create Funding Transaction');
+
+    const fundingPSBT = fundingTX.toPSBT();
+
+    await signPSBT(fundingPSBT);
+  }
+
   const { signTransaction, latestDeviceResponse, awaitingDeviceConnection } =
     useLedgerSignTx<BitcoinApp>({
       chain,
@@ -85,6 +110,9 @@ function LedgerSignBitcoinTxContainer() {
         ledgerNavigate.toAwaitingDeviceOperation({ hasApprovedOperation: false });
 
         try {
+          // maybe here?
+          // dani says unsignedTransaction object looks OK here
+          //
           const btcTx = await signLedger(bitcoinApp, unsignedTransaction.toPSBT(), inputsToSign);
 
           if (!btcTx || !unsignedTransactionRaw) throw new Error('No tx returned');

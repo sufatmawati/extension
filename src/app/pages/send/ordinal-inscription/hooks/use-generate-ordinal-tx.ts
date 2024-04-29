@@ -1,4 +1,5 @@
 import * as btc from '@scure/btc-signer';
+import { bytesToHex } from '@stacks/common';
 import { AddressType, getAddressInfo } from 'bitcoin-address-validation';
 
 import { extractAddressIndexFromPath } from '@shared/crypto/bitcoin/bitcoin.utils';
@@ -96,7 +97,8 @@ export function useGenerateUnsignedOrdinalTx(inscriptionInput: UtxoWithDerivatio
 
       // Recipient and change outputs
       outputs.forEach(output => tx.addOutputAddress(output.address, output.value, networkMode));
-
+      // debugger;
+      console.log('bytesToHex', bytesToHex(tx.toPSBT()));
       tx.toPSBT();
 
       return { psbt: tx.toPSBT(), signingConfig, txFee };
