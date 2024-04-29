@@ -12,6 +12,14 @@ export function ApproveSignLedgerBitcoinTx() {
   const context = useLedgerTxSigningContext();
 
   if (context.chain !== 'bitcoin') return null;
+  console.log('context.transaction', context);
+
+  //   > Pete come on !
+
+  //   you can do this
+
+  //   - - try create a Psbt here
+  // - do what Dani said to learn this
 
   return (
     <ApproveLedgerOperationLayout
