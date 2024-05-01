@@ -178,7 +178,9 @@ export function useSignLedgerBitcoinTx() {
       const nativeSegwitExtendedPublicKey = await app.getExtendedPubkey(
         getNativeSegwitAccountDerivationPath(network.chain.bitcoin.bitcoinNetwork, accountIndex)
       );
+      // PETE This is next!!!!!
 
+      // >>> 0 await this to get transaction
       // Without adding the full non-witness data, the Ledger will present a
       // warning. In some cases, e.g. bip322, the original witness data doesn't
       // exist, and we want the user to proceed, despite the warning.

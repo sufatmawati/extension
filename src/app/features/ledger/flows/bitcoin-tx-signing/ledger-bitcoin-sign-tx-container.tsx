@@ -52,7 +52,9 @@ function LedgerSignBitcoinTxContainer() {
   const inputsToSign = useLocationStateWithCache<BitcoinInputSigningConfig[]>('inputsToSign');
 
   useEffect(() => {
+    // we get the tx from location state
     const tx = get(location.state, 'tx');
+    console.log('pete location', location.state);
     if (tx) {
       setUnsignedTransactionRaw(tx);
       setUnsignedTransaction(btc.Transaction.fromPSBT(hexToBytes(tx)));
@@ -62,31 +64,6 @@ function LedgerSignBitcoinTxContainer() {
   useEffect(() => () => setUnsignedTransaction(null), []);
 
   const chain = 'bitcoin' as const;
-
-  async function createExampleFundingTransaction(): Promise<void> {
-    // const bitcoinAddresses = await getBitcoinAddresses();
-    // const userNativeSegwitAddress = bitcoinAddresses[0] as BitcoinNativeSegwitAddress;
-    // const recipientAddress = bitcoinAddresses[1] as BitcoinNativeSegwitAddress;
-    const outputs = [{ address: recipientAddress.address, amount: BigInt(1000000) }];
-
-    const utxos = await getUTXOs(userNativeSegwitAddress);
-
-    const selected = btc.selectUTXO(utxos, outputs, 'default', {
-      changeAddress: userNativeSegwitAddress.address,
-      feePerByte: 47n,
-      bip69: false,
-      createTx: true,
-      network: testnet,
-    });
-
-    const fundingTX = selected?.tx;
-
-    if (!fundingTX) throw new Error('Could not create Funding Transaction');
-
-    const fundingPSBT = fundingTX.toPSBT();
-
-    await signPSBT(fundingPSBT);
-  }
 
   const { signTransaction, latestDeviceResponse, awaitingDeviceConnection } =
     useLedgerSignTx<BitcoinApp>({
@@ -113,6 +90,7 @@ function LedgerSignBitcoinTxContainer() {
           // maybe here?
           // dani says unsignedTransaction object looks OK here
           //
+          // do trans prep before sign?
           const btcTx = await signLedger(bitcoinApp, unsignedTransaction.toPSBT(), inputsToSign);
 
           if (!btcTx || !unsignedTransactionRaw) throw new Error('No tx returned');

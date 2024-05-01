@@ -134,26 +134,48 @@ export function getNativeSegwitMainnetAddressFromMnemonic(secretKey: string) {
     );
   };
 }
-
+// use this to get transaction instead of context
 export function useUpdateLedgerSpecificNativeSegwitUtxoHexForAdddressIndexZero() {
   const bitcoinClient = useBitcoinClient();
 
   return async (tx: Psbt, inputSigningConfig: BitcoinInputSigningConfig[]) => {
     const inputsTxHex = await Promise.all(
       tx.txInputs.map(input =>
+        // this is API call to get transaction
+
         bitcoinClient.transactionsApi.getBitcoinTransactionHex(
           // txids are encoded onchain in reverse byte order
           reverseBytes(input.hash).toString('hex')
         )
       )
     );
+
+    // if any inputs have nonWitnessUtxo then don't update input
+    if (tx.txInputs.map((input: any) => 'nonWitnessUtxo' in input)) {
+      console.log('tx.txInputs has a nonWitness');
+    }
+    // debugger;
+    // need  to pas whole
+    // Dani has done this also - maybe we shouldn't update if there already is one
+    // we need this
+
+    // but maybe there is a difference between him setting it and us using
+
     inputSigningConfig.forEach(({ index }) => {
+      console.log('Leather signed nonWitnessUtxo', Buffer.from(inputsTxHex[index], 'hex'));
       tx.updateInput(index, {
         nonWitnessUtxo: Buffer.from(inputsTxHex[index], 'hex'),
       });
     });
   };
 }
+
+/**
+ * our nonWitnessUtxo is a lot different to theirs
+ *
+ *
+ *
+ */
 
 export function useUpdateLedgerSpecificNativeSegwitBip32DerivationForAdddressIndexZero() {
   const createNativeSegwitSigner = useCurrentAccountNativeSegwitSigner();

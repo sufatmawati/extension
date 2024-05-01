@@ -108,6 +108,8 @@ export function getBitcoinInputAddress(
 }
 
 export function getBitcoinInputValue(index: number, input: btc.TransactionInput) {
+  // ?? can we just use this to get the amount from the output?
+  // that seems wrong though?
   if (isDefined(input.witnessUtxo)) return Number(input.witnessUtxo.amount);
   if (isDefined(input.nonWitnessUtxo)) return Number(input.nonWitnessUtxo.outputs[index]?.amount);
   return 0;
