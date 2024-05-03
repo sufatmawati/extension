@@ -2,6 +2,7 @@ import * as btc from '@scure/btc-signer';
 
 import { getPsbtTxInputs, getPsbtTxOutputs } from '@shared/crypto/bitcoin/bitcoin.utils';
 import { getBitcoinInputValue } from '@shared/crypto/bitcoin/bitcoin.utils';
+import { isDefined } from '@shared/utils';
 
 import { useLedgerTxSigningContext } from '@app/features/ledger/generic-flows/tx-signing/ledger-sign-tx.context';
 import { ApproveLedgerOperationLayout } from '@app/features/ledger/generic-steps/approve-ledger-operation/approve-ledger-operation.layout';
@@ -50,7 +51,7 @@ export function ApproveSignLedgerBitcoinTx() {
     getPsbtTxInputs(context.transaction as unknown as btc.Transaction).map((input, i) =>
       // `Input ${i + 1}`,
       // input.witnessUtxo?.amount?.toString() + ' sats', // here dani is getting undefined 'sats'
-      getBitcoinInputValue(i, input)
+      getBitcoinInputValue(isDefined(input.index) ? input.index : 0, input)
     ),
     'transactionContainsNonWitness',
     transactionContainsNonWitness(context.transaction)
@@ -68,12 +69,15 @@ export function ApproveSignLedgerBitcoinTx() {
       description="Verify the transaction details on your Ledger"
       details={
         [
-          ...getPsbtTxInputs(context.transaction as unknown as btc.Transaction).map((input, i) => [
-            `Input ${i + 1}`,
-            // input.witnessUtxo?.amount?.toString() + ' sats', // here dani is getting undefined 'sats'
-            // this seems  to fix the display issue but not sure if the amount is correct
-            getBitcoinInputValue(i, input) + ' sats',
-          ]),
+          ...getPsbtTxInputs(context.transaction as unknown as btc.Transaction).map((input, i) => {
+            console.log('input', input);
+            return [
+              `Input ${i + 1}`,
+              // input.witnessUtxo?.amount?.toString() + ' sats', // here dani is getting undefined 'sats'
+              // this seems  to fix the display issue but not sure if the amount is correct
+              getBitcoinInputValue(isDefined(input.index) ? input.index : 0, input) + ' sats',
+            ];
+          }),
           ...getPsbtTxOutputs(context.transaction as unknown as btc.Transaction).map(
             (output, i) => [`Output ${i + 1}`, output.amount?.toString() + ' sats']
           ),
@@ -83,3 +87,5 @@ export function ApproveSignLedgerBitcoinTx() {
     />
   );
 }
+//  getBitcoinInputValue(i needs to be input index of previous transaction
+// input - tx_id + output index spending

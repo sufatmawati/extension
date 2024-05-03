@@ -52,7 +52,7 @@ export function useParsedInputs({ inputs, indexesToSign }: UseParsedInputsArgs) 
         // Should we check the sighashType here before it gets to the signing lib?
         const toSignAll = isCurrentAddress && signAll;
         const toSignIndex = isCurrentAddress && !signAll && indexesToSign.includes(i);
-
+        // for getBitcoinInputValue we need to pass the input.index not the index of inputs
         return {
           address: inputAddress,
           index: input.index,

@@ -73,6 +73,7 @@ export function signLedgerStacksUtf8Message(app: StacksApp) {
 }
 
 export function signLedgerStacksStructuredMessage(app: StacksApp) {
+  // console.log('getStxDerivationPath(accountIndex)', getStxDerivationPath(accountIndex));
   return async (domain: string, payload: string, accountIndex: number): Promise<ResponseSign> =>
     app.sign_structured_msg(getStxDerivationPath(accountIndex), domain, payload);
 }

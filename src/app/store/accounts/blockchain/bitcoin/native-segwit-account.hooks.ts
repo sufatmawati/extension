@@ -2,6 +2,7 @@ import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 
 import { createSelector } from '@reduxjs/toolkit';
+import { multisig } from '@scure/btc-signer';
 import { Psbt } from 'bitcoinjs-lib';
 
 import {
@@ -152,6 +153,7 @@ export function useUpdateLedgerSpecificNativeSegwitUtxoHexForAdddressIndexZero()
 
     // if any inputs have nonWitnessUtxo then don't update input
     if (tx.txInputs.map((input: any) => 'nonWitnessUtxo' in input)) {
+      // try this but checking for isDefined - debug more
       console.log('tx.txInputs has a nonWitness');
     }
     // debugger;
@@ -163,6 +165,14 @@ export function useUpdateLedgerSpecificNativeSegwitUtxoHexForAdddressIndexZero()
 
     inputSigningConfig.forEach(({ index }) => {
       console.log('Leather signed nonWitnessUtxo', Buffer.from(inputsTxHex[index], 'hex'));
+
+      //       > keep reading this
+      //       https://github.com/LedgerHQ/app-bitcoin-new/blob/develop/doc/wallet.md
+
+      // tried wotj Xverse but setup non trivial. maybe multisig not even supported
+
+      //       try doing the below:
+      // do logic for testing nonWitness Utx here instead
       tx.updateInput(index, {
         nonWitnessUtxo: Buffer.from(inputsTxHex[index], 'hex'),
       });
@@ -173,6 +183,14 @@ export function useUpdateLedgerSpecificNativeSegwitUtxoHexForAdddressIndexZero()
 /**
  * our nonWitnessUtxo is a lot different to theirs
  *
+ * 
+ * check xverse: ledger   = https://github.com/secretkeylabs/xverse-core/blob/916409194eb2806c6d37e75d1d87002b812b2447/ledger/psbt.ts#L18-L58
+ * 
+ * l 209 if (addedPaddingInput) {
+    // We inserted a dummy input to get around a Ledger bug, so we need to remove it
+    // @ts-expect-error: Expected error as inputs are private, but this is the only way to remove the input
+    txn.inputs.pop();
+  }
  *
  *
  */
