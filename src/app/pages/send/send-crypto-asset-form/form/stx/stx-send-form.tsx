@@ -10,7 +10,7 @@ import { SendMaxButton } from '../../components/send-max-button';
 import { StacksCommonSendForm } from '../stacks/stacks-common-send-form';
 import { useStxSendForm } from './use-stx-send-form';
 
-const symbol: CryptoCurrencies = 'STX';
+const symbol = 'STX' satisfies CryptoCurrencies;
 
 export function StxSendForm() {
   const stxMarketData = useCryptoCurrencyMarketDataMeanAverage(symbol);
@@ -22,17 +22,16 @@ export function StxSendForm() {
     sendMaxBalance,
     stxFees: fees,
     validationSchema,
-    fee,
   } = useStxSendForm();
 
   const amountField = (
     <AmountField
+      autoComplete="off"
       balance={availableStxBalance}
       switchableAmount={<SendFiatValue marketData={stxMarketData} assetSymbol={symbol} />}
       bottomInputOverlay={
         <SendMaxButton balance={availableStxBalance} sendMaxBalance={sendMaxBalance.toString()} />
       }
-      autoComplete="off"
     />
   );
 
@@ -48,9 +47,6 @@ export function StxSendForm() {
       amountField={amountField}
       selectedAssetField={selectedAssetField}
       fees={fees}
-      // FIXME 4370 - need to fix this as fee is actually  NumberSchema<number | undefined, AnyObject>; in FeeValidatorFactoryArgs
-      // this needs to be the STX fee so it can be validated against HIGH_FEE_AMOUNT_STX
-      fee={fee as unknown as string}
       availableTokenBalance={availableStxBalance}
     />
   );

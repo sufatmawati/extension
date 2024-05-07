@@ -127,10 +127,7 @@ function TransactionRequestBase() {
               setIsShowingHighFeeConfirmation={() => setIsShowingHighFeeConfirmation(true)}
             />
 
-            <HighFeeDialog
-              isShowing={isShowingHighFeeConfirmation}
-              learnMoreUrl={HIGH_FEE_WARNING_LEARN_MORE_URL_STX}
-            />
+            <HighFeeDialog learnMoreUrl={HIGH_FEE_WARNING_LEARN_MORE_URL_STX} />
             <Outlet />
           </>
         )}

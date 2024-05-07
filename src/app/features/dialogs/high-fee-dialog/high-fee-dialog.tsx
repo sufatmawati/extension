@@ -1,15 +1,8 @@
-import { useEffect, useState } from 'react';
-
 import { useFormikContext } from 'formik';
 import { HStack, Stack } from 'leather-styles/jsx';
 
-import {
-  BitcoinSendFormValues,
-  StacksSendFormValues,
-  StacksTransactionFormValues,
-} from '@shared/models/form.model';
-
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
+import { useStacksCommonSendFormContext } from '@app/pages/send/send-crypto-asset-form/family/stacks/stacks-common-send-form-container';
 import { Button } from '@app/ui/components/button/button';
 import { Dialog } from '@app/ui/components/containers/dialog/dialog';
 import { Footer } from '@app/ui/components/containers/footers/footer';
@@ -21,36 +14,33 @@ import { ErrorIcon } from '@app/ui/icons';
 
 interface HighFeeDialogProps {
   learnMoreUrl: string;
-  isShowing?: boolean;
 }
+export function HighFeeDialog({ learnMoreUrl }: HighFeeDialogProps) {
+  const { handleSubmit, values } = useFormikContext();
+  const context = useStacksCommonSendFormContext();
 
-export function HighFeeDialog({ learnMoreUrl, isShowing = false }: HighFeeDialogProps) {
-  const [isShowingHighFeeConfirmation, setIsShowingHighFeeConfirmation] = useState(isShowing);
-
-  useEffect(() => {
-    return () => {
-      if (isShowingHighFeeConfirmation) setIsShowingHighFeeConfirmation(false);
-    };
-  }, [isShowingHighFeeConfirmation, setIsShowingHighFeeConfirmation]);
-
-  const { handleSubmit, values } = useFormikContext<
-    BitcoinSendFormValues | StacksSendFormValues | StacksTransactionFormValues
-  >();
   return (
     <Dialog
       header={<Header variant="dialog" />}
-      isShowing={isShowingHighFeeConfirmation}
-      onClose={() => setIsShowingHighFeeConfirmation(false)}
+      isShowing={context.showHighFeeWarningDialog}
+      onClose={() => context.setShowHighFeeWarningDialog(false)}
       footer={
         <Footer flexDirection="row">
           <Button
-            onClick={() => setIsShowingHighFeeConfirmation(false)}
+            onClick={() => context.setShowHighFeeWarningDialog(false)}
             variant="outline"
             flexGrow={1}
           >
             Edit fee
           </Button>
-          <Button onClick={() => handleSubmit()} type="submit" flexGrow={1}>
+          <Button
+            onClick={() => {
+              context.setHasBypassedFeeWarning(true);
+              handleSubmit();
+            }}
+            type="submit"
+            flexGrow={1}
+          >
             Yes, I'm sure
           </Button>
         </Footer>
@@ -60,14 +50,13 @@ export function HighFeeDialog({ learnMoreUrl, isShowing = false }: HighFeeDialog
         <HStack>
           <ErrorIcon color="red.action-primary-default" width="md" />
           <Title>
-            Are you sure you want to pay {values.fee} {values.feeCurrency} in fees for this
-            transaction?
+            Are you sure you want to pay {(values as any).fee} {(values as any).feeCurrency} in fees
+            for this transaction?
           </Title>
         </HStack>
         <Caption>
-          This action cannot be undone and the fees won't be returned, even if the transaction
-          fails.
-          <Link onClick={() => openInNewTab(learnMoreUrl)} size="sm">
+          This action cannot be undone. The fees won't be returned, even if the transaction fails.
+          <Link onClick={() => openInNewTab(learnMoreUrl)} size="sm" ml="space.01">
             Learn more
           </Link>
         </Caption>

@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
 import { StacksTransaction } from '@stacks/transactions';
@@ -26,6 +25,7 @@ import { PostConditionModeWarning } from '@app/features/stacks-transaction-reque
 import { PostConditions } from '@app/features/stacks-transaction-request/post-conditions/post-conditions';
 import { StxTransferDetails } from '@app/features/stacks-transaction-request/stx-transfer-details/stx-transfer-details';
 import { TransactionError } from '@app/features/stacks-transaction-request/transaction-error/transaction-error';
+import { useStacksCommonSendFormContext } from '@app/pages/send/send-crypto-asset-form/family/stacks/stacks-common-send-form-container';
 import { useCurrentStacksAccountBalances } from '@app/query/stacks/balance/stx-balance.hooks';
 import { useCalculateStacksTxFees } from '@app/query/stacks/fees/fees.hooks';
 import { useNextNonce } from '@app/query/stacks/nonce/account-nonces.hooks';
@@ -51,7 +51,6 @@ export function StacksTransactionSigner({
   onSignStacksTransaction,
   isMultisig,
 }: StacksTransactionSignerProps) {
-  const [isShowingHighFeeConfirmation, setIsShowingHighFeeConfirmation] = useState(false);
   const transactionRequest = useTransactionRequestState();
   const { data: stxFees } = useCalculateStacksTxFees(stacksTransaction);
   const analytics = useAnalytics();
@@ -59,7 +58,7 @@ export function StacksTransactionSigner({
   const navigate = useNavigate();
   const { data: nextNonce } = useNextNonce();
   const { search } = useLocation();
-
+  const context = useStacksCommonSendFormContext();
   useOnMount(() => {
     void analytics.track('view_transaction_signing'), [analytics];
   });
@@ -132,12 +131,9 @@ export function StacksTransactionSigner({
             )}
             <MinimalErrorMessage />
             <SubmitAction
-              setIsShowingHighFeeConfirmation={() => setIsShowingHighFeeConfirmation(true)}
+              setIsShowingHighFeeConfirmation={() => context.setShowHighFeeWarningDialog(true)}
             />
-            <HighFeeDialog
-              isShowing={isShowingHighFeeConfirmation}
-              learnMoreUrl={HIGH_FEE_WARNING_LEARN_MORE_URL_STX}
-            />
+            <HighFeeDialog learnMoreUrl={HIGH_FEE_WARNING_LEARN_MORE_URL_STX} />
             <Outlet />
           </>
         )}

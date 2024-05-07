@@ -1,12 +1,11 @@
 import { Outlet, useNavigate } from 'react-router-dom';
 
 import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
-import BigNumber from 'bignumber.js';
 import { Form, Formik, FormikHelpers } from 'formik';
 import { Box } from 'leather-styles/jsx';
 import { ObjectSchema } from 'yup';
 
-import { HIGH_FEE_AMOUNT_STX, HIGH_FEE_WARNING_LEARN_MORE_URL_STX } from '@shared/constants';
+import { HIGH_FEE_WARNING_LEARN_MORE_URL_STX } from '@shared/constants';
 import { Fees } from '@shared/models/fees/fees.model';
 import { StacksSendFormValues } from '@shared/models/form.model';
 import { Money } from '@shared/models/money.model';
@@ -39,7 +38,6 @@ interface StacksCommonSendFormProps {
   selectedAssetField: React.JSX.Element;
   availableTokenBalance: Money;
   fees?: Fees;
-  fee?: number | string | BigNumber;
 }
 
 export function StacksCommonSendForm({
@@ -49,7 +47,7 @@ export function StacksCommonSendForm({
   amountField,
   selectedAssetField,
   fees,
-  fee,
+
   availableTokenBalance,
 }: StacksCommonSendFormProps) {
   const navigate = useNavigate();
@@ -100,12 +98,7 @@ export function StacksCommonSendForm({
                   </CardContent>
                 </Card>
 
-                <HighFeeDialog
-                  isShowing={new BigNumber(fee as BigNumber.Value).isGreaterThan(
-                    HIGH_FEE_AMOUNT_STX
-                  )}
-                  learnMoreUrl={HIGH_FEE_WARNING_LEARN_MORE_URL_STX}
-                />
+                <HighFeeDialog learnMoreUrl={HIGH_FEE_WARNING_LEARN_MORE_URL_STX} />
                 <Outlet />
               </Form>
             </>

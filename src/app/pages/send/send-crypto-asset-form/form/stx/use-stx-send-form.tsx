@@ -22,8 +22,8 @@ import {
   useStxTokenTransferUnsignedTxState,
 } from '@app/store/transactions/token-transfer.hooks';
 
+import { useStacksCommonSendForm } from '../../family/stacks/use-stacks-common-send-form';
 import { useSendFormNavigate } from '../../hooks/use-send-form-navigate';
-import { useStacksCommonSendForm } from '../stacks/use-stacks-common-send-form';
 
 export function useStxSendForm() {
   const unsignedTx = useStxTokenTransferUnsignedTxState();
@@ -75,7 +75,9 @@ export function useStxSendForm() {
       values: StacksSendFormValues,
       formikHelpers: FormikHelpers<StacksSendFormValues>
     ) {
+      console.log('Submitting the fomr, ', values);
       const isFormValid = await checkFormValidation(values, formikHelpers);
+      console.log({ isFormValid });
       if (!isFormValid) return;
       const initialFee = values.fee;
       values.fee = changeFeeByNonce({

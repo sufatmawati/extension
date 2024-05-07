@@ -19,6 +19,7 @@ import { BtcSentSummary } from '../sent-summary/btc-sent-summary';
 import { StxSentSummary } from '../sent-summary/stx-sent-summary';
 import { RecipientAccountsDialog } from './components/recipient-accounts-dialog/recipient-accounts-dialog';
 import { SendBitcoinAssetContainer } from './family/bitcoin/components/send-bitcoin-asset-container';
+import { StacksCommonSendFormContainer } from './family/stacks/stacks-common-send-form-container';
 import { Brc20SendForm } from './form/brc-20/brc20-send-form';
 import { Brc20SendFormConfirmation } from './form/brc-20/brc20-send-form-confirmation';
 import { BrcChooseFee } from './form/brc-20/brc-20-choose-fee';
@@ -83,7 +84,14 @@ export const sendCryptoAssetFormRoutes = (
       <Route path={RouteUrls.SendBrc20Confirmation} element={<Brc20SendFormConfirmation />} />
       <Route path={RouteUrls.SentBrc20Summary} element={<Brc20SentSummary />} />
     </Route>
-    <Route path={RouteUrls.SendCryptoAssetForm.replace(':symbol', 'stx')} element={<StxSendForm />}>
+    <Route
+      path={RouteUrls.SendCryptoAssetForm.replace(':symbol', 'stx')}
+      element={
+        <StacksCommonSendFormContainer>
+          <StxSendForm />
+        </StacksCommonSendFormContainer>
+      }
+    >
       {broadcastErrorDialogRoute}
       {editNonceDialogRoute}
       {recipientAccountsDialogRoute}
@@ -94,7 +102,14 @@ export const sendCryptoAssetFormRoutes = (
     >
       {ledgerStacksTxSigningRoutes}
     </Route>
-    <Route path={RouteUrls.SendSip10Form} element={<Sip10TokenSendForm />}>
+    <Route
+      path={RouteUrls.SendSip10Form}
+      element={
+        <StacksCommonSendFormContainer>
+          <Sip10TokenSendForm />
+        </StacksCommonSendFormContainer>
+      }
+    >
       {broadcastErrorDialogRoute}
       {editNonceDialogRoute}
       {recipientAccountsDialogRoute}
