@@ -1,4 +1,4 @@
-import { memo, useState } from 'react';
+import { memo } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 
 import { Formik, FormikHelpers } from 'formik';
@@ -16,8 +16,8 @@ import { useOnMount } from '@app/common/hooks/use-on-mount';
 import { stxFeeValidator } from '@app/common/validation/forms/fee-validators';
 import { nonceValidator } from '@app/common/validation/nonce-validators';
 import { NonceSetter } from '@app/components/nonce-setter';
-import { HighFeeDialog } from '@app/features/dialogs/high-fee-dialog/high-fee-dialog';
 import { RequestingTabClosedWarningMessage } from '@app/features/errors/requesting-tab-closed-error-msg';
+import { HighFeeDialog } from '@app/features/stacks-high-fee-warning/stacks-high-fee-dialog';
 import { ContractCallDetails } from '@app/features/stacks-transaction-request/contract-call-details/contract-call-details';
 import { ContractDeployDetails } from '@app/features/stacks-transaction-request/contract-deploy-details/contract-deploy-details';
 import { FeeForm } from '@app/features/stacks-transaction-request/fee-form';
@@ -27,7 +27,7 @@ import { PageTop } from '@app/features/stacks-transaction-request/page-top';
 import { PostConditionModeWarning } from '@app/features/stacks-transaction-request/post-condition-mode-warning';
 import { PostConditions } from '@app/features/stacks-transaction-request/post-conditions/post-conditions';
 import { StxTransferDetails } from '@app/features/stacks-transaction-request/stx-transfer-details/stx-transfer-details';
-import { SubmitAction } from '@app/features/stacks-transaction-request/submit-action';
+import { StacksTxSubmitAction } from '@app/features/stacks-transaction-request/submit-action';
 import { TransactionError } from '@app/features/stacks-transaction-request/transaction-error/transaction-error';
 import { useCurrentStacksAccountBalances } from '@app/query/stacks/balance/stx-balance.hooks';
 import { useCalculateStacksTxFees } from '@app/query/stacks/fees/fees.hooks';
@@ -40,8 +40,6 @@ import {
 import { Link } from '@app/ui/components/link/link';
 
 function TransactionRequestBase() {
-  const [isShowingHighFeeConfirmation, setIsShowingHighFeeConfirmation] = useState(false);
-
   const transactionRequest = useTransactionRequestState();
   const unsignedTx = useUnsignedStacksTransactionBaseState();
   const { data: stxFees } = useCalculateStacksTxFees(unsignedTx.transaction);
@@ -123,9 +121,7 @@ function TransactionRequestBase() {
               Edit nonce
             </Link>
             <MinimalErrorMessage />
-            <SubmitAction
-              setIsShowingHighFeeConfirmation={() => setIsShowingHighFeeConfirmation(true)}
-            />
+            <StacksTxSubmitAction />
 
             <HighFeeDialog learnMoreUrl={HIGH_FEE_WARNING_LEARN_MORE_URL_STX} />
             <Outlet />

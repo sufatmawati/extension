@@ -14,8 +14,8 @@ import { RouteUrls } from '@shared/route-urls';
 import { formatMoney } from '@app/common/money/format-money';
 import { FeesRow } from '@app/components/fees-row/fees-row';
 import { NonceSetter } from '@app/components/nonce-setter';
-import { HighFeeDialog } from '@app/features/dialogs/high-fee-dialog/high-fee-dialog';
 import { useUpdatePersistedSendFormValues } from '@app/features/popup-send-form-restoration/use-update-persisted-send-form-values';
+import { HighFeeDialog } from '@app/features/stacks-high-fee-warning/stacks-high-fee-dialog';
 import { Button } from '@app/ui/components/button/button';
 import { AvailableBalance } from '@app/ui/components/containers/footers/available-balance';
 import { Footer } from '@app/ui/components/containers/footers/footer';
@@ -96,8 +96,7 @@ export function StacksCommonSendForm({
                       Edit nonce
                     </Link>
                   </CardContent>
-                </Card>
-
+                </Card>{' '}
                 <HighFeeDialog learnMoreUrl={HIGH_FEE_WARNING_LEARN_MORE_URL_STX} />
                 <Outlet />
               </Form>

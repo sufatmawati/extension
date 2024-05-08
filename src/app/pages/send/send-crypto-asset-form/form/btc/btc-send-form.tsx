@@ -4,11 +4,9 @@ import { SendCryptoAssetSelectors } from '@tests/selectors/send.selectors';
 import { Form, Formik } from 'formik';
 import { Box } from 'leather-styles/jsx';
 
-import { HIGH_FEE_WARNING_LEARN_MORE_URL_BTC } from '@shared/constants';
 import { CryptoCurrencies } from '@shared/models/currencies.model';
 
 import { formatMoney } from '@app/common/money/format-money';
-import { HighFeeDialog } from '@app/features/dialogs/high-fee-dialog/high-fee-dialog';
 import { useNativeSegwitBalance } from '@app/query/bitcoin/balance/btc-native-segwit-balance.hooks';
 import { useCryptoCurrencyMarketDataMeanAverage } from '@app/query/common/market-data/market-data.hooks';
 import { useCurrentAccountNativeSegwitIndexZeroSigner } from '@app/store/accounts/blockchain/bitcoin/native-segwit-account.hooks';
@@ -123,7 +121,6 @@ export function BtcSendForm() {
                   )}
                 </CardContent>
               </Card>
-              <HighFeeDialog learnMoreUrl={HIGH_FEE_WARNING_LEARN_MORE_URL_BTC} />
               <Outlet />
 
               {/* This is for testing purposes only, to make sure the form is ready to be submitted. */}

@@ -2,7 +2,6 @@ import { useFormikContext } from 'formik';
 import { HStack, Stack } from 'leather-styles/jsx';
 
 import { openInNewTab } from '@app/common/utils/open-in-new-tab';
-import { useStacksCommonSendFormContext } from '@app/pages/send/send-crypto-asset-form/family/stacks/stacks-common-send-form-container';
 import { Button } from '@app/ui/components/button/button';
 import { Dialog } from '@app/ui/components/containers/dialog/dialog';
 import { Footer } from '@app/ui/components/containers/footers/footer';
@@ -12,12 +11,14 @@ import { Caption } from '@app/ui/components/typography/caption';
 import { Title } from '@app/ui/components/typography/title';
 import { ErrorIcon } from '@app/ui/icons';
 
+import { useStacksHighFeeWarningContext } from './stacks-high-fee-warning-container';
+
 interface HighFeeDialogProps {
   learnMoreUrl: string;
 }
 export function HighFeeDialog({ learnMoreUrl }: HighFeeDialogProps) {
   const { handleSubmit, values } = useFormikContext();
-  const context = useStacksCommonSendFormContext();
+  const context = useStacksHighFeeWarningContext();
 
   return (
     <Dialog

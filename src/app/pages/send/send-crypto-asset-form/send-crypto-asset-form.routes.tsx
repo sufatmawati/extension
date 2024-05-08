@@ -12,6 +12,7 @@ import { ledgerStacksTxSigningRoutes } from '@app/features/ledger/flows/stacks-t
 import { AccountGate } from '@app/routes/account-gate';
 import { Page } from '@app/ui/layout/page/page.layout';
 
+import { StacksHighFeeWarningContainer } from '../../../features/stacks-high-fee-warning/stacks-high-fee-warning-container';
 import { BroadcastError } from '../broadcast-error/broadcast-error';
 import { ChooseCryptoAsset } from '../choose-crypto-asset/choose-crypto-asset';
 import { Brc20SentSummary } from '../sent-summary/brc20-sent-summary';
@@ -19,7 +20,6 @@ import { BtcSentSummary } from '../sent-summary/btc-sent-summary';
 import { StxSentSummary } from '../sent-summary/stx-sent-summary';
 import { RecipientAccountsDialog } from './components/recipient-accounts-dialog/recipient-accounts-dialog';
 import { SendBitcoinAssetContainer } from './family/bitcoin/components/send-bitcoin-asset-container';
-import { StacksCommonSendFormContainer } from './family/stacks/stacks-common-send-form-container';
 import { Brc20SendForm } from './form/brc-20/brc20-send-form';
 import { Brc20SendFormConfirmation } from './form/brc-20/brc20-send-form-confirmation';
 import { BrcChooseFee } from './form/brc-20/brc-20-choose-fee';
@@ -87,9 +87,9 @@ export const sendCryptoAssetFormRoutes = (
     <Route
       path={RouteUrls.SendCryptoAssetForm.replace(':symbol', 'stx')}
       element={
-        <StacksCommonSendFormContainer>
+        <StacksHighFeeWarningContainer>
           <StxSendForm />
-        </StacksCommonSendFormContainer>
+        </StacksHighFeeWarningContainer>
       }
     >
       {broadcastErrorDialogRoute}
@@ -105,9 +105,9 @@ export const sendCryptoAssetFormRoutes = (
     <Route
       path={RouteUrls.SendSip10Form}
       element={
-        <StacksCommonSendFormContainer>
+        <StacksHighFeeWarningContainer>
           <Sip10TokenSendForm />
-        </StacksCommonSendFormContainer>
+        </StacksHighFeeWarningContainer>
       }
     >
       {broadcastErrorDialogRoute}

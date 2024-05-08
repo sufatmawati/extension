@@ -16,7 +16,6 @@ import { stxToMicroStx } from '@app/common/money/unit-conversion';
 import { stxFeeValidator } from '@app/common/validation/forms/fee-validators';
 import { nonceValidator } from '@app/common/validation/nonce-validators';
 import { NonceSetter } from '@app/components/nonce-setter';
-import { HighFeeDialog } from '@app/features/dialogs/high-fee-dialog/high-fee-dialog';
 import { RequestingTabClosedWarningMessage } from '@app/features/errors/requesting-tab-closed-error-msg';
 import { ContractCallDetails } from '@app/features/stacks-transaction-request/contract-call-details/contract-call-details';
 import { ContractDeployDetails } from '@app/features/stacks-transaction-request/contract-deploy-details/contract-deploy-details';
@@ -25,16 +24,16 @@ import { PostConditionModeWarning } from '@app/features/stacks-transaction-reque
 import { PostConditions } from '@app/features/stacks-transaction-request/post-conditions/post-conditions';
 import { StxTransferDetails } from '@app/features/stacks-transaction-request/stx-transfer-details/stx-transfer-details';
 import { TransactionError } from '@app/features/stacks-transaction-request/transaction-error/transaction-error';
-import { useStacksCommonSendFormContext } from '@app/pages/send/send-crypto-asset-form/family/stacks/stacks-common-send-form-container';
 import { useCurrentStacksAccountBalances } from '@app/query/stacks/balance/stx-balance.hooks';
 import { useCalculateStacksTxFees } from '@app/query/stacks/fees/fees.hooks';
 import { useNextNonce } from '@app/query/stacks/nonce/account-nonces.hooks';
 import { useTransactionRequestState } from '@app/store/transactions/requests.hooks';
 import { Link } from '@app/ui/components/link/link';
 
+import { HighFeeDialog } from '../stacks-high-fee-warning/stacks-high-fee-dialog';
 import { FeeForm } from './fee-form';
 import { MinimalErrorMessage } from './minimal-error-message';
-import { SubmitAction } from './submit-action';
+import { StacksTxSubmitAction } from './submit-action';
 
 interface StacksTransactionSignerProps {
   stacksTransaction: StacksTransaction;
@@ -58,7 +57,7 @@ export function StacksTransactionSigner({
   const navigate = useNavigate();
   const { data: nextNonce } = useNextNonce();
   const { search } = useLocation();
-  const context = useStacksCommonSendFormContext();
+
   useOnMount(() => {
     void analytics.track('view_transaction_signing'), [analytics];
   });
@@ -130,9 +129,7 @@ export function StacksTransactionSigner({
               </Link>
             )}
             <MinimalErrorMessage />
-            <SubmitAction
-              setIsShowingHighFeeConfirmation={() => context.setShowHighFeeWarningDialog(true)}
-            />
+            <StacksTxSubmitAction />
             <HighFeeDialog learnMoreUrl={HIGH_FEE_WARNING_LEARN_MORE_URL_STX} />
             <Outlet />
           </>

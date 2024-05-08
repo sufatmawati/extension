@@ -75,9 +75,7 @@ export function useStxSendForm() {
       values: StacksSendFormValues,
       formikHelpers: FormikHelpers<StacksSendFormValues>
     ) {
-      console.log('Submitting the fomr, ', values);
       const isFormValid = await checkFormValidation(values, formikHelpers);
-      console.log({ isFormValid });
       if (!isFormValid) return;
       const initialFee = values.fee;
       values.fee = changeFeeByNonce({
@@ -90,7 +88,6 @@ export function useStxSendForm() {
 
       const tx = await generateTx(values);
       if (!tx) return logger.error('Attempted to generate unsigned tx, but tx is undefined');
-
       sendFormNavigate.toConfirmAndSignStxTransaction(tx, showFeeChangeWarning);
     },
   };
