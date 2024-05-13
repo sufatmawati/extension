@@ -1,5 +1,6 @@
 import { useCallback, useMemo } from 'react';
 
+import type { Inscription } from '@leather-wallet/models';
 import {
   type UtxoWithDerivationPath,
   useAverageBitcoinFeeRates,
@@ -7,7 +8,6 @@ import {
 } from '@leather-wallet/query';
 
 import { BtcFeeType, btcTxTimeMap } from '@shared/models/fees/bitcoin-fees.model';
-import type { SupportedInscription } from '@shared/models/inscription.model';
 import { createMoney } from '@shared/models/money.model';
 
 import { baseCurrencyAmountInQuote } from '@app/common/money/calculate-money';
@@ -21,7 +21,7 @@ import { useGenerateUnsignedOrdinalTx } from './use-generate-ordinal-tx';
 interface UseSendInscriptionFeesListArgs {
   recipient: string;
   utxo: UtxoWithDerivationPath;
-  inscription: SupportedInscription;
+  inscription: Inscription;
 }
 
 export function useSendInscriptionFeesList({

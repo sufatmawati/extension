@@ -1,7 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 
 import {
-  convertInscriptionToSupportedInscriptionType,
   fetchInscripionById,
   useNativeSegwitBalance,
   useOrdinalsbotClient,
@@ -115,10 +114,7 @@ function PendingBrcTransfer({ order }: PendingBrcTransferProps) {
                 );
                 navigate(RouteUrls.SendOrdinalInscription, {
                   state: {
-                    inscription: convertInscriptionToSupportedInscriptionType({
-                      ...inscription,
-                      addressIndex: 0,
-                    }),
+                    inscription,
                   },
                 });
               }

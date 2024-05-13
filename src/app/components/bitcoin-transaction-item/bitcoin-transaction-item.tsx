@@ -1,11 +1,7 @@
 import { useMemo } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import {
-  convertInscriptionToSupportedInscriptionType,
-  createInscriptionInfoUrl,
-  useGetInscriptionsByOutputQuery,
-} from '@leather-wallet/query';
+import { useInscriptionByOutput } from '@leather-wallet/query';
 import { HStack } from 'leather-styles/jsx';
 
 import { BitcoinTx } from '@shared/models/transactions/bitcoin-transaction.model';
@@ -39,13 +35,7 @@ export function BitcoinTransactionItem({ transaction }: BitcoinTransactionItemPr
   const { pathname } = useLocation();
   const navigate = useNavigate();
 
-  const { data: inscriptionData } = useGetInscriptionsByOutputQuery(transaction, {
-    select(data) {
-      const inscription = data.results[0];
-      if (!inscription) return;
-      return convertInscriptionToSupportedInscriptionType(inscription);
-    },
-  });
+  const { data: inscriptionData } = useInscriptionByOutput(transaction);
 
   const bitcoinAddress = useCurrentAccountNativeSegwitAddressIndexZero();
   const { handleOpenBitcoinTxLink: handleOpenTxLink } = useBitcoinExplorerLink();
@@ -65,7 +55,7 @@ export function BitcoinTransactionItem({ transaction }: BitcoinTransactionItemPr
   const openTxLink = () => {
     void analytics.track('view_bitcoin_transaction');
     if (inscriptionData) {
-      openInNewTab(createInscriptionInfoUrl(inscriptionData.id));
+      openInNewTab(inscriptionData.id);
       return;
     }
     handleOpenTxLink({ txid: transaction?.txid || '' });
@@ -79,7 +69,7 @@ export function BitcoinTransactionItem({ transaction }: BitcoinTransactionItemPr
     <HStack gap="space.02">
       <BulletSeparator>
         <Caption>{caption}</Caption>
-        {inscriptionData ? <Caption>{inscriptionData.mime_type}</Caption> : null}
+        {inscriptionData ? <Caption>{inscriptionData.mimeType}</Caption> : null}
       </BulletSeparator>
     </HStack>
   );

@@ -45,7 +45,7 @@ export function SendInscriptionReview() {
 
   async function sendInscription() {
     await broadcastTx({
-      skipSpendableCheckUtxoIds: [inscription.tx_id],
+      skipSpendableCheckUtxoIds: [inscription.txid],
       tx: bytesToHex(signedTx),
       async onSuccess(txid: string) {
         void analytics.track('broadcast_ordinal_transaction');
